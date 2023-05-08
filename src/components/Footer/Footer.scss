@@ -1,4 +1,8 @@
 .footer {
+  display: flex;
+  background-color: bisque;
+  align-items: center;
+  justify-content: center;
   position: sticky;
   bottom: 0;
 }
