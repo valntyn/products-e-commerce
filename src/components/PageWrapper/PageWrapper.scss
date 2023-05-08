@@ -1,4 +1,9 @@
+@import "../../styles/_variables";
+@import "../../styles/_mixins";
+
 .page-wrapper {
+  font-family: 'Poppins', Arial, Helvetica, sans-serif;
+  background-color: $color-bg;
   display: flex;
   flex-direction: column;
   min-height: 100vh;

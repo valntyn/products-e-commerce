@@ -1,0 +1,31 @@
+@import "../../../styles/_variables";
+@import "../../../styles/_mixins";
+
+.nav-item {
+  cursor: pointer;
+
+  &__wrapper {
+    display: flex;
+    align-items: center;
+  }
+
+  &__text {
+    font-family: 'Poppins', Arial, Helvetica, sans-serif;
+    color: $color-main-text;
+    font-weight: 500;
+  }
+
+  &__svg-box {
+    padding-top: 2px;
+    height: 18px;
+    width: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__svg {
+    height: 18px;
+    width: 18px;
+  }
+}

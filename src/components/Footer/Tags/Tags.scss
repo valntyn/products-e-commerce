@@ -1,0 +1,24 @@
+@import "../../../styles/_variables";
+@import "../../../styles/_mixins";
+
+.tags {
+  &__title {
+    color: $color-main-text;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 27px;
+    font-family: "Poppins", Arial, Helvetica, sans-serif;
+    margin-bottom: 16px;
+  }
+
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  &__item {
+    background-color: $color-tags;
+    padding: 4px 10px;
+    border-radius: 12px;
+  }
+}

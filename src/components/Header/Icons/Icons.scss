@@ -1,0 +1,47 @@
+@import "../../../styles/_variables";
+@import "../../../styles/_mixins";
+
+.icons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; 
+
+  @include onTablet {
+    flex-direction: row;
+    gap: 43px;
+  }
+
+  &__button {
+    cursor: pointer;
+    background-color: inherit;
+    border: none;
+    position: relative;
+
+    &--basket {
+      &::before {
+        content: attr(data-count-favorite);
+        font-family: 'Poppins', Arial, Helvetica, sans-serif;
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        background-color: tomato;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: inherit;
+        font-size: 12px;
+        line-height: 18px;
+        font-weight: 600;
+        color: #fff;
+        bottom: 2px;
+        left: 2px;
+      }
+    }
+  }
+
+  &__svg {
+    width: 24px;
+    height: 24px;
+  }
+}

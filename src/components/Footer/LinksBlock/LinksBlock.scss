@@ -1,0 +1,30 @@
+@import "../../../styles/_variables";
+@import "../../../styles/_mixins";
+
+.links-block {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  margin-bottom: 48px;
+
+  &__title {
+    color: $color-main-text;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 27px;
+    font-family: "Poppins", Arial, Helvetica, sans-serif;
+    margin-bottom: 16px;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  &__item {
+    color: $color-main-green;
+    font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+    line-height: 19px;
+  }
+}
