@@ -5,12 +5,12 @@ import { paths } from '@constants/paths';
 export const Header = () => {
   return (
     <header className="header">
-      <div className="header__box-test">
-        <PageNavLink to={paths.home} text="Home" />
+      <nav className="header__box-test">
+        <PageNavLink to="/" text="Home" />
         <PageNavLink to={paths.products} text="ProductsPage" />
         <PageNavLink to={paths.checkout} text="CheckoutPage" />
         <PageNavLink to={paths.notFound} text="NotFoundPage" />
-      </div>
+      </nav>
     </header>
   );
 };
