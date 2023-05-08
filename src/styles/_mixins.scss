@@ -1,0 +1,28 @@
+@mixin square-var ($size) {
+  width: $size;
+  height: $size;
+}
+
+@mixin flex-settings {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin onTablet {
+  @media (min-width: 640px) {
+    @content;
+  }
+}
+
+@mixin onDesktop {
+  @media (min-width: 1080px) {
+    @content;
+  }
+}
+
+@mixin onDesktopLarge {
+  @media (min-width: 1480px) {
+    @content;
+  }
+}
