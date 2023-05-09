@@ -10,7 +10,7 @@
 
   &__list {
     background-color: $color-bg;
-    border: 1px solid #ccc;
+    border: 1px solid $color-bg-secondary;
   }
   
   &__item {

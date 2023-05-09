@@ -2,7 +2,7 @@
 @import "../../styles/_mixins";
 
 .page-wrapper {
-  font-family: 'Poppins', Arial, Helvetica, sans-serif;
+  font-family: $font-poppins;
   background-color: $color-bg;
   display: flex;
   flex-direction: column;

@@ -27,10 +27,9 @@
     &--basket {
       &::before {
         content: attr(data-count-favorite);
-        font-family: 'Poppins', Arial, Helvetica, sans-serif;
+        font-family: $font-poppins;
         position: absolute;
-        width: 16px;
-        height: 16px;
+        @include square-var(16px);
         background-color: tomato;
         border-radius: 50%;
         display: flex;
@@ -40,7 +39,7 @@
         font-size: 12px;
         line-height: 18px;
         font-weight: 600;
-        color: #fff;
+        color: $color-bg;
         bottom: 2px;
         left: 2px;
       }
@@ -48,7 +47,6 @@
   }
 
   &__svg {
-    width: 24px;
-    height: 24px;
+    @include square-var(24px);
   }
 }

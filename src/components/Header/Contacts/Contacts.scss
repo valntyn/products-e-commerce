@@ -2,7 +2,7 @@
 @import "../../../styles/_mixins";
 
 .contacts {
-  font-family: "Open sans", Arial, Helvetica, sans-serif;
+  font-family: $font-sans;
   display: flex;
   justify-content: space-between;
   align-items: center;

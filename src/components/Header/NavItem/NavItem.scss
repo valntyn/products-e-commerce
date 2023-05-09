@@ -11,7 +11,7 @@
   }
 
   &__text {
-    font-family: 'Poppins', Arial, Helvetica, sans-serif;
+    font-family: $font-poppins;
     color: $color-main-text;
     font-weight: 500;
     line-height: 18px;
@@ -28,8 +28,7 @@
   }
 
   &__svg {
-    height: 18px;
-    width: 18px;
+    @include square-var(18px);
     transition: transform 0.3s ease-in-out;
 
     &--active {

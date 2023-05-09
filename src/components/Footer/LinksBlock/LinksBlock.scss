@@ -17,7 +17,7 @@
     font-weight: 600;
     font-size: 18px;
     line-height: 27px;
-    font-family: "Poppins", Arial, Helvetica, sans-serif;
+    font-family: $font-poppins;
     margin-bottom: 16px;
   }
 
@@ -36,7 +36,7 @@
 
   &__item {
     color: $color-main-green;
-    font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+    font-family: $font-sans;
     line-height: 19px;
     transition: color 0.1s linear;
 
