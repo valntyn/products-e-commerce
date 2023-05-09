@@ -4,10 +4,14 @@
 .navigation {
   width: 100%;
   background-color: $color-bg-placeholer;
-  padding: 16px 100px 16px 45px;
+  padding: 0 25px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 42px;
   flex-wrap: wrap;
+
+  @include onTablet {
+    padding: 0 45px;
+  }
 }

@@ -2,23 +2,32 @@
 @import "../../../styles/_mixins";
 
 .tags {
+  margin-bottom: 52px;
+
   &__title {
     color: $color-main-text;
     font-weight: 600;
     font-size: 18px;
     line-height: 27px;
     font-family: "Poppins", Arial, Helvetica, sans-serif;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
   }
 
   &__list {
     display: flex;
+    gap: 16px;
     flex-wrap: wrap;
   }
 
   &__item {
+    cursor: pointer;
     background-color: $color-tags;
     padding: 4px 10px;
     border-radius: 12px;
+    border: solid 1px $color-tags;
+
+    &:hover {
+      border: solid 1px $color-main-green;
+    }
   }
 }

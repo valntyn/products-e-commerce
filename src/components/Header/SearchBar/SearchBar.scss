@@ -13,15 +13,21 @@
     width: 100%;
     outline: none;
     border: none;
-    line-height: 19px;  
+    line-height: 18px;  
     background-color: inherit;
 
     &::placeholder {
+      font-size: 12px;
       color: $color-placeholder;
+
+      @include onTablet {
+        font-size: 14px;
+      }
     }
   }
 
   &__svg {
+    padding-top: 2px;
     width: 16px;
     height: 16px;
     cursor: pointer;

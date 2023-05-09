@@ -1,0 +1,24 @@
+@import "../../../styles/_variables";
+@import "../../../styles/_mixins";
+
+.dropdown {
+  position: absolute;
+  width: 135px;
+  top: 100%;
+  left: 0;
+  z-index: 10;
+
+  &__list {
+    background-color: $color-bg;
+    border: 1px solid #ccc;
+  }
+  
+  &__item {
+    padding: 10px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $color-bg-placeholer;
+    }
+  }
+}

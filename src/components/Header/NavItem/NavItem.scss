@@ -7,12 +7,15 @@
   &__wrapper {
     display: flex;
     align-items: center;
+    position: relative;
   }
 
   &__text {
     font-family: 'Poppins', Arial, Helvetica, sans-serif;
     color: $color-main-text;
     font-weight: 500;
+    line-height: 18px;
+    padding: 18px 0;
   }
 
   &__svg-box {
@@ -27,5 +30,10 @@
   &__svg {
     height: 18px;
     width: 18px;
+    transition: transform 0.3s ease-in-out;
+
+    &--active {
+      transform: rotate(180deg);
+    }
   }
 }

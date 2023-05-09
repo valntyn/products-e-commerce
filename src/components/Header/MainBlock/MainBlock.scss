@@ -8,6 +8,13 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
+  flex-direction: column;
+  gap: 16px;
+
+  @include onDesktop {
+    justify-content: space-between;
+    flex-direction: row;
+  }
 
   &__link {
     width: 180px;

@@ -2,10 +2,15 @@
 @import "../../../styles/_mixins";
 
 .links-block {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   margin: 0 auto;
   margin-bottom: 48px;
+
+  @include onTablet {
+    display: flex;
+    justify-content: space-between;
+  }
 
   &__title {
     color: $color-main-text;
@@ -19,12 +24,24 @@
   &__list {
     display: flex;
     flex-direction: column;
+    text-align: center;
     gap: 16px;
+    margin-bottom: 16px;
+
+    @include onTablet {
+      text-align: initial;
+      margin-bottom: 0;
+    }
   }
 
   &__item {
     color: $color-main-green;
     font-family: 'Open Sans', Arial, Helvetica, sans-serif;
     line-height: 19px;
+    transition: color 0.1s linear;
+
+    &:hover {
+      color: $color-secondary-green;
+    }
   }
 }
