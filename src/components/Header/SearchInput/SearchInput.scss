@@ -17,7 +17,7 @@
     background-color: inherit;
 
     &::placeholder {
-      font-size: 12px;
+      font-size: 10px;
       color: $color-placeholder;
 
       @include onTablet {
@@ -27,8 +27,12 @@
   }
 
   &__svg {
-    padding-top: 2px;
+    padding-top: 4px;
     @include square-var(16px);
     cursor: pointer;
+
+    @include onTablet {
+      padding-top: 2px;
+    }
   }
 }
