@@ -1,0 +1,26 @@
+@import "../../../styles/_variables";
+@import "../../../styles/_mixins";
+
+.navigation {
+  width: 100%;
+  padding: 0 15px;
+
+  &__list {
+    background-color: $color-bg-placeholer;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    padding: 0 15px;
+
+    @include onTablet {
+      grid-template-columns: repeat(3, 1fr);
+      padding: 0 45px;
+    }
+
+    @include onDesktop {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 42px;
+    }
+  }
+}

@@ -1,0 +1,64 @@
+@import '../../../styles/_variables';
+@import "../../../styles/_mixins";
+
+.contacts {
+  font-family: $font-sans;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
+  padding: 16px 0;
+  font-size: 12px;
+  line-height: 16px;
+  flex-direction: column;
+  gap: 12px;
+
+  @include onTablet {
+    flex-direction: row;
+  }
+
+  &__left {
+    display: flex;
+    gap: 8px;
+
+    @include onTablet {
+      gap: 12px;
+    }
+
+    @include onDesktop {
+      gap: 33px;
+    }
+  }
+
+  &__right {
+    display: flex;
+    gap: 8px;
+
+    @include onTablet {
+      gap: 12px;
+    }
+
+    @include onDesktop {
+      gap: 38px;
+    }
+  }
+
+  &__item {
+    color: $color-main-green;
+    font-size: 10px;
+    transition: color 0.1s linear;
+
+    @include onDesktop {
+      font-size: 12px;
+    }
+
+    &--inactive {
+      color: $color-main-text;
+    }
+
+    &:hover {
+      color: $color-secondary-green;
+    }
+  }
+}

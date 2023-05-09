@@ -1,5 +1,15 @@
+@import "../../styles/_variables";
+@import "../../styles/_mixins";
+
 .page-wrapper {
+  font-family: $font-poppins;
+  background-color: $color-bg;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  padding: 0 10px;
+
+  @include onTablet {
+    padding: 0 45px;
+  }
 }

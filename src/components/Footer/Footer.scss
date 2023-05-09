@@ -1,8 +1,19 @@
+@import "../../styles/_variables";
+@import "../../styles/_mixins";
+
 .footer {
-  display: flex;
-  background-color: bisque;
-  align-items: center;
-  justify-content: center;
-  position: sticky;
+  background-color: inherit;
   bottom: 0;
+  font-family: $font-sans;
+  padding: 65px 0;
+  
+  &__copyright {
+    @include flex-settings;
+    font-size: 12px;
+
+    @include onTablet {
+      justify-content: initial;
+      font-size: initial;
+    }
+  }
 }

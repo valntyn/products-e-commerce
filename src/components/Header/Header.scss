@@ -1,17 +1,11 @@
+@import "../../styles/_variables";
+@import "../../styles/_mixins";
+
 .header {
-  margin: 0 auto;
-  position: sticky;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include flex-settings;
   width: 100%;
   top: 0;
-  background-color: salmon;
-
   margin-bottom: 30px;
-
-  &__box-test {
-    display: flex;
-    gap: 20px;
-  }
+  display: flex;
+  flex-direction: column;
 }

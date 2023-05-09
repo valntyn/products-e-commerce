@@ -1,16 +1,15 @@
-import { PageNavLink } from '@components/PageNavLink';
+import { Contacts } from './Contacts';
+import { MainBlock } from './MainBlock';
+import { Navigation } from './Navigation';
+
 import './Header.scss';
-import { paths } from '@constants/paths';
 
 export const Header = () => {
   return (
     <header className="header">
-      <nav className="header__box-test">
-        <PageNavLink to="/" text="Home" />
-        <PageNavLink to={paths.products} text="ProductsPage" />
-        <PageNavLink to={paths.checkout} text="CheckoutPage" />
-        <PageNavLink to={paths.notFound} text="NotFoundPage" />
-      </nav>
+      <Contacts />
+      <MainBlock />
+      <Navigation />
     </header>
   );
 };
