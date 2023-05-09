@@ -1,6 +1,10 @@
+@import "../../../styles/_variables";
+@import "../../../styles/_mixins";
+
+
 .footer {
   background-color: inherit;
   bottom: 0;
-  font-family: 'Open sans', Arial, Helvetica, sans-serif;
+  font-family: $font-sans;
   padding: 65px 45px 80px 45px;
 }
