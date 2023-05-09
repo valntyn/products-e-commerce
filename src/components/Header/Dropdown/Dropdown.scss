@@ -9,7 +9,7 @@
   z-index: 10;
 
   &__list {
-    background-color: $color-bg;
+    background-color: $color-bg-placeholer;
     border: 1px solid $color-bg-secondary;
   }
   
@@ -18,7 +18,7 @@
     cursor: pointer;
 
     &:hover {
-      background-color: $color-bg-placeholer;
+      color: $color-main-green;
     }
   }
 }

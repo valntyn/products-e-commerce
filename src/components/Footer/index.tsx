@@ -9,7 +9,7 @@ export const Footer = () => {
         <LinksBlock />
       </div>
       <Tags />
-      <p>Copyright © 2020 petrbilek.com</p>
+      <p className="footer__copyright">Copyright © 2020 petrbilek.com</p>
     </footer>
   );
 };

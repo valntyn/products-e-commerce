@@ -5,12 +5,7 @@
   @include flex-settings;
   width: 100%;
   top: 0;
-  padding: 0 10px;
   margin-bottom: 30px;
   display: flex;
   flex-direction: column;
-
-  @include onTablet {
-    padding: 0 45px;
-  }
 }

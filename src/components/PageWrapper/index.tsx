@@ -6,8 +6,8 @@ type PropTypes = {
 
 export const PageWrapper: React.FC<PropTypes> = ({ children }) => {
   return (
-    <section className="page-wrapper">
+    <div className="page-wrapper">
       {children}
-    </section>
+    </div>
   );
 };

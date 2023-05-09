@@ -7,16 +7,27 @@
   &__title {
     color: $color-main-text;
     font-weight: 600;
-    font-size: 18px;
+    font-size: 15px;
     line-height: 27px;
     font-family: $font-poppins;
     margin-bottom: 20px;
+    text-align: center;
+
+    @include onTablet {
+      font-size: 18px;
+      text-align: initial;
+    }
   }
 
   &__list {
-    display: flex;
+    @include flex-settings;
     gap: 16px;
     flex-wrap: wrap;
+
+    @include onTablet {
+      text-align: initial;
+      justify-content: initial;
+    }
   }
 
   &__item {
@@ -25,6 +36,11 @@
     padding: 4px 10px;
     border-radius: 12px;
     border: solid 1px $color-tags;
+    font-size: 12px;
+
+    @include onTablet {
+      font-size: 14px;
+    }
 
     &:hover {
       border: solid 1px $color-main-green;

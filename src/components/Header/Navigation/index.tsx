@@ -6,10 +6,12 @@ import './Navigation.scss';
 
 export const Navigation = () => {
   return (
-    <div className="navigation">
-      {CATEGORIES.map(category => (
-        <NavItem text={category.text} />
-      ))}
-    </div>
+    <nav className="navigation">
+      <ul className="navigation__list">
+        {CATEGORIES.map((category) => (
+          <NavItem text={category.text} />
+        ))}
+      </ul>
+    </nav>
   );
 };

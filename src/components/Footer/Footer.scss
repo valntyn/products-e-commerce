@@ -1,10 +1,19 @@
-@import "../../../styles/_variables";
-@import "../../../styles/_mixins";
-
+@import "../../styles/_variables";
+@import "../../styles/_mixins";
 
 .footer {
   background-color: inherit;
   bottom: 0;
   font-family: $font-sans;
-  padding: 65px 45px 80px 45px;
+  padding: 65px 0;
+  
+  &__copyright {
+    @include flex-settings;
+    font-size: 12px;
+
+    @include onTablet {
+      justify-content: initial;
+      font-size: initial;
+    }
+  }
 }

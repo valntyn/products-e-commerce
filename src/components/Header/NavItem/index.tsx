@@ -18,7 +18,7 @@ export const NavItem: React.FC<PropTypes> = ({ text }) => {
   };
 
   return (
-    <div className="nav-item">
+    <li className="nav-item">
       <div
         className="nav-item__wrapper"
         onMouseEnter={handleHover}
@@ -34,6 +34,6 @@ export const NavItem: React.FC<PropTypes> = ({ text }) => {
         </div>
         {isHovered && <Dropdown />}
       </div>
-    </div>
+    </li>
   );
 };

@@ -15,10 +15,14 @@
   &__title {
     color: $color-main-text;
     font-weight: 600;
-    font-size: 18px;
+    font-size: 16px;
     line-height: 27px;
     font-family: $font-poppins;
     margin-bottom: 16px;
+
+    @include onTablet {
+      font-size: 18px;
+    }
   }
 
   &__list {
@@ -37,8 +41,13 @@
   &__item {
     color: $color-main-green;
     font-family: $font-sans;
+    font-size: 12px;
     line-height: 19px;
     transition: color 0.1s linear;
+
+    @include onTablet {
+      font-size: 14px;
+    }
 
     &:hover {
       color: $color-secondary-green;
