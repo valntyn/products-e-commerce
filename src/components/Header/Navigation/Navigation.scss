@@ -3,15 +3,17 @@
 
 .navigation {
   width: 100%;
-  background-color: $color-bg-placeholer;
-  padding: 0 25px;
+  padding: 0 15px;
 
   &__list {
+    background-color: $color-bg-placeholer;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    padding: 0 15px;
 
     @include onTablet {
       grid-template-columns: repeat(3, 1fr);
+      padding: 0 45px;
     }
 
     @include onDesktop {
@@ -20,9 +22,5 @@
       align-items: center;
       gap: 42px;
     }
-  }
-
-  @include onTablet {
-    padding: 0 45px;
   }
 }
