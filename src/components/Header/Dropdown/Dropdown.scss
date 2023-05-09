@@ -10,7 +10,7 @@
 
   &__list {
     background-color: $color-bg-placeholer;
-    border: 1px solid $color-bg-secondary;
+    border: 1px solid $color-main-green;
   }
   
   &__item {
@@ -18,7 +18,8 @@
     cursor: pointer;
 
     &:hover {
-      color: $color-main-green;
+      color: $color-bg;
+      background-color: $color-secondary-green;
     }
   }
 }
