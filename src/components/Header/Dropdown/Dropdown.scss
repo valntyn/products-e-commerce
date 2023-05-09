@@ -14,8 +14,18 @@
   }
   
   &__item {
+    font-size: 12px;
     padding: 10px;
     cursor: pointer;
+    border-bottom: 1px solid $color-main-green;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    @include onTablet {
+      font-size: 14px;
+    }
 
     &:hover {
       color: $color-bg;
