@@ -1,0 +1,12 @@
+@import "../../styles/_variables";
+@import "../../styles/_mixins";
+
+.products-block {
+  padding: 64px 0 34px 0;
+  gap: 32px;
+
+  @include onDesktop {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+  }
+}

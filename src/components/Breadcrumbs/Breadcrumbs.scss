@@ -1,0 +1,17 @@
+@import "../../styles/_variables";
+@import "../../styles/_mixins";
+
+.breadcrumbs {
+  margin-bottom: 24px;
+  font-family: $font-sans;
+  color: $color-main-text;
+
+  &__list {
+    display: flex;
+    gap: 8px;
+  }
+
+  &__test {
+    color: $color-text-gray;
+  }
+}

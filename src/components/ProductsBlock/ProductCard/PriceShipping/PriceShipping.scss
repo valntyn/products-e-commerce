@@ -1,0 +1,54 @@
+@import "../../../../styles/_variables";
+@import "../../../../styles/_mixins";
+
+.price {
+  display: flex;
+  justify-content: space-between;
+
+  @include onTablet {
+    flex-direction: column;
+  }
+
+  &__left-box {
+    margin-bottom: 10px;
+  }
+
+  &__right-box {
+    margin-bottom: 26px;
+  }
+
+  &__new-price {
+    font-size: 18px;
+    line-height: 27px;
+    color: $color-main-text;
+    font-weight: 600;
+  }
+
+  &__old {
+    text-decoration-line: line-through;
+    font-size: 12px;
+    line-height: 18px;
+    color: $color-text-gray;
+    font-weight: 600;
+  }
+
+  &__shipping {
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 22px;
+    color: $color-text-gray;
+    margin-bottom: 6px;
+
+    @include onDesktop {
+      line-height: 20px;
+      margin-bottom: 0;
+    }
+  }
+
+  &__time {
+    font-family: $font-sans;
+    font-size: 12px;
+    line-height: 16px;
+    color: $color-text-gray;
+  }
+}
