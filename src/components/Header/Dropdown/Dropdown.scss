@@ -7,6 +7,9 @@
   top: 100%;
   left: 0;
   z-index: 10;
+  opacity: 0;
+  transform: translateY(-5px);
+  transition: all 0.3s ease-out;
 
   &__list {
     background-color: $color-bg-placeholer;
@@ -31,5 +34,10 @@
       color: $color-bg;
       background-color: $color-secondary-green;
     }
+  }
+
+  &--active {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
