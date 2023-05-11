@@ -17,6 +17,8 @@
     line-height: 16px;
     color: $color-desc;
     margin-bottom: 10px;
+    overflow: hidden;
+    height: 32px;
   }
 
   &__box {
@@ -32,32 +34,52 @@
     }
   }
 
-  &__left {
+  &__list-info {
     display: flex;
     flex-direction: column;
-    gap: 8px;
-  }
-
-  &__right {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  &__item {
     color: $color-text-gray;
     font-family: $font-sans;
     line-height: 14px;
     font-size: 12px;
     white-space: nowrap;
+    width: 100%;
 
     @include onTablet {
       line-height: 19px;
       font-size: 14px;
+      width: max-content;
     }
+  }
 
-    &--green {
-      color: $color-main-green;
+  &__key {
+    margin-bottom: 8px;
+    max-width: 50%;
+    white-space: nowrap;
+    overflow: hidden;
+
+    @include onTablet {
+      width: 75px;
+    }
+  }
+
+  &__value {
+    max-width: 55%;
+    white-space: nowrap;
+    overflow: hidden;
+
+    @include onTablet {
+      width: 120px;
+    }
+  }
+
+  &__item {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+
+    @include onDesktop {
+      gap: 32px;
+      justify-content: flex-start;
     }
   }
 }

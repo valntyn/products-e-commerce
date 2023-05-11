@@ -26,8 +26,12 @@
 
     @include onTablet {
       padding: 32px;
-      gap: 20px;
+      gap: 22px;
       flex-direction: row;
+    }
+
+    @include onDesktopLarge {
+      gap: 96px;
     }
   }
 

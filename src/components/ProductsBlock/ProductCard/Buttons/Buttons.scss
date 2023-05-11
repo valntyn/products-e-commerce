@@ -18,7 +18,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 12px;
+    gap: 8px;
     border-radius: 12px;
     font-weight: 700;
     font-size: 12px;
@@ -27,7 +27,7 @@
     transition: 0.1s linear all;
 
     @include onDesktop {
-      font-size: 15px;
+      font-size: 14px;
     }
   }
 

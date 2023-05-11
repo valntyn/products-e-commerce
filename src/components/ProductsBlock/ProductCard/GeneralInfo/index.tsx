@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 
-import { CARD_DESC } from '@constants/card';
 import { IProduct } from '@utils/product';
 
 import './GeneralInfo.scss';
@@ -24,19 +23,24 @@ export const GeneralInfo: React.FC<PropTypes> = ({ product }) => {
       <p className="general__desc">{description}</p>
       <Stars rating={rating} />
       <div className="general__box">
-        <ul className="general__left">
-          {CARD_DESC.map((titleDesc) => (
-            <li className="general__item" key={titleDesc}>
-              {titleDesc}
-            </li>
-          ))}
-        </ul>
-        <ul className="general__right">
-          <li className="general__item">{fresheness}</li>
-          <li className="general__item">{brand}</li>
-          <li className="general__item">{delivery}</li>
-          <li className="general__item general__item--green">
-            {`${stock} kgs`}
+        <ul className="general__list-info">
+          <li className="general__item">
+            <p className="general__key">Fresheness</p>
+            <p className="general__value">{fresheness}</p>
+          </li>
+          <li className="general__item">
+            <p className="general__key">Farm</p>
+            <p className="general__value">{brand}</p>
+          </li>
+          <li className="general__item">
+            <p className="general__key">Delivery</p>
+            <p className="general__value">{delivery}</p>
+          </li>
+          <li className="general__item">
+            <p className="general__key">Stock</p>
+            <p className="general__value">
+              {`${stock} kgs`}
+            </p>
           </li>
         </ul>
       </div>
