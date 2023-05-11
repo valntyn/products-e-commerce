@@ -19,11 +19,9 @@
     border: none;
     line-height: 18px;  
     background-color: inherit;
-    padding-left: 20px;
-
-    @include onTablet {
-      padding-left: 10px;
-    }
+    padding-left: 10px;
+    color: $color-main-text;
+    font-size: 14px;
 
     &::placeholder {
       font-size: 10px;
@@ -37,11 +35,45 @@
 
   &__svg {
     padding-top: 4px;
-    @include square-var(16px);
+    @include square-var(20px);
     cursor: pointer;
 
     @include onTablet {
       padding-top: 2px;
+    }
+  }
+
+  &__img {
+    padding-top: 4px;
+    @include square-var(20px);
+    cursor: pointer;
+
+    @include onTablet {
+      padding-top: 2px;
+    }
+
+    & * {
+      transition: 0.1s linear;
+    }
+
+    &:hover * {
+      fill: $color-main-green;
+    }
+  }
+
+  &__button {
+    @include flex-settings;
+    background-color: inherit;
+    border: none;
+    cursor: pointer;
+    transition: 0.1s linear;
+    width: max-content;
+    height: max-content;
+    opacity: 1;
+
+    &:disabled {
+      opacity: 0;
+      cursor: initial;
     }
   }
 }

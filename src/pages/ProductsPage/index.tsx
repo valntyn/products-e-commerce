@@ -1,21 +1,11 @@
-import { useEffect } from 'react';
-
 import { ReactComponent as Filter } from '@assets/svg/filter.svg';
 import { Breadcrumbs } from '@components/Breadcrumbs';
 import { ProductsBlock } from '@components/ProductsBlock';
-import { useAppDispatch } from '@hooks/useAppDispatch';
 import { useAppSelector } from '@hooks/useAppSelector';
-import { getProducts } from '@store/reducers/productsSlice';
 
 import './ProductsPage.scss';
 
 export const ProductsPage = () => {
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(getProducts());
-  }, []);
-
   const { products, isLoading } = useAppSelector((state) => state.products);
 
   return (
