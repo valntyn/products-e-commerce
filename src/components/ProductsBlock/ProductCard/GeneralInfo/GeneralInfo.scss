@@ -9,6 +9,7 @@
     line-height: 27px;
     color: $color-main-text;
     margin-bottom: 4px;
+    overflow: hidden;
   }
 
   &__desc {
@@ -17,6 +18,7 @@
     line-height: 16px;
     color: $color-desc;
     margin-bottom: 10px;
+    overflow: hidden;
     height: 32px;
   }
 
