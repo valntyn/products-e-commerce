@@ -1,5 +1,4 @@
 import errorImg from '@assets/png/error.png';
-import './ErrorFallback.scss';
 
 export const ErrorFallback = () => {
   return (

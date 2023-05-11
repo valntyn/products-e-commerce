@@ -10,7 +10,7 @@ export const Navigation = () => {
       <nav className="navigation__block">
         <ul className="navigation__list">
           {CATEGORIES.map((category) => (
-            <NavItem text={category.text} />
+            <NavItem text={category.text} key={category.text} />
           ))}
         </ul>
       </nav>

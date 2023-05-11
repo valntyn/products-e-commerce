@@ -24,13 +24,9 @@
     font-family: $font-poppins;
     color: $color-main-text;
     font-weight: 500;
-    font-size: 12px;
+    font-size: 14px;
     line-height: 18px;
     padding: 18px 0;
-
-    @include onTablet {
-      font-size: 14px;
-    }
 
     @include onDesktop {
       font-size: 16px;

@@ -9,8 +9,14 @@
   justify-content: center;
 }
 
+@mixin default-button {
+  cursor: pointer;
+  background-color: inherit;
+  border: none;
+}
+
 @mixin onTablet {
-  @media (min-width: 640px) {
+  @media (min-width: 768px) {
     @content;
   }
 }

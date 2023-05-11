@@ -24,12 +24,10 @@
       "@helpers/*": ["src/helpers/*"],
       "@store/*": ["src/store/*"],
       "@styles/*": ["src/styles/*"],
-      "@types/*": ["src/types/*"]
+      "@utils/*": ["src/utils/*"]
     }
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }],
-  "files": [
-    "index.d.ts"
-  ]
+  "files": ["index.d.ts"]
 }

@@ -1,0 +1,85 @@
+@import "../../../../styles/_variables";
+@import "../../../../styles/_mixins";
+
+.product-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  @include onTablet {
+    width: 100%;
+  }
+
+  &__button {
+    width: 100%;
+    border: none;
+    background-color: inherit;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 22px;
+    font-family: $font-poppins;
+    transition: 0.1s linear all;
+
+    @include onDesktop {
+      font-size: 14px;
+    }
+  }
+
+  &__detail {
+    background-color: $color-main-green;
+    padding: 6px 10px;
+    border: 2px solid $color-secondary-green;
+    color: $color-bg;
+
+    @include onDesktop {
+      padding: 12px 16px;
+    }
+
+
+    &:hover {
+      border: 2px solid $color-main-green;
+      background-color: $color-secondary-green;
+    }
+  }
+
+  &__wishlist {
+    color: $color-main-text;
+    background-color: $color-tags;
+    padding: 6px;
+
+    @include onDesktop {
+      padding: 6px 12px;
+    }
+
+    &:hover {
+      background-color: $color-text-gray;
+    }
+
+    &:hover * {
+      fill: $color-main-green;
+    }
+  }
+
+  &__svg {
+    height: 16px;
+    width: 16px;
+
+    &--heart {
+      height: 22px;
+      width: 22px;
+    }
+
+    @include onTablet {
+      &--heart {
+        height: 16px;
+        width: 16px;
+      }
+    }
+  }
+}

@@ -1,0 +1,11 @@
+@import "../../../styles/_variables";
+@import "../../../styles/_mixins";
+
+.sidebar {
+  display: none;
+  background-color: $color-bg-placeholer;
+
+  @include onDesktop {
+    display: inherit;
+  }
+}

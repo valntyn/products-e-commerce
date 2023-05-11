@@ -11,6 +11,7 @@
   display: flex;
   align-items: center;
   gap: 4px;
+  width: 100%;
   max-width: 500px;
 
   @include onTablet {
@@ -18,7 +19,6 @@
     width: 500px;
     gap: 24px
   }
-
 
   &__dropdown {
     @include flex-settings;

@@ -1,0 +1,75 @@
+@import "../../styles/_variables";
+@import "../../styles/_mixins";
+
+.products-page {
+  width: 100%;
+  font-size: $font-poppins;
+
+  &__title-box {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 24px;
+  }
+
+  &__box-qty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  &__quantity {
+    color: $color-secondary-green;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 18px;
+    width: 32px;
+    height: 18px;
+    background-color: $color-pale-green;
+    border-radius: 12px;
+    text-align: center;
+  }
+
+  &__name {
+    color: $color-text-gray;
+    font-family: $font-sans;
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+  &__sort-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+
+    @include onDesktop {
+      flex-direction: row;
+      margin-bottom: 20px;
+    }
+  }
+
+  &__filter {
+    width: 48px;
+    height: 48px;
+
+    @include default-button;
+
+    @include onDesktop {
+      display: none;
+    }
+  }
+
+  &__svg {
+    height: 100%;
+    width: 100%;
+  }
+
+  &__sort {
+    width: 181px;
+    height: 38px;
+    background-color: $color-text-gray;
+    border-radius: 12px;
+    @include flex-settings;
+  }
+}

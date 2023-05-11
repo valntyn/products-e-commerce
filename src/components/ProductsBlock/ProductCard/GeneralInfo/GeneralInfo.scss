@@ -1,0 +1,86 @@
+@import "../../../../styles/_variables";
+@import "../../../../styles/_mixins";
+
+.general {
+  width: 100%;
+
+  &__title {
+    font-size: 18px;
+    line-height: 27px;
+    color: $color-main-text;
+    margin-bottom: 4px;
+    overflow: hidden;
+  }
+
+  &__desc {
+    font-family: $font-sans;
+    font-size: 12px;
+    line-height: 16px;
+    color: $color-desc;
+    margin-bottom: 10px;
+    overflow: hidden;
+    height: 32px;
+  }
+
+  &__box {
+    gap: 12px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+    @include onTablet {
+      gap: 32px;
+      width: 60%;
+      margin-bottom: 0;
+    }
+  }
+
+  &__list-info {
+    display: flex;
+    flex-direction: column;
+    color: $color-text-gray;
+    font-family: $font-sans;
+    line-height: 14px;
+    font-size: 12px;
+    white-space: nowrap;
+    width: 100%;
+
+    @include onTablet {
+      line-height: 19px;
+      font-size: 14px;
+      width: max-content;
+    }
+  }
+
+  &__key {
+    margin-bottom: 8px;
+    max-width: 50%;
+    white-space: nowrap;
+    overflow: hidden;
+
+    @include onTablet {
+      width: 75px;
+    }
+  }
+
+  &__value {
+    max-width: 55%;
+    white-space: nowrap;
+    overflow: hidden;
+
+    @include onTablet {
+      width: 120px;
+    }
+  }
+
+  &__item {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+
+    @include onDesktop {
+      gap: 32px;
+      justify-content: flex-start;
+    }
+  }
+}
