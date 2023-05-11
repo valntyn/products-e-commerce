@@ -40,7 +40,11 @@
     font-size: 12px;
     line-height: 22px;
     text-align: center;
-    min-width: 70px;
+    min-width: 80px;
+
+    @include onTablet {
+      min-width: 90px;
+    }
 
     @include onDesktop {
       font-size: 15px;

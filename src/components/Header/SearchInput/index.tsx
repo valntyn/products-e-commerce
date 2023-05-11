@@ -34,14 +34,18 @@ export const SearchInput = () => {
   }, 500);
 
   const handleQuery = (e: ChangeEvent<HTMLInputElement>) => {
-    setVisualQuery(e.target.value);
+    const value = e.target.value.trim();
+
+    setVisualQuery(value);
     debouncedOnChange(e);
 
-    setSearchParams(
-      getSearchWith(searchParams, {
-        query: e.target.value || null,
-      }),
-    );
+    if (value !== query) {
+      setSearchParams(
+        getSearchWith(searchParams, {
+          query: value || null,
+        }),
+      );
+    }
   };
 
   const handleClear = () => {

@@ -3,12 +3,12 @@
 
 
 .search {
-  width: 63%;
+  width: 75%;
   display: flex;
   align-items: center;
 
   @include onTablet {
-    width: 62%;
+    width: 61%;
   }
 
   &__input {
@@ -21,13 +21,25 @@
     background-color: inherit;
     padding-left: 10px;
     color: $color-main-text;
-    font-size: 14px;
+    font-size: 10px;
+
+    @include onTablet {
+      font-size: 12px;
+    }
+
+    @include onDesktop {
+      font-size: 14px;
+    }
 
     &::placeholder {
       font-size: 10px;
       color: $color-placeholder;
 
       @include onTablet {
+        font-size: 12px;
+      }
+
+      @include onDesktop {
         font-size: 14px;
       }
     }
