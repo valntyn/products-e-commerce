@@ -9,7 +9,7 @@
   z-index: 10;
   opacity: 0;
   transform: translateY(-5px);
-  transition: all 0.3s ease-out;
+  transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
 
   &__list {
     background-color: $color-bg-placeholer;
