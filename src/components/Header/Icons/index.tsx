@@ -13,17 +13,18 @@ export const Icons = () => {
     <div className="icons">
       <button
         type="button"
-        className="icons__button"
+        className={classNames(
+          'icons__button',
+          { 'icons__button--favorite': itemInFavorite.length },
+        )}
+        data-count-favorite={itemInFavorite.length}
       >
         <User className="icons__svg" />
       </button>
       <button
         type="button"
-        className={classNames(
-          'icons__button',
-          { 'icons__button--basket': itemInFavorite.length },
-        )}
-        data-count-favorite={itemInFavorite.length}
+        className="icons__button icons__button--basket"
+        data-count-cart={4}
       >
         <Basket className="icons__svg" />
       </button>

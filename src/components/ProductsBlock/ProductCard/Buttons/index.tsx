@@ -6,7 +6,8 @@ import { useAppDispatch } from '@hooks/useAppDispatch';
 import './Buttons.scss';
 import { useAppSelector } from '@hooks/useAppSelector';
 import {
-  addItemToFavorite, removeItemFromFavorite,
+  addItemToFavorite,
+  removeItemFromFavorite,
 } from '@store/reducers/favoriteSlice';
 import { IProduct } from '@utils/product';
 
@@ -16,10 +17,11 @@ type PropTypes = {
 
 export const Buttons: React.FC<PropTypes> = ({ product }) => {
   const dispatch = useAppDispatch();
-  const { itemInFavorite } = useAppSelector(state => state.favorite);
+  const { itemInFavorite } = useAppSelector((state) => state.favorite);
 
-  const isProductInFavorite
-  = itemInFavorite.some(item => item.id === product.id);
+  const isProductInFavorite = itemInFavorite.some(
+    (item) => item.id === product.id,
+  );
 
   const handleClick = (item: IProduct) => () => {
     if (isProductInFavorite) {
@@ -50,13 +52,8 @@ export const Buttons: React.FC<PropTypes> = ({ product }) => {
         )}
         onClick={handleClick(product)}
       >
-        <Heart
-          className="product-buttons__svg product-buttons__svg--heart"
-        />
-        { isProductInFavorite
-          ? 'Added to wish list'
-          : 'Add to wish list'
-        }
+        <Heart className="product-buttons__svg product-buttons__svg--heart" />
+        {isProductInFavorite ? 'Added to list' : 'Add to wish list'}
       </button>
     </div>
   );

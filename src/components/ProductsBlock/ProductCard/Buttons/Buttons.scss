@@ -49,6 +49,7 @@
   }
 
   &__wishlist {
+    position: relative;
     color: $color-main-text;
     background-color: $color-tags;
     padding: 6px;
@@ -78,6 +79,8 @@
     &--heart {
       height: 22px;
       width: 22px;
+      position: absolute;
+      left: 16px;
     }
 
     @include onTablet {
