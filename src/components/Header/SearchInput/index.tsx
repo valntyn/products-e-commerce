@@ -34,7 +34,7 @@ export const SearchInput = () => {
   }, 500);
 
   const handleQuery = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.trim();
+    const { value } = e.target;
 
     setVisualQuery(value);
     debouncedOnChange(e);
@@ -42,7 +42,7 @@ export const SearchInput = () => {
     if (value !== query) {
       setSearchParams(
         getSearchWith(searchParams, {
-          query: value || null,
+          query: value.trim() || null,
         }),
       );
     }
