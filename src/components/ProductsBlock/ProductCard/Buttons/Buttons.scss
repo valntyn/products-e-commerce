@@ -52,6 +52,7 @@
     color: $color-main-text;
     background-color: $color-tags;
     padding: 6px;
+    border: 2px solid $color-tags;
 
     @include onDesktop {
       padding: 6px 12px;
@@ -61,8 +62,12 @@
       background-color: $color-text-gray;
     }
 
-    &:hover * {
-      fill: $color-main-green;
+    &--active {
+      border: 2px solid $color-main-green;
+    }
+
+    &--active * {
+      fill: tomato;
     }
   }
 
