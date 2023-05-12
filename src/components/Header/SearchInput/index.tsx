@@ -7,7 +7,7 @@ import { ReactComponent as Search } from '@assets/svg/search.svg';
 import { getSearchWith } from '@helpers/searchHelpers';
 import { useAppDispatch } from '@hooks/useAppDispatch';
 import { useAppSelector } from '@hooks/useAppSelector';
-import { setCategory, setQuery } from '@store/reducers/filterSlice';
+import { setQuery } from '@store/reducers/filterSlice';
 
 import './SearchInput.scss';
 
@@ -49,7 +49,6 @@ export const SearchInput = () => {
   const handleClear = () => {
     setVisualQuery('');
     dispatch(setQuery(''));
-    dispatch(setCategory('All products'));
     setSearchParams(
       getSearchWith(searchParams, {
         query: null,
