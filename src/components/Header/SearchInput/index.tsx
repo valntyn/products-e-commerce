@@ -23,12 +23,6 @@ export const SearchInput = () => {
     dispatch(setQuery(query.trim()));
   }, [dispatch]);
 
-  useEffect(() => {
-    if (query !== '') {
-      setVisualQuery(query);
-    }
-  }, [query]);
-
   const debouncedOnChange = useDebouncedCallback((e) => {
     dispatch(setQuery(e.target.value.trim()));
   }, 500);

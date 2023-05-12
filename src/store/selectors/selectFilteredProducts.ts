@@ -18,7 +18,7 @@ export const selectFilteredProducts = createSelector(
 
       if (searchQuery && !product.title
         .toLowerCase()
-        .includes(searchQuery.toLowerCase())) {
+        .includes(searchQuery.toLowerCase().trim())) {
         return false;
       }
 
