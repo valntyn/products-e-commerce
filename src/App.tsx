@@ -1,16 +1,25 @@
+import { useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router';
 
 import './App.scss';
 
 import { Layout } from '@components/Layout';
 import { paths } from '@constants/paths';
+import { useAppDispatch } from '@hooks/useAppDispatch';
 import { CheckoutPage } from '@pages/CheckoutPage';
 import { Homepage } from '@pages/Homepage';
 import { NotFoundPage } from '@pages/NotFoundPage';
 import { ProductPage } from '@pages/ProductPage';
 import { ProductsPage } from '@pages/ProductsPage';
+import { getProducts } from '@store/reducers/productsSlice';
 
 function App() {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getProducts());
+  }, [dispatch]);
+
   return (
     <Routes>
       <Route path="/" element={<Layout />}>

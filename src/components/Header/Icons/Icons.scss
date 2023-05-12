@@ -26,7 +26,7 @@
 
     &--basket {
       &::before {
-        content: attr(data-count-favorite);
+        content: attr(data-count-cart);
         font-family: $font-poppins;
         position: absolute;
         @include square-var(16px);

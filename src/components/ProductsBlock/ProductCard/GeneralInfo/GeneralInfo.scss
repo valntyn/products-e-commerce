@@ -71,6 +71,14 @@
     @include onTablet {
       width: 120px;
     }
+    
+    &--green {
+      color: $color-main-green;
+    }
+  }
+
+  &__new {
+    color: $color-main-green;
   }
 
   &__item {

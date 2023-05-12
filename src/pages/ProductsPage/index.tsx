@@ -1,22 +1,17 @@
-import { useEffect } from 'react';
-
 import { ReactComponent as Filter } from '@assets/svg/filter.svg';
 import { Breadcrumbs } from '@components/Breadcrumbs';
 import { ProductsBlock } from '@components/ProductsBlock';
-import { useAppDispatch } from '@hooks/useAppDispatch';
 import { useAppSelector } from '@hooks/useAppSelector';
-import { getProducts } from '@store/reducers/productsSlice';
+import {
+  selectFilteredProducts,
+} from '@store/selectors/selectFilteredProducts';
 
 import './ProductsPage.scss';
 
 export const ProductsPage = () => {
-  const dispatch = useAppDispatch();
+  const { isLoading } = useAppSelector((state) => state.products);
 
-  useEffect(() => {
-    dispatch(getProducts());
-  }, []);
-
-  const { products, isLoading } = useAppSelector((state) => state.products);
+  const visibleProducts = useAppSelector(selectFilteredProducts);
 
   return (
     <div className="products-page">
@@ -25,7 +20,7 @@ export const ProductsPage = () => {
         <h1>All products</h1>
         <div className="products-page__box-qty">
           <p className="products-page__quantity">
-            {!isLoading && products.length}
+            {!isLoading && visibleProducts.length}
           </p>
           <p className="products-page__name">Products</p>
         </div>

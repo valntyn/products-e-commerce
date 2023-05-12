@@ -1,21 +1,31 @@
 import classNames from 'classnames';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import { ReactComponent as Arrow } from '@assets/svg/arrow-down.svg';
+import { useAppDispatch } from '@hooks/useAppDispatch';
+import { setBrand } from '@store/reducers/filterSlice';
+
+import { Dropdown } from '../Dropdown';
 
 import './NavItem.scss';
-import { Dropdown } from '../Dropdown';
 
 type PropTypes = {
   text: string;
+  items: string[];
 };
 
-export const NavItem: React.FC<PropTypes> = ({ text }) => {
+export const NavItem: React.FC<PropTypes> = ({ text, items }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const dispatch = useAppDispatch();
 
-  const handleHover = () => {
+  const handleHover = useCallback(() => {
     setIsHovered(!isHovered);
-  };
+  }, [isHovered]);
+
+  const handleClick = useCallback((value: string) => {
+    dispatch(setBrand(value));
+    handleHover();
+  }, [dispatch, handleHover]);
 
   return (
     <li className="nav-item">
@@ -32,7 +42,7 @@ export const NavItem: React.FC<PropTypes> = ({ text }) => {
             })}
           />
         </div>
-        {isHovered && <Dropdown />}
+        {isHovered && <Dropdown items={items} onChoose={handleClick} />}
       </div>
     </li>
   );

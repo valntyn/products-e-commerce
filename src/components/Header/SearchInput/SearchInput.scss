@@ -3,12 +3,12 @@
 
 
 .search {
-  width: 63%;
+  width: 75%;
   display: flex;
   align-items: center;
 
   @include onTablet {
-    width: 62%;
+    width: 61%;
   }
 
   &__input {
@@ -19,10 +19,16 @@
     border: none;
     line-height: 18px;  
     background-color: inherit;
-    padding-left: 20px;
+    padding-left: 10px;
+    color: $color-main-text;
+    font-size: 10px;
 
     @include onTablet {
-      padding-left: 10px;
+      font-size: 12px;
+    }
+
+    @include onDesktop {
+      font-size: 14px;
     }
 
     &::placeholder {
@@ -30,6 +36,10 @@
       color: $color-placeholder;
 
       @include onTablet {
+        font-size: 12px;
+      }
+
+      @include onDesktop {
         font-size: 14px;
       }
     }
@@ -37,11 +47,45 @@
 
   &__svg {
     padding-top: 4px;
-    @include square-var(16px);
+    @include square-var(20px);
     cursor: pointer;
 
     @include onTablet {
       padding-top: 2px;
+    }
+  }
+
+  &__img {
+    padding-top: 4px;
+    @include square-var(20px);
+    cursor: pointer;
+
+    @include onTablet {
+      padding-top: 2px;
+    }
+
+    & * {
+      transition: 0.1s linear;
+    }
+
+    &:hover * {
+      fill: $color-main-green;
+    }
+  }
+
+  &__button {
+    @include flex-settings;
+    background-color: inherit;
+    border: none;
+    cursor: pointer;
+    transition: 0.1s linear;
+    width: max-content;
+    height: max-content;
+    opacity: 1;
+
+    &:disabled {
+      opacity: 0;
+      cursor: initial;
     }
   }
 }

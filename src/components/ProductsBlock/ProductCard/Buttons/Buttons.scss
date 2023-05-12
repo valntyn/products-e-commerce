@@ -49,9 +49,11 @@
   }
 
   &__wishlist {
+    position: relative;
     color: $color-main-text;
     background-color: $color-tags;
     padding: 6px;
+    border: 2px solid $color-tags;
 
     @include onDesktop {
       padding: 6px 12px;
@@ -59,10 +61,6 @@
 
     &:hover {
       background-color: $color-text-gray;
-    }
-
-    &:hover * {
-      fill: $color-main-green;
     }
   }
 
@@ -73,6 +71,8 @@
     &--heart {
       height: 22px;
       width: 22px;
+      position: absolute;
+      left: 14px;
     }
 
     @include onTablet {

@@ -1,5 +1,17 @@
+@import "../../../styles/_variables";
+@import "../../../styles/_mixins";
+
 .product-list {
   display: flex;
   flex-direction: column;
   gap: 32px;
+
+  &__n-title {
+    text-align: center;
+    font-size: 14px;
+
+    @include onTablet {
+      font-size: 18px;
+    }
+  }
 }

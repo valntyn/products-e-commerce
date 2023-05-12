@@ -19,7 +19,7 @@ export const ProductCard: React.FC<PropTypes> = ({ product }) => {
         <GeneralInfo product={product} />
         <div className="product__right-box">
           <PriceShipping product={product} />
-          <Buttons />
+          <Buttons product={product} />
         </div>
       </div>
     </li>
