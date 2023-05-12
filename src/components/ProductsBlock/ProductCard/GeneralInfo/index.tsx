@@ -38,7 +38,7 @@ export const GeneralInfo: React.FC<PropTypes> = ({ product }) => {
           </li>
           <li className="general__item">
             <p className="general__key">Stock</p>
-            <p className="general__value">
+            <p className="general__value general__value--green">
               {`${stock} kgs`}
             </p>
           </li>
