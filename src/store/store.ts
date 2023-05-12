@@ -1,6 +1,5 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 
-import favoriteReducer from './reducers/favoriteSlice';
 import filterReducer from './reducers/filterSlice';
 import productsReducer from './reducers/productsSlice';
 
@@ -8,7 +7,6 @@ export const store = configureStore({
   reducer: {
     products: productsReducer,
     filter: filterReducer,
-    favorite: favoriteReducer,
   },
 });
 

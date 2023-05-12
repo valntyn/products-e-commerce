@@ -77,6 +77,10 @@
     }
   }
 
+  &__new {
+    color: $color-main-green;
+  }
+
   &__item {
     display: flex;
     gap: 10px;

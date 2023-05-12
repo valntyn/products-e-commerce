@@ -26,7 +26,10 @@ export const GeneralInfo: React.FC<PropTypes> = ({ product }) => {
         <ul className="general__list-info">
           <li className="general__item">
             <p className="general__key">Fresheness</p>
-            <p className="general__value general__value--word">{fresheness}</p>
+            <p className="general__value">
+              <span className="general__new">New</span>
+              {` ${fresheness}`}
+            </p>
           </li>
           <li className="general__item">
             <p className="general__key">Farm</p>

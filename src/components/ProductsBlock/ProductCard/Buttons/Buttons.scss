@@ -62,14 +62,6 @@
     &:hover {
       background-color: $color-text-gray;
     }
-
-    &--active {
-      border: 2px solid $color-main-green;
-    }
-
-    &--active * {
-      fill: tomato;
-    }
   }
 
   &__svg {

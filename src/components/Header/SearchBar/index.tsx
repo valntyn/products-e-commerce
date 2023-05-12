@@ -25,14 +25,14 @@ export const SearchBar = () => {
   const categories = getCategories(products);
   const allCategories = ['All products', ...categories];
 
-  const handleHover = () => {
+  const handleHover = useCallback(() => {
     setIsHovered(!isHovered);
-  };
+  }, [isHovered]);
 
   const handleClick = useCallback((value: string) => {
     dispatch(setCategory(value));
-    setIsHovered(!isHovered);
-  }, [dispatch, isHovered]);
+    handleHover();
+  }, [dispatch, handleHover]);
 
   const fixedCategory = capitalize(selectedCategory);
 

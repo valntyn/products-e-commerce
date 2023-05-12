@@ -18,14 +18,14 @@ export const NavItem: React.FC<PropTypes> = ({ text, items }) => {
   const [isHovered, setIsHovered] = useState(false);
   const dispatch = useAppDispatch();
 
-  const handleHover = () => {
+  const handleHover = useCallback(() => {
     setIsHovered(!isHovered);
-  };
+  }, [isHovered]);
 
   const handleClick = useCallback((value: string) => {
     dispatch(setBrand(value));
-    setIsHovered(!isHovered);
-  }, [dispatch, isHovered]);
+    handleHover();
+  }, [dispatch, handleHover]);
 
   return (
     <li className="nav-item">
