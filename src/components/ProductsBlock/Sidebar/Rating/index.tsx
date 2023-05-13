@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import {
   ReactComponent as StarFilled,
 } from '@assets/svg/star-sidebar-filled.svg';

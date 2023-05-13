@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import { Spinner } from '@components/UI/Spinner';
 import { useAppSelector } from '@hooks/useAppSelector';
 import { selectBrands } from '@store/selectors/selectBrands';
