@@ -1,0 +1,59 @@
+@import "../../../../styles/_variables";
+@import "../../../../styles/_mixins";
+
+.checkbox {
+  display: block;
+  position: relative;
+  padding-left: 28px;
+  cursor: pointer;
+  font-size: 14px;
+
+  &__input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+
+    &:not(:checked) + .checkbox__checkmark {
+      background-color: $color-bg;
+    }
+
+    &:checked + .checkbox__checkmark:after {
+      display: block;
+    }
+  }
+
+  &__checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    border: 1.5px solid $color-secondary-green;
+    border-radius: 4px;
+    background-color: $color-main-green;
+    font-size: 12px;
+  }
+
+  &__text {
+    font-size: 12px;
+
+    @include onDesktop {
+      font-size: 14px;
+    }
+  }
+
+  &__checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+
+  &__checkmark:after {
+    left: 6px;
+    width: 5px;
+    height: 11px;
+    border: solid $color-bg;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+}

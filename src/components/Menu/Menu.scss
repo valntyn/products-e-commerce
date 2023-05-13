@@ -1,0 +1,33 @@
+@import "../../styles/_mixins";
+@import "../../styles/_variables";
+
+.menu {
+  position: fixed;
+  left: 0;
+  top: 0;
+  transition: 0.3s all;
+  transform: translateX(-100vw);
+
+  &--active {
+    transform: translateX(100%);
+    transition: 0.3s all;
+  }
+
+  &__blur {
+    width: 100vw;
+    height: 100vh;
+    backdrop-filter: blur(2px);
+    position: absolute;
+  }
+
+  &__list {
+    padding: 20px 20px 0 20px;
+    height: 100%;
+    background-color: $color-bg;
+    width: 60%;
+
+    @include onTablet {
+      width: 30%;
+    }
+  }
+}

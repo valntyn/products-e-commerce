@@ -12,9 +12,7 @@
   }
 
   &__box-qty {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    @include flex-settings;
     gap: 10px;
   }
 

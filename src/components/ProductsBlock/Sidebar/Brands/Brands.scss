@@ -1,0 +1,52 @@
+@import "../../../../styles/_variables";
+@import "../../../../styles/_mixins";
+
+.brands {
+  margin-bottom: 10px;
+
+  @include onTablet {
+    margin-bottom: 24px;
+  }
+
+  @include onDesktop {
+    margin-bottom: 50px;
+  }
+
+  &__title {
+    margin-bottom: 8px;
+
+    @include onDesktop {
+      margin-bottom: 18px;
+    }
+  }
+
+  &__list {
+    list-style: none;
+    padding: 0;
+  }
+
+  &__item {
+    font-size: 10px;
+    margin-bottom: 4px;
+    transition: background-color 0.1s linear;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+
+    &:hover {
+      background-color: $color-pale-green;
+    }
+
+    @include onDesktop {
+      margin-bottom: 16px;
+    }
+  }
+
+  &__label {
+    display: block;
+    position: relative;
+    padding-left: 28px;
+    cursor: pointer;
+    font-size: 14px;
+    width: 100%;
+  }
+}

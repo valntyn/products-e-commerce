@@ -2,6 +2,7 @@
 @import "./styles/_variables";
 
 h1 {
+  font-family: $font-poppins;
   font-weight: 600;
   font-size: 22px;
   line-height: 48px;
@@ -14,5 +15,17 @@ h1 {
   @include onDesktop {
     font-size: 32px;
     line-height: 48px;
+  }
+}
+
+h2 {
+  font-family: $font-poppins;
+  font-size: 15px;
+  line-height: 22px;
+  color: $color-main-text;
+
+  @include onDesktop {
+    font-size: 18px;
+    line-height: 27px;
   }
 }

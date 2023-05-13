@@ -3,9 +3,9 @@
 
 .sidebar {
   display: none;
-  background-color: $color-bg-placeholer;
 
   @include onDesktop {
     display: inherit;
+    height: max-content;
   }
 }

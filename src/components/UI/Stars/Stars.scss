@@ -1,0 +1,14 @@
+@import "../../../styles/_variables";
+@import "../../../styles/_mixins";
+
+.stars {
+  display: flex;
+  gap: 5px;
+  position: relative;
+  width: 100%;
+  
+  &__star {
+    height: 16px;
+    width: 16px;
+  }
+}

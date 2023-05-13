@@ -1,9 +1,9 @@
 import classNames from 'classnames';
 
 import { capitalize } from '@helpers/capitalize';
-import { getBrands } from '@helpers/getBrands';
 import { getCategories } from '@helpers/getCategories';
 import { useAppSelector } from '@hooks/useAppSelector';
+import { selectBrands } from '@store/selectors/selectBrands';
 
 import { NavItem } from '../NavItem';
 
@@ -12,7 +12,7 @@ import './Navigation.scss';
 export const Navigation = () => {
   const { products, isLoading } = useAppSelector((state) => state.products);
 
-  const brands = getBrands(products);
+  const brands = useAppSelector(selectBrands);
   const categories = getCategories(products);
 
   return (
