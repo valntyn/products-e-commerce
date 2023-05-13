@@ -1,4 +1,5 @@
 import { Brands } from './Brands';
+import { ButtonOnReset } from './ButtonOnReset';
 import { Categories } from './Categories';
 import { Price } from './Price';
 import { Rating } from './Rating';
@@ -11,6 +12,7 @@ export const Sidebar = () => {
       <Brands />
       <Rating />
       <Price />
+      <ButtonOnReset />
     </div>
   );
 };
