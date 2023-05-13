@@ -14,6 +14,7 @@
   @include onDesktop {
     justify-content: space-between;
     flex-direction: row;
+    min-height: 75px;
   }
 
   &__link {
