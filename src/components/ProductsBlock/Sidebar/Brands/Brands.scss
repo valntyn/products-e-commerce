@@ -3,12 +3,16 @@
 
 .brands {
   margin-bottom: 10px;
-  max-height: 180px;
+  max-height: 140px;
   overflow-y: auto;
 
   scrollbar-width: thin;
   scrollbar-color: $color-pale-green $color-main-green;
-  
+
+  @include onDesktop {
+    max-height: 180px;
+  }
+
   &::-webkit-scrollbar {
     width: 8px;
   }
