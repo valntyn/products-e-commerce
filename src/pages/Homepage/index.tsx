@@ -2,6 +2,8 @@ import { useLocation } from 'react-router';
 import './Homepage.scss';
 import { Link } from 'react-router-dom';
 
+import { paths } from '@constants/paths';
+
 export const Homepage = () => {
   const location = useLocation();
 
@@ -10,7 +12,7 @@ export const Homepage = () => {
       <h1 className="homepage__welcome">Welcome to our Freshnecom store!</h1>
       <Link
         to={{
-          pathname: '/products',
+          pathname: `${paths.products}`,
           search: location.search,
         }}
         className="homepage__procced"
