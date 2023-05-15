@@ -53,6 +53,9 @@ export const Price = () => {
           const newValues = [values[1], inputValue];
 
           setValues(newValues.sort((a, b) => a - b));
+        } else if (inputValue < minPrice) {
+          setValues([inputValue, values[1]]);
+          setError(true);
         } else {
           setValues([inputValue, values[1]]);
         }

@@ -2,10 +2,6 @@
 @import "../../../styles/_mixins";
 
 .sidebar {
-  display: none;
-
-  @include onDesktop {
-    display: inherit;
-    height: max-content;
-  }
+  display: inherit;
+  height: max-content;
 }

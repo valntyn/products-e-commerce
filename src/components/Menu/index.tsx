@@ -3,11 +3,7 @@ import {
 } from 'react';
 
 import './Menu.scss';
-import { Brands } from '@components/ProductsBlock/Sidebar/Brands';
-import { ButtonOnReset } from '@components/ProductsBlock/Sidebar/ButtonOnReset';
-import { Categories } from '@components/ProductsBlock/Sidebar/Categories';
-import { Price } from '@components/ProductsBlock/Sidebar/Price';
-import { Rating } from '@components/ProductsBlock/Sidebar/Rating';
+import { Sidebar } from '@components/ProductsBlock/Sidebar';
 
 type PropTypes = {
   menuActive: boolean;
@@ -42,23 +38,9 @@ export const Menu: React.FC<PropTypes> = ({ menuActive, setMenuActive }) => {
       onClick={handleCloseMenu}
     >
       <div className="menu__blur">
-        <ul className="menu__list" onClick={(e) => e.stopPropagation()}>
-          <li className="menu__item">
-            <Categories />
-          </li>
-          <li className="menu__item">
-            <Brands />
-          </li>
-          <li className="menu__item">
-            <Rating />
-          </li>
-          <li className="menu__item">
-            <Price />
-          </li>
-          <li className="menu__item">
-            <ButtonOnReset />
-          </li>
-        </ul>
+        <div onClick={(e) => e.stopPropagation()} className="menu__content">
+          <Sidebar />
+        </div>
       </div>
     </div>
   );
