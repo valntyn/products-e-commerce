@@ -4,7 +4,7 @@ interface PropTypes {
   text?: string;
   disabled?: boolean;
   id?: string;
-  onChange: any;
+  onChange: (value: string) => void;
   checked: boolean;
   value: string;
 }
