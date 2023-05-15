@@ -10,10 +10,9 @@ import { selectCategories } from '@store/selectors/selectCategories';
 
 export const Categories = () => {
   const [searchParams] = useSearchParams();
-  const categories = useAppSelector(selectCategories);
-
   const { isLoading } = useAppSelector((state) => state.products);
   const { selectedCategory } = useAppSelector((state) => state.filter);
+  const categories = useAppSelector(selectCategories);
 
   const getSearch = (title: string) => {
     return getSearchWith(searchParams, {

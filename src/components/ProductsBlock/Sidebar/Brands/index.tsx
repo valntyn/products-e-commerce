@@ -13,11 +13,12 @@ import { Checkbox } from '../Checkbox';
 import './Brands.scss';
 
 export const Brands = () => {
-  const dispatch = useAppDispatch();
-  const brands = useAppSelector(selectBrands);
   const [searchParams, setSearchParams] = useSearchParams();
 
   const { isLoading } = useAppSelector((state) => state.products);
+
+  const dispatch = useAppDispatch();
+  const brands = useAppSelector(selectBrands);
 
   const handleBrandChange = useCallback((text: string) => {
     dispatch(setBrand(text));

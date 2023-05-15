@@ -15,11 +15,11 @@ import { selectPriceRange } from '@store/selectors/selectPrices';
 export const Price = () => {
   const { isLoading } = useAppSelector((state) => state.products);
   const { minPrice, maxPrice } = useAppSelector(selectPriceRange);
-
-  const dispatch = useAppDispatch();
-  const [values, setValues] = useState([0, 100]);
+  const [values, setValues] = useState([0, 0]);
   const [error, setError] = useState(false);
+
   const [searchParams, setSearchParams] = useSearchParams();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const priceInParams = searchParams.get('price') || null;
