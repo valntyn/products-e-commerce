@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router';
 
+import { paths } from '@constants/paths';
 import { useAppDispatch } from '@hooks/useAppDispatch';
 import { resetFilter } from '@store/reducers/filterSlice';
 
@@ -13,7 +14,7 @@ export const ButtonOnReset = () => {
   const handleReset = () => {
     dispatch(resetFilter());
 
-    navigate('/products', { replace: true });
+    navigate(`${paths.products}`, { replace: true });
     window.scrollTo(0, 0);
   };
 
