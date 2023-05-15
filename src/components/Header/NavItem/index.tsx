@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 
 import { ReactComponent as Arrow } from '@assets/svg/arrow-down.svg';
+import { paths } from '@constants/paths';
 import { getSearchWith } from '@helpers/searchHelpers';
 import { useAppDispatch } from '@hooks/useAppDispatch';
 import {
@@ -59,6 +60,7 @@ export const NavItem: React.FC<PropTypes> = ({ text, items, sort }) => {
         onMouseEnter={handleHover}
         onMouseLeave={handleHover}
         to={{
+          pathname: `${paths.products}`,
           search: getSearch(text),
         }}
       >

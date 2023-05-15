@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import './Dropdown.scss';
 import { Link, useSearchParams } from 'react-router-dom';
 
+import { paths } from '@constants/paths';
 import { capitalize } from '@helpers/capitalize';
 import { getSearchWith } from '@helpers/searchHelpers';
 
@@ -63,6 +64,7 @@ export const Dropdown: React.FC<PropTypes> = ({
             <Link
               className="dropdown__link"
               to={{
+                pathname: `${paths.products}`,
                 search: getSearch(item),
               }}
             >

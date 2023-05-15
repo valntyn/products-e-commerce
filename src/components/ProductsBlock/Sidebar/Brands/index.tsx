@@ -36,9 +36,11 @@ export const Brands = () => {
   }, [searchParams, dispatch]);
 
   useEffect(() => {
-    setSearchParams(getSearchWith(searchParams, {
-      brands: selectedBrands.join(', ') || null,
-    }));
+    if (selectedBrands) {
+      setSearchParams(getSearchWith(searchParams, {
+        brands: selectedBrands.join(', ') || null,
+      }));
+    }
   }, [searchParams, selectedBrands, setSearchParams]);
 
   return (

@@ -13,7 +13,13 @@ export const MainBlock = () => {
 
   return (
     <div className="header-main">
-      <Link to="/" className="header-main__link">
+      <Link
+        to={{
+          pathname: '/',
+          search: location.search,
+        }}
+        className="header-main__link"
+      >
         <Logo className="header-main__logo" />
       </Link>
       {isProductsPage && <SearchBar />}
