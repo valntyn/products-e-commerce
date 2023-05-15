@@ -1,19 +1,53 @@
+import { useCallback, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
+
 import {
   ReactComponent as StarFilled,
 } from '@assets/svg/star-sidebar-filled.svg';
 import { ReactComponent as StarEmpty } from '@assets/svg/star-sidebar.svg';
 import { Spinner } from '@components/UI/Spinner';
 import { Stars } from '@components/UI/Stars';
+import { getSearchWith } from '@helpers/searchHelpers';
+import { useAppDispatch } from '@hooks/useAppDispatch';
 import { useAppSelector } from '@hooks/useAppSelector';
+import { setRating, setSelectedRating } from '@store/reducers/filterSlice';
 
 import { Checkbox } from '../Checkbox';
 
 import './Rating.scss';
 
 export const Rating = () => {
-  const { isLoading } = useAppSelector(state => state.products);
+  const { isLoading } = useAppSelector((state) => state.products);
+  const { selectedRating } = useAppSelector(state => state.filter);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const dispatch = useAppDispatch();
 
   const stars = [];
+
+  const handleRatingChange = useCallback(
+    (rating: string) => {
+      dispatch(setRating(`${rating}`));
+    },
+    [dispatch],
+  );
+
+  useEffect(() => {
+    const brandsInParams = searchParams.get('rating') || null;
+
+    if (brandsInParams) {
+      const parsedRating = brandsInParams.split(', ');
+
+      dispatch(setSelectedRating(parsedRating));
+    }
+  }, [searchParams, dispatch]);
+
+  useEffect(() => {
+    if (selectedRating) {
+      setSearchParams(getSearchWith(searchParams, {
+        rating: selectedRating.join(', ') || null,
+      }));
+    }
+  }, [searchParams, selectedRating, setSearchParams]);
 
   if (isLoading) {
     return (
@@ -28,7 +62,11 @@ export const Rating = () => {
     stars.push(
       <li className="rating__item" key={i}>
         <label className="rating__label">
-          <Checkbox />
+          <Checkbox
+            value={`${i}`}
+            onChange={handleRatingChange}
+            checked={selectedRating.includes(`${i}`)}
+          />
           <Stars
             number={i}
             inactiveStarIcon={StarEmpty}

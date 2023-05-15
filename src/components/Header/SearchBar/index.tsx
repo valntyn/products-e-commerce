@@ -57,7 +57,14 @@ export const SearchBar = () => {
             })}
           />
         </div>
-        {isHovered && <Dropdown items={allCategories} onChoose={handleClick} />}
+        {isHovered
+        && (
+          <Dropdown
+            items={allCategories}
+            onChoose={handleClick}
+            sort="categories"
+          />
+        )}
       </div>
       <div className="search-bar__line" />
       <SearchInput />

@@ -1,24 +1,38 @@
 import classNames from 'classnames';
 import { useState, useEffect, ChangeEvent } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import Slider from 'react-slider';
+import { useDebouncedCallback } from 'use-debounce';
 
 import './Price.scss';
 import { Spinner } from '@components/UI/Spinner';
+import { getSearchWith } from '@helpers/searchHelpers';
+import { useAppDispatch } from '@hooks/useAppDispatch';
 import { useAppSelector } from '@hooks/useAppSelector';
+import { setPriceRange } from '@store/reducers/filterSlice';
 import { selectPriceRange } from '@store/selectors/selectPrices';
 
 export const Price = () => {
   const { isLoading } = useAppSelector((state) => state.products);
   const { minPrice, maxPrice } = useAppSelector(selectPriceRange);
 
+  const dispatch = useAppDispatch();
   const [values, setValues] = useState([0, 100]);
   const [error, setError] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
-    if (minPrice && maxPrice) {
+    const priceInParams = searchParams.get('price') || null;
+
+    if (priceInParams) {
+      const parsedPrice = priceInParams.split(', ').map(Number);
+
+      setValues(parsedPrice);
+      dispatch(setPriceRange(parsedPrice));
+    } else {
       setValues([minPrice, maxPrice]);
     }
-  }, [minPrice, maxPrice]);
+  }, [searchParams, dispatch, minPrice, maxPrice]);
 
   useEffect(() => {
     let timeoutId: NodeJS.Timeout;
@@ -30,12 +44,21 @@ export const Price = () => {
     return () => clearTimeout(timeoutId);
   }, [error]);
 
+  const debouncedOnChange = useDebouncedCallback((newValues) => {
+    dispatch(setPriceRange(newValues));
+    setSearchParams(getSearchWith(searchParams, {
+      price: values.join(', ') || null,
+    }));
+  }, 500);
+
   const handleSliderChange = (newValues: number[]) => {
     if (newValues[1] < values[0]) {
       setValues([newValues[1], newValues[1]]);
     } else {
       setValues(newValues);
     }
+
+    debouncedOnChange(values);
   };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -53,9 +76,6 @@ export const Price = () => {
           const newValues = [values[1], inputValue];
 
           setValues(newValues.sort((a, b) => a - b));
-        } else if (inputValue < minPrice) {
-          setValues([inputValue, values[1]]);
-          setError(true);
         } else {
           setValues([inputValue, values[1]]);
         }
@@ -79,6 +99,8 @@ export const Price = () => {
       default:
         break;
     }
+
+    debouncedOnChange(values);
   };
 
   if (isLoading) {

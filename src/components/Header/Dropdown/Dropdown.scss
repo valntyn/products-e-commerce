@@ -18,7 +18,6 @@
   
   &__item {
     font-size: 12px;
-    padding: 10px;
     cursor: pointer;
     border-bottom: 1px solid $color-main-green;
 
@@ -34,6 +33,11 @@
       color: $color-bg;
       background-color: $color-secondary-green;
     }
+  }
+
+  &__link {
+    display: block;
+    padding: 10px;
   }
 
   &--active {
