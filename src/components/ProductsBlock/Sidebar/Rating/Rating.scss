@@ -1,0 +1,53 @@
+@import "../../../../styles/_variables";
+@import "../../../../styles/_mixins";
+
+.rating {
+  @include onTablet {
+    margin-bottom: 18px;
+  }
+
+  @include onDesktop {
+    margin-bottom: 50px;
+  }
+
+  &__title {
+    margin-bottom: 8px;
+
+    @include onDesktop {
+      margin-bottom: 18px;
+    }
+  }
+
+  &__item {
+    display: flex;
+    gap: 2px;
+    cursor: pointer;
+    transition: background-color 0.1s linear;
+    min-height: 20px;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    
+    &:hover {
+      background-color: $color-pale-green;
+    }
+    margin-bottom: 4px;
+
+    @include onTablet {
+      margin-bottom: 16px;
+    }
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__label {
+    position: relative;
+    padding-left: 28px;
+    cursor: pointer;
+    font-size: 14px;
+    width: 100%;
+    @include flex-settings;
+  }
+}

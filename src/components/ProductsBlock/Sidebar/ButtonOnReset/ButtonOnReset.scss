@@ -1,0 +1,30 @@
+@import "../../../../styles/_variables";
+@import "../../../../styles/_mixins";
+
+.reset {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  &__button {
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 22px;
+    width: 68px;
+    height: 35px;
+    background-color: $color-bg;
+    @include default-button;
+    color: $color-placeholder;
+    border-radius: 12px;
+    transition: 0.1s linear;
+
+    &:hover {
+      background-color: $color-pale-green;
+      color: $color-desc;
+    }
+
+    @include onTablet {
+      font-size: 15px;
+    }
+  }
+}

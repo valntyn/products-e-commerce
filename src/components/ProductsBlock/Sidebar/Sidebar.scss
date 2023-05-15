@@ -2,10 +2,6 @@
 @import "../../../styles/_mixins";
 
 .sidebar {
-  display: none;
-  background-color: $color-bg-placeholer;
-
-  @include onDesktop {
-    display: inherit;
-  }
+  display: inherit;
+  height: max-content;
 }

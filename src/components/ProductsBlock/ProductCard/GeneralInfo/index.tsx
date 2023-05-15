@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom';
 
+import { ReactComponent as FilledStar } from '@assets/svg/star-filled.svg';
+import { ReactComponent as EmptyStar } from '@assets/svg/star.svg';
+import { Stars } from '@components/UI/Stars';
 import { IProduct } from '@utils/product';
 
 import './GeneralInfo.scss';
-import { Stars } from '../Stars';
 
 type PropTypes = {
   product: IProduct;
@@ -21,11 +23,17 @@ export const GeneralInfo: React.FC<PropTypes> = ({ product }) => {
         <h2 className="general__title">{title}</h2>
       </Link>
       <p className="general__desc">{description}</p>
-      <Stars rating={rating} />
+      <div className="general__stars">
+        <Stars
+          number={rating}
+          activeStarIcon={FilledStar}
+          inactiveStarIcon={EmptyStar}
+        />
+      </div>
       <div className="general__box">
         <ul className="general__list-info">
           <li className="general__item">
-            <p className="general__key">Fresheness</p>
+            <p className="general__key">Freshness</p>
             <p className="general__value">
               <span className="general__new">New</span>
               {` ${fresheness}`}
