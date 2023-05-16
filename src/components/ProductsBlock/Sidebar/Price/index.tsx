@@ -22,7 +22,7 @@ export const Price = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const dispatch = useAppDispatch();
 
-  const fixedMin = Math.ceil(minPrice);
+  const fixedMin = Math.floor(minPrice);
   const fixedMax = Math.ceil(maxPrice);
 
   useEffect(() => {
@@ -40,7 +40,7 @@ export const Price = () => {
     }
 
     setError('');
-  }, [dispatch, fixedMin, fixedMax]);
+  }, [dispatch, searchParams]);
 
   const debouncedOnChange = useDebouncedCallback((newValues) => {
     dispatch(setPriceRange(newValues));
@@ -88,7 +88,7 @@ export const Price = () => {
         if (inputValue > fixedMax) {
           setError(`MAX price is $${fixedMax}`);
         } else if (inputValue < values[0]) {
-          setError('MIN can not be more MAX price');
+          setError(`MIN can't be more than MAX price`);
         } else {
           handleSliderChange([values[0], inputValue]);
         }
