@@ -35,6 +35,8 @@ export const Price = () => {
       setValues([minPrice, maxPrice]);
       setInputValues([minPrice, maxPrice]);
     }
+
+    setError('');
   }, [searchParams, dispatch, minPrice, maxPrice]);
 
   const debouncedOnChange = useDebouncedCallback((newValues) => {
@@ -66,9 +68,9 @@ export const Price = () => {
         if (inputValue >= maxPrice) {
           setError(`MAX price is $${maxPrice}`);
         } else if (inputValue > values[1]) {
-          setError(`Choose price less than $${values[1]}$`);
+          setError(`Choose price less than $${values[1]}`);
         } else if (inputValue < minPrice) {
-          setError(`Choose price more than $${minPrice}$`);
+          setError(`Choose price more than $${minPrice.toFixed()}`);
         } else {
           setValues([inputValue, values[1]]);
         }
