@@ -16,7 +16,8 @@ export const Price = () => {
   const { isLoading } = useAppSelector((state) => state.products);
   const { minPrice, maxPrice } = useAppSelector(selectPriceRange);
   const [values, setValues] = useState([0, 0]);
-  const [error, setError] = useState(false);
+  const [inputValues, setInputValues] = useState([0, 0]);
+  const [error, setError] = useState('');
 
   const [searchParams, setSearchParams] = useSearchParams();
   const dispatch = useAppDispatch();
@@ -28,21 +29,13 @@ export const Price = () => {
       const parsedPrice = priceInParams.split(', ').map(Number);
 
       setValues(parsedPrice);
+      setInputValues(parsedPrice);
       dispatch(setPriceRange(parsedPrice));
     } else {
       setValues([minPrice, maxPrice]);
+      setInputValues([minPrice, maxPrice]);
     }
   }, [searchParams, dispatch, minPrice, maxPrice]);
-
-  useEffect(() => {
-    let timeoutId: NodeJS.Timeout;
-
-    if (error) {
-      timeoutId = setTimeout(() => setError(false), 1000);
-    }
-
-    return () => clearTimeout(timeoutId);
-  }, [error]);
 
   const debouncedOnChange = useDebouncedCallback((newValues) => {
     dispatch(setPriceRange(newValues));
@@ -52,11 +45,7 @@ export const Price = () => {
   }, 500);
 
   const handleSliderChange = (newValues: number[]) => {
-    if (newValues[1] < values[0]) {
-      setValues([newValues[1], newValues[1]]);
-    } else {
-      setValues(newValues);
-    }
+    setValues([newValues[0], newValues[1]]);
 
     debouncedOnChange(values);
   };
@@ -68,14 +57,18 @@ export const Price = () => {
       return;
     }
 
+    setError('');
+
     switch (e.target.name) {
       case 'min':
-        if (inputValue >= maxPrice) {
-          setError(true);
-        } else if (inputValue > values[1]) {
-          const newValues = [values[1], inputValue];
+        setInputValues([inputValue, inputValues[1]]);
 
-          setValues(newValues.sort((a, b) => a - b));
+        if (inputValue >= maxPrice) {
+          setError(`MAX price is $${maxPrice}`);
+        } else if (inputValue > values[1]) {
+          setError(`Choose price less than $${values[1]}$`);
+        } else if (inputValue < minPrice) {
+          setError(`Choose price more than $${minPrice}$`);
         } else {
           setValues([inputValue, values[1]]);
         }
@@ -83,13 +76,12 @@ export const Price = () => {
         break;
 
       case 'max':
-        if (inputValue <= values[0]) {
-          const newValues = [inputValue, values[0]];
+        setInputValues([inputValues[0], inputValue]);
 
-          setValues(newValues.sort((a, b) => a - b));
-        } else if (inputValue >= maxPrice) {
-          setValues([values[0], maxPrice]);
-          setError(true);
+        if (inputValue >= maxPrice) {
+          setError(`MAX price is $${maxPrice}$`);
+        } else if (inputValue < values[0]) {
+          setError(`Choose price more than $${values[0]}$`);
         } else {
           setValues([values[0], inputValue]);
         }
@@ -113,7 +105,9 @@ export const Price = () => {
   }
 
   return (
-    <div className="price-filter">
+    <div
+      className="price-filter"
+    >
       <h2 className="price-filter__title">Price</h2>
       <Slider
         className="price-filter__slider"
@@ -127,14 +121,26 @@ export const Price = () => {
         onChange={handleSliderChange}
         pearling
       />
-      <div className="price-filter__input-box">
-        <label htmlFor="min" className="price-filter__label">
+      <div
+        className={classNames(
+          'price-filter__input-box',
+          { 'price-filter__input-box--error': error },
+        )}
+      >
+        <label
+          htmlFor="min"
+          data-error={error}
+          className={classNames(
+            'price-filter__label',
+            { 'price-filter__label--error': error },
+          )}
+        >
           Min
           <input
             type="text"
             name="min"
             id="min"
-            value={values[0].toFixed()}
+            value={inputValues[0].toFixed()}
             className={classNames('price-filter__input', {
               'price-filter__input--error': error,
             })}
@@ -148,7 +154,7 @@ export const Price = () => {
             type="text"
             name="max"
             id="max"
-            value={values[1].toFixed()}
+            value={inputValues[1].toFixed()}
             className={classNames('price-filter__input', {
               'price-filter__input--error': error,
             })}

@@ -1,12 +1,12 @@
 import './Checkbox.scss';
 
 interface PropTypes {
-  text?: string;
-  disabled?: boolean;
-  id?: string;
   onChange: (value: string) => void;
   checked: boolean;
   value: string;
+  text?: string;
+  disabled?: boolean;
+  id?: string;
 }
 
 export const Checkbox: React.FC<PropTypes> = (props) => {
