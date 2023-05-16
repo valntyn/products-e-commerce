@@ -37,7 +37,7 @@ export const Price = () => {
     }
 
     setError('');
-  }, [searchParams, dispatch, minPrice, maxPrice]);
+  }, [dispatch, minPrice, maxPrice]);
 
   const debouncedOnChange = useDebouncedCallback((newValues) => {
     dispatch(setPriceRange(newValues));
@@ -48,8 +48,9 @@ export const Price = () => {
 
   const handleSliderChange = (newValues: number[]) => {
     setValues([newValues[0], newValues[1]]);
+    setInputValues(newValues);
 
-    debouncedOnChange(values);
+    debouncedOnChange(newValues);
   };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
