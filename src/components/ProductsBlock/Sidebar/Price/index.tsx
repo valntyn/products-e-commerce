@@ -69,9 +69,9 @@ export const Price = () => {
         if (inputValue >= maxPrice) {
           setError(`MAX price is $${maxPrice}`);
         } else if (inputValue > values[1]) {
-          setError(`Choose price less than $${values[1]}`);
+          setError(`Choose MIN price less than $${values[1]}`);
         } else if (inputValue < minPrice) {
-          setError(`Choose price more than $${minPrice.toFixed()}`);
+          setError(`Choose MIN price more than $${minPrice.toFixed()}`);
         } else {
           handleSliderChange([inputValue, values[1]]);
         }
@@ -84,7 +84,7 @@ export const Price = () => {
         if (inputValue >= maxPrice) {
           setError(`MAX price is $${maxPrice}$`);
         } else if (inputValue < values[0]) {
-          setError(`Choose price more than $${values[0]}`);
+          setError(`Choose MAX price more than $${values[0]}`);
         } else {
           handleSliderChange([values[0], inputValue]);
         }
