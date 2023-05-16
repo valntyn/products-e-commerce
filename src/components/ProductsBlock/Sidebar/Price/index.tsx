@@ -72,7 +72,7 @@ export const Price = () => {
         } else if (inputValue < minPrice) {
           setError(`Choose price more than $${minPrice.toFixed()}`);
         } else {
-          setValues([inputValue, values[1]]);
+          handleSliderChange([inputValue, values[1]]);
         }
 
         break;
@@ -83,9 +83,9 @@ export const Price = () => {
         if (inputValue >= maxPrice) {
           setError(`MAX price is $${maxPrice}$`);
         } else if (inputValue < values[0]) {
-          setError(`Choose price more than $${values[0]}$`);
+          setError(`Choose price more than $${values[0]}`);
         } else {
-          setValues([values[0], inputValue]);
+          handleSliderChange([values[0], inputValue]);
         }
 
         break;
@@ -93,8 +93,6 @@ export const Price = () => {
       default:
         break;
     }
-
-    debouncedOnChange(values);
   };
 
   if (isLoading) {
