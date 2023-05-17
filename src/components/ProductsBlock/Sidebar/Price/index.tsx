@@ -40,13 +40,15 @@ export const Price = () => {
     }
 
     setError('');
-  }, [dispatch, searchParams]);
+  }, [dispatch, fixedMin, fixedMax, searchParams]);
 
   const debouncedOnChange = useDebouncedCallback((newValues) => {
-    dispatch(setPriceRange(newValues));
-    setSearchParams(getSearchWith(searchParams, {
-      price: values.join(', ') || null,
-    }));
+    if (!error) {
+      dispatch(setPriceRange(newValues));
+      setSearchParams(getSearchWith(searchParams, {
+        price: values.join(', ') || null,
+      }));
+    }
   }, 500);
 
   const handleSliderChange = (newValues: number[]) => {

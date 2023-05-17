@@ -4,6 +4,7 @@ import { ReactComponent as Filter } from '@assets/svg/filter.svg';
 import { Breadcrumbs } from '@components/Breadcrumbs';
 import { Menu } from '@components/Menu';
 import { ProductsBlock } from '@components/ProductsBlock';
+import { Sort } from '@components/Sort';
 import { useAppSelector } from '@hooks/useAppSelector';
 import {
   selectFilteredProducts,
@@ -34,7 +35,7 @@ export const ProductsPage = () => {
         </div>
       </div>
       <div className="products-page__sort-box">
-        <div className="products-page__sort">sort by</div>
+        <Sort />
         <button
           type="button"
           className="products-page__filter"
