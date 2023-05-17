@@ -39,6 +39,10 @@
       font-size: 14px;
     }
 
+    &--selected {
+      background-color: $color-pale-green;
+    }
+
     &:hover {
       background-color: $color-pale-green;
     }
@@ -47,6 +51,7 @@
   &__name {
     line-height: 19px;
     font-family: $font-sans;
+    width: 100%;
   }
 
   &__qnty {

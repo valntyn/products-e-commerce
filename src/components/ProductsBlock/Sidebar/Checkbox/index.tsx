@@ -1,8 +1,10 @@
 import './Checkbox.scss';
 
 interface PropTypes {
+  onChange: (value: string) => void;
+  checked: boolean;
+  value: string;
   text?: string;
-  checked?: boolean;
   disabled?: boolean;
   id?: string;
 }
@@ -12,6 +14,9 @@ export const Checkbox: React.FC<PropTypes> = (props) => {
     disabled,
     id,
     text,
+    onChange,
+    checked,
+    value,
   } = props;
 
   return (
@@ -21,6 +26,8 @@ export const Checkbox: React.FC<PropTypes> = (props) => {
         disabled={disabled}
         className="checkbox__input"
         id={id}
+        checked={checked}
+        onChange={() => onChange(value)}
       />
       <span className="checkbox__checkmark" />
       {text && <p className="checkbox__text">{text}</p>}

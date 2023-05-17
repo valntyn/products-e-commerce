@@ -15,13 +15,13 @@ import './SearchBar.scss';
 
 export const SearchBar = () => {
   const [isHovered, setIsHovered] = useState(false);
-  const { products } = useAppSelector((state) => state.products);
+  const { products, isLoading } = useAppSelector((state) => state.products);
   const {
     selectedCategory,
     appliedQuery,
   } = useAppSelector((state) => state.filter);
-  const dispatch = useAppDispatch();
 
+  const dispatch = useAppDispatch();
   const categories = getCategories(products);
   const allCategories = ['All products', ...categories];
 
@@ -47,8 +47,12 @@ export const SearchBar = () => {
         onMouseEnter={handleHover}
         onMouseLeave={handleHover}
       >
-        <span className="search-bar__text">
-          {fixedCategory}
+        <span className={classNames(
+          'search-bar__text',
+          { 'search-bar__loading': isLoading },
+        )}
+        >
+          {!isLoading && fixedCategory}
         </span>
         <div className="search-bar__svg-box">
           <Arrow
@@ -57,7 +61,14 @@ export const SearchBar = () => {
             })}
           />
         </div>
-        {isHovered && <Dropdown items={allCategories} onChoose={handleClick} />}
+        {isHovered
+        && (
+          <Dropdown
+            items={allCategories}
+            onChoose={handleClick}
+            sort="categories"
+          />
+        )}
       </div>
       <div className="search-bar__line" />
       <SearchInput />

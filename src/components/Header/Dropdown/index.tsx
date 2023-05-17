@@ -1,15 +1,26 @@
 import { useEffect, useRef } from 'react';
-
-import { capitalize } from '@helpers/capitalize';
 import './Dropdown.scss';
+import { Link, useSearchParams } from 'react-router-dom';
+
+import { paths } from '@constants/paths';
+import { capitalize } from '@helpers/capitalize';
+import { getSearchWith } from '@helpers/searchHelpers';
 
 type PropTypes = {
   items: string[];
   onChoose: (value: string) => void;
+  sort: string;
+  category?: string;
 };
 
-export const Dropdown: React.FC<PropTypes> = ({ items, onChoose }) => {
+export const Dropdown: React.FC<PropTypes> = ({
+  items,
+  onChoose,
+  sort,
+  category,
+}) => {
   const dropRef = useRef<HTMLDivElement>(null);
+  const [searchParams] = useSearchParams();
 
   useEffect(() => {
     const dropElement = dropRef.current;
@@ -25,16 +36,40 @@ export const Dropdown: React.FC<PropTypes> = ({ items, onChoose }) => {
     return () => {};
   }, []);
 
+  const getSearch = (title: string) => {
+    switch (sort) {
+      case 'brands':
+        return getSearchWith(searchParams, {
+          brands: title,
+          category: category?.toLowerCase() || null,
+        });
+      case 'categories':
+        return getSearchWith(searchParams, {
+          category: title.toLowerCase() || 'all products',
+        });
+      default:
+        return searchParams.toString();
+    }
+  };
+
   return (
     <div className="dropdown" ref={dropRef}>
       <ul className="dropdown__list">
-        {items.map(item => (
+        {items.map((item) => (
           <li
             key={item}
             className="dropdown__item"
             onClick={() => onChoose(item)}
           >
-            {capitalize(item)}
+            <Link
+              className="dropdown__link"
+              to={{
+                pathname: `${paths.products}`,
+                search: getSearch(item),
+              }}
+            >
+              {capitalize(item)}
+            </Link>
           </li>
         ))}
       </ul>

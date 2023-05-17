@@ -1,41 +1,60 @@
 import classNames from 'classnames';
 import { useState, useEffect, ChangeEvent } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import Slider from 'react-slider';
+import { useDebouncedCallback } from 'use-debounce';
 
 import './Price.scss';
 import { Spinner } from '@components/UI/Spinner';
+import { getSearchWith } from '@helpers/searchHelpers';
+import { useAppDispatch } from '@hooks/useAppDispatch';
 import { useAppSelector } from '@hooks/useAppSelector';
+import { setPriceRange } from '@store/reducers/filterSlice';
 import { selectPriceRange } from '@store/selectors/selectPrices';
 
 export const Price = () => {
   const { isLoading } = useAppSelector((state) => state.products);
   const { minPrice, maxPrice } = useAppSelector(selectPriceRange);
+  const [values, setValues] = useState([0, 0]);
+  const [inputValues, setInputValues] = useState([0, 0]);
+  const [error, setError] = useState('');
 
-  const [values, setValues] = useState([0, 100]);
-  const [error, setError] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const dispatch = useAppDispatch();
+
+  const fixedMin = Math.floor(minPrice);
+  const fixedMax = Math.ceil(maxPrice);
 
   useEffect(() => {
-    if (minPrice && maxPrice) {
-      setValues([minPrice, maxPrice]);
+    const priceInParams = searchParams.get('price') || null;
+
+    if (priceInParams) {
+      const parsedPrice = priceInParams.split(', ').map(Number);
+
+      setValues(parsedPrice);
+      setInputValues(parsedPrice);
+      dispatch(setPriceRange(parsedPrice));
+    } else {
+      setValues([fixedMin, fixedMax]);
+      setInputValues([fixedMin, fixedMax]);
     }
-  }, [minPrice, maxPrice]);
 
-  useEffect(() => {
-    let timeoutId: NodeJS.Timeout;
+    setError('');
+  }, [dispatch, searchParams]);
 
-    if (error) {
-      timeoutId = setTimeout(() => setError(false), 1000);
-    }
-
-    return () => clearTimeout(timeoutId);
-  }, [error]);
+  const debouncedOnChange = useDebouncedCallback((newValues) => {
+    dispatch(setPriceRange(newValues));
+    setSearchParams(getSearchWith(searchParams, {
+      price: values.join(', ') || null,
+    }));
+  }, 500);
 
   const handleSliderChange = (newValues: number[]) => {
-    if (newValues[1] < values[0]) {
-      setValues([newValues[1], newValues[1]]);
-    } else {
-      setValues(newValues);
-    }
+    setValues([newValues[0], newValues[1]]);
+    setInputValues(newValues);
+    setError('');
+
+    debouncedOnChange(newValues);
   };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -45,33 +64,33 @@ export const Price = () => {
       return;
     }
 
+    setError('');
+
     switch (e.target.name) {
       case 'min':
-        if (inputValue >= maxPrice) {
-          setError(true);
-        } else if (inputValue > values[1]) {
-          const newValues = [values[1], inputValue];
+        setInputValues([inputValue, inputValues[1]]);
 
-          setValues(newValues.sort((a, b) => a - b));
-        } else if (inputValue < minPrice) {
-          setValues([inputValue, values[1]]);
-          setError(true);
+        if (inputValue > fixedMax) {
+          setError(`MAX price is $${fixedMax}`);
+        } else if (inputValue > values[1]) {
+          setError(`Choose MIN price less than $${values[1]}`);
+        } else if (inputValue < fixedMin) {
+          setError(`Choose MIN price more than $${fixedMin}`);
         } else {
-          setValues([inputValue, values[1]]);
+          handleSliderChange([inputValue, values[1]]);
         }
 
         break;
 
       case 'max':
-        if (inputValue <= values[0]) {
-          const newValues = [inputValue, values[0]];
+        setInputValues([inputValues[0], inputValue]);
 
-          setValues(newValues.sort((a, b) => a - b));
-        } else if (inputValue >= maxPrice) {
-          setValues([values[0], maxPrice]);
-          setError(true);
+        if (inputValue > fixedMax) {
+          setError(`MAX price is $${fixedMax}`);
+        } else if (inputValue < values[0]) {
+          setError(`MIN can't be more than MAX price`);
         } else {
-          setValues([values[0], inputValue]);
+          handleSliderChange([values[0], inputValue]);
         }
 
         break;
@@ -91,28 +110,42 @@ export const Price = () => {
   }
 
   return (
-    <div className="price-filter">
+    <div
+      className="price-filter"
+    >
       <h2 className="price-filter__title">Price</h2>
       <Slider
         className="price-filter__slider"
         thumbClassName="price-filter__thumb"
         trackClassName="price-filter__track"
-        defaultValue={[minPrice, maxPrice]}
+        defaultValue={[fixedMin, fixedMax]}
         minDistance={15}
         value={values}
-        min={minPrice}
-        max={maxPrice}
+        min={fixedMin}
+        max={fixedMax}
         onChange={handleSliderChange}
         pearling
       />
-      <div className="price-filter__input-box">
-        <label htmlFor="min" className="price-filter__label">
+      <div
+        className={classNames(
+          'price-filter__input-box',
+          { 'price-filter__input-box--error': error },
+        )}
+      >
+        <label
+          htmlFor="min"
+          data-error={error}
+          className={classNames(
+            'price-filter__label',
+            { 'price-filter__label--error': error },
+          )}
+        >
           Min
           <input
             type="text"
             name="min"
             id="min"
-            value={values[0].toFixed()}
+            value={inputValues[0].toFixed()}
             className={classNames('price-filter__input', {
               'price-filter__input--error': error,
             })}
@@ -126,7 +159,7 @@ export const Price = () => {
             type="text"
             name="max"
             id="max"
-            value={values[1].toFixed()}
+            value={inputValues[1].toFixed()}
             className={classNames('price-filter__input', {
               'price-filter__input--error': error,
             })}

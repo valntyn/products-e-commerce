@@ -16,6 +16,7 @@
     font-weight: 600;
     color: $color-bg;
     font-family: $font-poppins;
+    text-align: center;
     width: 280px;
     height: 100px;
     padding: 12px 48px;
@@ -23,7 +24,6 @@
     background-color: $color-main-green;
     border: 2px solid $color-secondary-green;
     border-radius: 12px;
-    cursor: pointer;
     transition: 0.1s linear all;
 
     &:hover {

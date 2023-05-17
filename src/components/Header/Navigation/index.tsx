@@ -28,6 +28,7 @@ export const Navigation = () => {
               text={capitalize(category)}
               key={category}
               items={brands}
+              sort="brands"
             />
           ))}
         </ul>

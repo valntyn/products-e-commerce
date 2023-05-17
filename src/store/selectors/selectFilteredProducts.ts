@@ -1,30 +1,65 @@
-import { createSelector } from '@reduxjs/toolkit';
+import { createSelector } from "@reduxjs/toolkit";
 
-import { RootState } from '@store/store';
-import { IProduct } from '@utils/product';
+import { calculatePrice } from "@helpers/calculatePrice";
+import { RootState } from "@store/store";
+import { IProduct } from "@utils/product";
 
 const selectAllProducts = (state: RootState) => state.products.products;
-const selectCategory = (state: RootState) => state.filter.selectedCategory;
-const selectSearch = (state: RootState) => state.filter.appliedQuery;
+const selectFilter = (state: RootState) => state.filter;
 
 export const selectFilteredProducts = createSelector(
-  [selectAllProducts, selectCategory, selectSearch],
-  (products: IProduct[], selectedCategory: string, searchQuery: string) => {
-    const filteredProducts = products.filter((product) => {
-      if (selectedCategory !== 'All products'
-      && product.category !== selectedCategory) {
-        return false;
-      }
+  [selectAllProducts, selectFilter],
+  (products: IProduct[], filter) => {
+    const {
+      selectedCategory,
+      appliedQuery,
+      selectedBrands,
+      selectedRating,
+      selectedPrice,
+    } = filter;
 
-      if (searchQuery && !product.title
-        .toLowerCase()
-        .includes(searchQuery.toLowerCase().trim().replace(/\s+/g, ' '))) {
-        return false;
-      }
+    return products
+      .filter((product) => {
+        const fixedPrice = +calculatePrice(product.price, product.discount);
 
-      return true;
-    });
+        if (
+          selectedCategory !== "all products" &&
+          product.category !== selectedCategory
+        ) {
+          return false;
+        }
 
-    return filteredProducts;
-  },
+        if (selectedBrands.length && !selectedBrands.includes(product.brand)) {
+          return false;
+        }
+
+        if (
+          selectedRating.length &&
+          !selectedRating.includes(product.rating.toString())
+        ) {
+          return false;
+        }
+
+        if (
+          selectedPrice[0] !== 0 &&
+          (fixedPrice < selectedPrice[0] || fixedPrice > selectedPrice[1])
+        ) {
+          return false;
+        }
+
+        return true;
+      })
+      .filter((product) => {
+        if (
+          appliedQuery &&
+          !product.title
+            .toLowerCase()
+            .includes(appliedQuery.toLowerCase().trim().replace(/\s+/g, " "))
+        ) {
+          return false;
+        }
+
+        return true;
+      });
+  }
 );

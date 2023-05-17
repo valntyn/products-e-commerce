@@ -77,6 +77,18 @@
     line-height: 18px;
     color: $color-main-text;
     max-width: 120px;
+    position: relative;
+
+    &--error {
+      &::before {
+        display: block;
+        position: absolute;
+        content: attr(data-error);
+        bottom: 40px;
+        left: 5px;
+        color: tomato;
+      }
+    }
   }
 
   &__input {
