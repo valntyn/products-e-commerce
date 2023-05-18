@@ -27,7 +27,7 @@ export const Price = () => {
   const fixedMax = Math.ceil(maxPrice);
 
   useEffect(() => {
-    const priceInParams = searchParams.get(Params.Sort);
+    const priceInParams = searchParams.get(Params.Price);
 
     if (priceInParams) {
       const parsedPrice = priceInParams.split(', ').map(Number);
