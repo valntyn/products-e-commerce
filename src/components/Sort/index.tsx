@@ -15,10 +15,10 @@ import { SortLink } from './SortLink';
 import './Sort.scss';
 
 export const Sort = () => {
+  const dispatch = useAppDispatch();
   const [expanded, setExpanded] = useState(false);
   const [searchParams] = useSearchParams();
   const menuRef = useRef<HTMLDivElement>(null);
-  const dispatch = useAppDispatch();
 
   const { sort, isReversed } = useAppSelector((state) => state.filter);
 
@@ -40,8 +40,8 @@ export const Sort = () => {
   }, []);
 
   useEffect(() => {
-    const sortInParams = searchParams.get('sort') || null;
-    const orderInParams = searchParams.get('order') || null;
+    const sortInParams = searchParams.get('sort');
+    const orderInParams = searchParams.get('order');
 
     if (sortInParams) {
       dispatch(setSortFilter(sortInParams as SortFilter));

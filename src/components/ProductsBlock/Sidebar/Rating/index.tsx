@@ -19,8 +19,9 @@ import './Rating.scss';
 export const Rating = () => {
   const { isLoading } = useAppSelector((state) => state.products);
   const { selectedRating } = useAppSelector(state => state.filter);
-  const [searchParams, setSearchParams] = useSearchParams();
   const dispatch = useAppDispatch();
+
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const stars = [];
 
@@ -32,7 +33,7 @@ export const Rating = () => {
   );
 
   useEffect(() => {
-    const brandsInParams = searchParams.get('rating') || null;
+    const brandsInParams = searchParams.get('rating');
 
     if (brandsInParams) {
       const parsedRating = brandsInParams.split(', ');

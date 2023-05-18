@@ -13,11 +13,10 @@ import { Checkbox } from '../Checkbox';
 import './Brands.scss';
 
 export const Brands = () => {
+  const dispatch = useAppDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const { isLoading } = useAppSelector((state) => state.products);
-
-  const dispatch = useAppDispatch();
   const brands = useAppSelector(selectBrands);
 
   const handleBrandChange = useCallback((text: string) => {
@@ -27,7 +26,7 @@ export const Brands = () => {
   const { selectedBrands } = useAppSelector((state) => state.filter);
 
   useEffect(() => {
-    const brandsInParams = searchParams.get('brands') || null;
+    const brandsInParams = searchParams.get('brands');
 
     if (brandsInParams) {
       const parsedBrands = brandsInParams.split(', ');

@@ -18,15 +18,15 @@ export const Price = () => {
   const [values, setValues] = useState([0, 0]);
   const [inputValues, setInputValues] = useState([0, 0]);
   const [error, setError] = useState('');
+  const dispatch = useAppDispatch();
 
   const [searchParams, setSearchParams] = useSearchParams();
-  const dispatch = useAppDispatch();
 
   const fixedMin = Math.floor(minPrice);
   const fixedMax = Math.ceil(maxPrice);
 
   useEffect(() => {
-    const priceInParams = searchParams.get('price') || null;
+    const priceInParams = searchParams.get('price');
 
     if (priceInParams) {
       const parsedPrice = priceInParams.split(', ').map(Number);

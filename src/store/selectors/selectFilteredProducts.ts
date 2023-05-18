@@ -25,32 +25,23 @@ export const selectFilteredProducts = createSelector(
       .filter((product) => {
         const fixedPrice = +calculatePrice(product.price, product.discount);
 
-        if (
-          selectedCategory !== 'all products'
-          && product.category !== selectedCategory
-        ) {
-          return false;
-        }
+        const isCategoryMatch
+          = selectedCategory === 'all products'
+          || product.category === selectedCategory;
 
-        if (selectedBrands.length && !selectedBrands.includes(product.brand)) {
-          return false;
-        }
+        const isBrandMatch
+          = selectedBrands.length === 0
+          || selectedBrands.includes(product.brand);
 
-        if (
-          selectedRating.length
-          && !selectedRating.includes(product.rating.toString())
-        ) {
-          return false;
-        }
+        const isRatingMatch
+          = selectedRating.length === 0
+          || selectedRating.includes(product.rating.toString());
 
-        if (
-          selectedPrice[0] !== 0
-          && (fixedPrice < selectedPrice[0] || fixedPrice > selectedPrice[1])
-        ) {
-          return false;
-        }
+        const isPriceMatch
+          = selectedPrice[0] === 0
+          || (fixedPrice >= selectedPrice[0] && fixedPrice <= selectedPrice[1]);
 
-        return true;
+        return isCategoryMatch && isBrandMatch && isRatingMatch && isPriceMatch;
       })
       .filter((product) => {
         if (
@@ -63,7 +54,8 @@ export const selectFilteredProducts = createSelector(
         }
 
         return true;
-      }).sort((a, b) => {
+      })
+      .sort((a, b) => {
         const fixedPriceA = +calculatePrice(a.price, a.discount);
         const fixedPriceB = +calculatePrice(b.price, b.discount);
 

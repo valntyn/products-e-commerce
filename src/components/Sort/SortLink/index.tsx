@@ -13,16 +13,15 @@ import { SortFilter } from '@utils/sort';
 import './SortLink.scss';
 
 type PropTypes = {
-  sort: string;
+  sort: SortFilter;
   title: string;
 };
 
 export const SortLink: React.FC<PropTypes> = ({ title, sort }) => {
+  const dispatch = useAppDispatch();
   const [searchParams] = useSearchParams();
   const isCurrentSort = searchParams.get('sort') === sort;
   const isReversed = searchParams.get('order') === 'desc';
-
-  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (isReversed) {
@@ -31,13 +30,6 @@ export const SortLink: React.FC<PropTypes> = ({ title, sort }) => {
   }, [dispatch, isReversed]);
 
   const getSearchWithSort = (sortBy: SortFilter) => {
-    if (sortBy === SortFilter.Reset) {
-      return getSearchWith(searchParams, {
-        sort: null,
-        order: null,
-      });
-    }
-
     if (!isCurrentSort) {
       return getSearchWith(searchParams, {
         sort: sortBy,
@@ -49,7 +41,10 @@ export const SortLink: React.FC<PropTypes> = ({ title, sort }) => {
       return getSearchWith(searchParams, { order: 'desc' });
     }
 
-    return undefined;
+    return getSearchWith(searchParams, {
+      sort: null,
+      order: null,
+    });
   };
 
   const handleClick = (sortType: SortFilter) => () => {
