@@ -8,6 +8,7 @@ import { capitalize } from '@helpers/capitalize';
 import { useAppDispatch } from '@hooks/useAppDispatch';
 import { useAppSelector } from '@hooks/useAppSelector';
 import { setIsReversed, setSortFilter } from '@store/reducers/filterSlice';
+import { Params } from '@utils/params';
 import { SortFilter } from '@utils/sort';
 
 import { SortLink } from './SortLink';
@@ -40,8 +41,8 @@ export const Sort = () => {
   }, []);
 
   useEffect(() => {
-    const sortInParams = searchParams.get('sort');
-    const orderInParams = searchParams.get('order');
+    const sortInParams = searchParams.get(Params.Sort);
+    const orderInParams = searchParams.get(Params.Order);
 
     if (sortInParams) {
       dispatch(setSortFilter(sortInParams as SortFilter));

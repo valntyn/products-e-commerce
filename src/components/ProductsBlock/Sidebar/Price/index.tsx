@@ -11,6 +11,7 @@ import { useAppDispatch } from '@hooks/useAppDispatch';
 import { useAppSelector } from '@hooks/useAppSelector';
 import { setPriceRange } from '@store/reducers/filterSlice';
 import { selectPriceRange } from '@store/selectors/selectPrices';
+import { Params } from '@utils/params';
 
 export const Price = () => {
   const { isLoading } = useAppSelector((state) => state.products);
@@ -26,7 +27,7 @@ export const Price = () => {
   const fixedMax = Math.ceil(maxPrice);
 
   useEffect(() => {
-    const priceInParams = searchParams.get('price');
+    const priceInParams = searchParams.get(Params.Sort);
 
     if (priceInParams) {
       const parsedPrice = priceInParams.split(', ').map(Number);

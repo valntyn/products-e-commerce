@@ -11,6 +11,7 @@ import {
   setBrand,
   setCategory,
 } from '@store/reducers/filterSlice';
+import { Params } from '@utils/params';
 
 import { Dropdown } from '../Dropdown';
 
@@ -31,7 +32,7 @@ export const NavItem: React.FC<PropTypes> = ({ text, items, sort }) => {
     setIsHovered(!isHovered);
   }, [isHovered]);
 
-  const category = searchParams.get('category') || '';
+  const category = searchParams.get(Params.Category) || '';
 
   useEffect(() => {
     if (category) {

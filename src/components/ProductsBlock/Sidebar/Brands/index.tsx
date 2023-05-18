@@ -7,6 +7,7 @@ import { useAppDispatch } from '@hooks/useAppDispatch';
 import { useAppSelector } from '@hooks/useAppSelector';
 import { setBrand, setSelectedBrands } from '@store/reducers/filterSlice';
 import { selectBrands } from '@store/selectors/selectBrands';
+import { Params } from '@utils/params';
 
 import { Checkbox } from '../Checkbox';
 
@@ -26,7 +27,7 @@ export const Brands = () => {
   const { selectedBrands } = useAppSelector((state) => state.filter);
 
   useEffect(() => {
-    const brandsInParams = searchParams.get('brands');
+    const brandsInParams = searchParams.get(Params.Brand);
 
     if (brandsInParams) {
       const parsedBrands = brandsInParams.split(', ');

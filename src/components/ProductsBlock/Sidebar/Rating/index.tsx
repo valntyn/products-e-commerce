@@ -11,6 +11,7 @@ import { getSearchWith } from '@helpers/searchHelpers';
 import { useAppDispatch } from '@hooks/useAppDispatch';
 import { useAppSelector } from '@hooks/useAppSelector';
 import { setRating, setSelectedRating } from '@store/reducers/filterSlice';
+import { Params } from '@utils/params';
 
 import { Checkbox } from '../Checkbox';
 
@@ -33,7 +34,7 @@ export const Rating = () => {
   );
 
   useEffect(() => {
-    const brandsInParams = searchParams.get('rating');
+    const brandsInParams = searchParams.get(Params.Rating);
 
     if (brandsInParams) {
       const parsedRating = brandsInParams.split(', ');

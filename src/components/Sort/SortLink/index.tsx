@@ -8,6 +8,7 @@ import { capitalize } from '@helpers/capitalize';
 import { getSearchWith } from '@helpers/searchHelpers';
 import { useAppDispatch } from '@hooks/useAppDispatch';
 import { setIsReversed, setSortFilter } from '@store/reducers/filterSlice';
+import { Params } from '@utils/params';
 import { SortFilter } from '@utils/sort';
 
 import './SortLink.scss';
@@ -20,8 +21,8 @@ type PropTypes = {
 export const SortLink: React.FC<PropTypes> = ({ title, sort }) => {
   const dispatch = useAppDispatch();
   const [searchParams] = useSearchParams();
-  const isCurrentSort = searchParams.get('sort') === sort;
-  const isReversed = searchParams.get('order') === 'desc';
+  const isCurrentSort = searchParams.get(Params.Sort) === sort;
+  const isReversed = searchParams.get(Params.Order) === 'desc';
 
   useEffect(() => {
     if (isReversed) {
