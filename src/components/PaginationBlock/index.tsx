@@ -12,6 +12,7 @@ import { setVisibleProducts } from '@store/reducers/productsSlice';
 import {
   selectFilteredProducts,
 } from '@store/selectors/selectFilteredProducts';
+import { Params } from '@utils/params';
 
 import { Pagination } from './Pagination';
 
@@ -40,8 +41,8 @@ export const PaginationBlock = () => {
   );
 
   useEffect(() => {
-    const pageInParams = searchParams.get('page');
-    const itemsInParams = searchParams.get('perPage');
+    const pageInParams = searchParams.get(Params.Page);
+    const itemsInParams = searchParams.get(Params.itemsPerPage);
 
     if (pageInParams) {
       dispatch(setPage(+pageInParams));
