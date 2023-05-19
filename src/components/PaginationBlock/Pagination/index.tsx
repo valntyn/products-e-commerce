@@ -36,7 +36,6 @@ export const Pagination: React.FC<PropTypes> = ({ total, currentPage }) => {
       <ReactPaginate
         containerClassName="pagination pagination__position"
         previousLinkClassName="pagination__item"
-        nextLinkClassName="pagination__item"
         pageLinkClassName="pagination__item"
         breakLinkClassName="pagination__item"
         activeLinkClassName="pagination__item--active"

@@ -15,7 +15,7 @@
   }
 
   &__button {
-    @include frequently-button;
+    @include frequent-button;
     background-color: $color-main-green;
     padding: 6px 10px;
     border: 2px solid $color-secondary-green;

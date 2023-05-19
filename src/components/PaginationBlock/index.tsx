@@ -62,7 +62,7 @@ export const PaginationBlock = () => {
 
     let targetPage;
 
-    if (currentPage % 2 === 0) {
+    if (!(currentPage % 2)) {
       targetPage = Math.floor(displayedProductsCount / newItemsPerPage) + 1;
     } else {
       targetPage = Math.ceil(displayedProductsCount / newItemsPerPage);
