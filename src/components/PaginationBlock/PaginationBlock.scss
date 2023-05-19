@@ -9,9 +9,9 @@
   gap: 12px;
 
   @include onDesktop {
-    @include flex-settings;
-    justify-content: space-between;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: auto 1fr auto; 
+    place-items: center;
   }
 
   &__button {
@@ -32,6 +32,12 @@
     &:hover {
       border: 2px solid $color-main-green;
       background-color: $color-secondary-green;
+    }
+
+    &:disabled {
+      visibility: none;
+      opacity: 0;
+      cursor: initial
     }
   }
 
@@ -57,5 +63,12 @@
     background-color: $color-pale-green;
     border-radius: 12px;
     text-align: center;
+  }
+
+  &__items {
+    color: $color-text-gray;
+    font-family: $font-sans;
+    font-size: 12px;
+    line-height: 16px;
   }
 }

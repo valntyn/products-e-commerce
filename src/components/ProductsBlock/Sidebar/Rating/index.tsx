@@ -7,6 +7,7 @@ import {
 import { ReactComponent as StarEmpty } from '@assets/svg/star-sidebar.svg';
 import { Spinner } from '@components/UI/Spinner';
 import { Stars } from '@components/UI/Stars';
+import { DEFAULT_ITEMS_PER_PAGE, DEFAULT_PAGE } from '@constants/default';
 import { getSearchWith } from '@helpers/searchHelpers';
 import { useAppDispatch } from '@hooks/useAppDispatch';
 import { useAppSelector } from '@hooks/useAppSelector';
@@ -29,6 +30,13 @@ export const Rating = () => {
   const handleRatingChange = useCallback(
     (rating: string) => {
       dispatch(setRating(`${rating}`));
+
+      setSearchParams(
+        getSearchWith(searchParams, {
+          page: `${DEFAULT_PAGE}`,
+          perPage: `${DEFAULT_ITEMS_PER_PAGE}`,
+        }),
+      );
     },
     [dispatch],
   );

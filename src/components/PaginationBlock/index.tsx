@@ -2,7 +2,7 @@ import { useEffect, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 import {
-  ADD_ITEMS_PER_PAGE, DEFAULT_ITEMS_PER_PAGE, DEFAULT_PAGE,
+  ADD_ITEMS_PER_PAGE,
 } from '@constants/default';
 import { getSearchWith } from '@helpers/searchHelpers';
 import { useAppDispatch } from '@hooks/useAppDispatch';
@@ -20,10 +20,9 @@ import './PaginationBlock.scss';
 
 export const PaginationBlock = () => {
   const filteredProducts = useAppSelector(selectFilteredProducts);
-  const {
-    products,
-    visibleProducts,
-  } = useAppSelector((state) => state.products);
+  const { products } = useAppSelector(
+    (state) => state.products,
+  );
   const dispatch = useAppDispatch();
   const { pagination } = useAppSelector((state) => state.filter);
   const { itemsPerPage, currentPage } = pagination;
@@ -51,16 +50,7 @@ export const PaginationBlock = () => {
     if (itemsInParams) {
       dispatch(setItemsPerPage(+itemsInParams));
     }
-
-    if (!visibleProducts.length) {
-      setSearchParams(
-        getSearchWith(searchParams, {
-          page: `${DEFAULT_PAGE}`,
-          perPage: `${DEFAULT_ITEMS_PER_PAGE}`,
-        }),
-      );
-    }
-  }, [searchParams, dispatch, visibleProducts]);
+  }, [dispatch, searchParams]);
 
   useEffect(() => {
     dispatch(setVisibleProducts(currentItem));
@@ -93,15 +83,14 @@ export const PaginationBlock = () => {
   return (
     <div className="pagination-block">
       <Pagination total={totalPages} currentPage={currentPage} />
-      {currentPage < totalPages && (
-        <button
-          className="pagination-block__button"
-          type="button"
-          onClick={handleAddVisibleProducts}
-        >
-          Show more products
-        </button>
-      )}
+      <button
+        className="pagination-block__button"
+        type="button"
+        onClick={handleAddVisibleProducts}
+        disabled={currentPage >= totalPages}
+      >
+        Show more products
+      </button>
       <div className="pagination-block__quantity-box">
         <p className="pagination-block__quantity">{products.length}</p>
         <p className="pagination-block__items">Products</p>

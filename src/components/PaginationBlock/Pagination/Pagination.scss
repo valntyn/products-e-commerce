@@ -3,6 +3,7 @@
 
 .pagination {
   @include flex-settings;
+  gap: 8px;
 
   &__title {
     font-size: 14px;

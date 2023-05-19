@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 
 import { ReactComponent as Arrow } from '@assets/svg/arrow-down.svg';
+import { DEFAULT_ITEMS_PER_PAGE, DEFAULT_PAGE } from '@constants/default';
 import { paths } from '@constants/paths';
 import { getSearchWith } from '@helpers/searchHelpers';
 import { useAppDispatch } from '@hooks/useAppDispatch';
@@ -49,6 +50,8 @@ export const NavItem: React.FC<PropTypes> = ({ text, items, sort }) => {
   const getSearch = (title: string) => {
     return getSearchWith(searchParams, {
       category: title.toLowerCase() || null,
+      page: `${DEFAULT_PAGE}`,
+      perPage: `${DEFAULT_ITEMS_PER_PAGE}`,
     });
   };
 

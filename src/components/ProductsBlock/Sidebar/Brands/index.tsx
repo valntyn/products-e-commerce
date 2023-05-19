@@ -2,6 +2,7 @@ import { useCallback, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 import { Spinner } from '@components/UI/Spinner';
+import { DEFAULT_ITEMS_PER_PAGE, DEFAULT_PAGE } from '@constants/default';
 import { getSearchWith } from '@helpers/searchHelpers';
 import { useAppDispatch } from '@hooks/useAppDispatch';
 import { useAppSelector } from '@hooks/useAppSelector';
@@ -22,6 +23,13 @@ export const Brands = () => {
 
   const handleBrandChange = useCallback((text: string) => {
     dispatch(setBrand(text));
+
+    setSearchParams(
+      getSearchWith(searchParams, {
+        page: `${DEFAULT_PAGE}`,
+        perPage: `${DEFAULT_ITEMS_PER_PAGE}`,
+      }),
+    );
   }, [dispatch]);
 
   const { selectedBrands } = useAppSelector((state) => state.filter);

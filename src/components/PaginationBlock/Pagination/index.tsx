@@ -1,6 +1,8 @@
+/* eslint-disable react/jsx-no-duplicate-props */
 import ReactPaginate from 'react-paginate';
 import { useSearchParams } from 'react-router-dom';
 
+import { LabelLink } from '@components/LabelLink';
 import { getSearchWith } from '@helpers/searchHelpers';
 import './Pagination.scss';
 
@@ -19,8 +21,14 @@ export const Pagination: React.FC<PropTypes> = ({ total, currentPage }) => {
       }),
     );
 
-    window.scrollTo(0, 0);
+    const element = document.documentElement || document.body;
+
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   };
+
+  const normalizedCurrentPage = Math.min(Math.max(1, currentPage), total);
 
   return (
     <div className="pagination">
@@ -34,10 +42,14 @@ export const Pagination: React.FC<PropTypes> = ({ total, currentPage }) => {
         activeLinkClassName="pagination__item--active"
         disabledClassName="pagination__item--disabled"
         marginPagesDisplayed={1}
-        forcePage={+currentPage - 1}
+        forcePage={normalizedCurrentPage - 1}
         pageRangeDisplayed={4}
-        previousLabel={null}
-        nextLabel={null}
+        previousLabel={
+          <LabelLink currentPage={currentPage} value="<" />
+        }
+        nextLabel={
+          <LabelLink currentPage={currentPage} value=">" />
+        }
         onPageChange={(data) => handleClick(data.selected + 1)}
         breakLabel="..."
         pageCount={total}
