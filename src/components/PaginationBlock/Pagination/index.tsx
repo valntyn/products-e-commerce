@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-no-duplicate-props */
 import ReactPaginate from 'react-paginate';
 import { useSearchParams } from 'react-router-dom';
 
