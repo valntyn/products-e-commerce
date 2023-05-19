@@ -1,0 +1,61 @@
+@import "../../styles/_mixins";
+@import "../../styles/_variables";
+
+.pagination-block {
+  padding: 16px 0 17px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+
+  @include onDesktop {
+    @include flex-settings;
+    justify-content: space-between;
+    flex-direction: row;
+  }
+
+  &__button {
+    @include frequently-button;
+    background-color: $color-main-green;
+    padding: 6px 10px;
+    border: 2px solid $color-secondary-green;
+    color: $color-bg;
+    width: 214px;
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+
+    @include onDesktop {
+      padding: 12px 16px;
+    }
+
+    &:hover {
+      border: 2px solid $color-main-green;
+      background-color: $color-secondary-green;
+    }
+  }
+
+  &__reset {
+    position: relative;
+    transform: rotate(180deg);
+    width: 16px;
+    height: 16px;
+  }
+
+  &__quantity-box {
+    @include flex-settings;
+    gap: 10px;
+  }
+
+  &__quantity {
+    color: $color-secondary-green;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 18px;
+    width: 32px;
+    height: 18px;
+    background-color: $color-pale-green;
+    border-radius: 12px;
+    text-align: center;
+  }
+}

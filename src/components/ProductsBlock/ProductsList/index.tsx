@@ -1,5 +1,3 @@
-import { useSelector } from 'react-redux';
-
 import { SkeletonLoading } from '@components/UI/SkeletonLoading';
 import { useAppSelector } from '@hooks/useAppSelector';
 import {
@@ -11,11 +9,15 @@ import { ProductCard } from '../ProductCard';
 import './ProductsList.scss';
 
 export const ProductsList = () => {
-  const { isLoading, products } = useAppSelector(state => state.products);
+  const {
+    isLoading,
+    products,
+    visibleProducts,
+  } = useAppSelector(state => state.products);
 
-  const visibleProducts = useSelector(selectFilteredProducts);
+  const filteredProducts = useAppSelector(selectFilteredProducts);
 
-  if (!isLoading && !visibleProducts.length && products.length) {
+  if (!isLoading && !filteredProducts.length && products.length) {
     return (
       <div className="product-list">
         <h2 className="product-list__n-title">

@@ -15,6 +15,28 @@
   border: none;
 }
 
+@mixin frequently-button {
+  width: 100%;
+  border: none;
+  background-color: inherit;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 22px;
+  font-family: $font-poppins;
+  transition: 0.1s linear all;
+
+  @include onDesktop {
+    font-size: 14px;
+  }
+}
+
+
 @mixin onTablet {
   @media (min-width: 768px) {
     @content;
