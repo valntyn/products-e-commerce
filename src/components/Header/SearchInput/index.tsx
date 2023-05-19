@@ -8,8 +8,8 @@ import { getSearchWith } from '@helpers/searchHelpers';
 import { useAppDispatch } from '@hooks/useAppDispatch';
 import { useAppSelector } from '@hooks/useAppSelector';
 import { setQuery } from '@store/reducers/filterSlice';
-
 import './SearchInput.scss';
+import { Params } from '@utils/params';
 
 export const SearchInput = () => {
   const { appliedQuery } = useAppSelector((state) => state.filter);
@@ -17,7 +17,7 @@ export const SearchInput = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const dispatch = useAppDispatch();
-  const query = searchParams.get('query') || '';
+  const query = searchParams.get(Params.Query) || '';
 
   useEffect(() => {
     dispatch(setQuery(query.trim()));

@@ -11,6 +11,7 @@ import { useAppDispatch } from '@hooks/useAppDispatch';
 import { useAppSelector } from '@hooks/useAppSelector';
 import { setPriceRange } from '@store/reducers/filterSlice';
 import { selectPriceRange } from '@store/selectors/selectPrices';
+import { Params } from '@utils/params';
 
 export const Price = () => {
   const { isLoading } = useAppSelector((state) => state.products);
@@ -18,15 +19,15 @@ export const Price = () => {
   const [values, setValues] = useState([0, 0]);
   const [inputValues, setInputValues] = useState([0, 0]);
   const [error, setError] = useState('');
+  const dispatch = useAppDispatch();
 
   const [searchParams, setSearchParams] = useSearchParams();
-  const dispatch = useAppDispatch();
 
   const fixedMin = Math.floor(minPrice);
   const fixedMax = Math.ceil(maxPrice);
 
   useEffect(() => {
-    const priceInParams = searchParams.get('price') || null;
+    const priceInParams = searchParams.get(Params.Price);
 
     if (priceInParams) {
       const parsedPrice = priceInParams.split(', ').map(Number);
@@ -40,13 +41,15 @@ export const Price = () => {
     }
 
     setError('');
-  }, [dispatch, searchParams]);
+  }, [dispatch, fixedMin, fixedMax, searchParams]);
 
   const debouncedOnChange = useDebouncedCallback((newValues) => {
-    dispatch(setPriceRange(newValues));
-    setSearchParams(getSearchWith(searchParams, {
-      price: values.join(', ') || null,
-    }));
+    if (!error) {
+      dispatch(setPriceRange(newValues));
+      setSearchParams(getSearchWith(searchParams, {
+        price: values.join(', ') || null,
+      }));
+    }
   }, 500);
 
   const handleSliderChange = (newValues: number[]) => {

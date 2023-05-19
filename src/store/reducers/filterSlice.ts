@@ -1,12 +1,16 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+import { SortFilter } from '@utils/sort';
+
 export type FilterState = {
   appliedQuery: string;
   selectedCategory: string;
   selectedBrands: string[];
   selectedRating: string[];
   selectedPrice: number[];
+  sort: SortFilter;
+  isReversed: boolean,
 };
 
 const initialState: FilterState = {
@@ -15,6 +19,8 @@ const initialState: FilterState = {
   selectedBrands: [],
   selectedRating: [],
   selectedPrice: [0, 0],
+  sort: SortFilter.Reset,
+  isReversed: false,
 };
 
 export const filterSlice = createSlice({
@@ -61,12 +67,20 @@ export const filterSlice = createSlice({
     setPriceRange: (state, action: PayloadAction<number[]>) => {
       state.selectedPrice = action.payload;
     },
+    setSortFilter: (state, action: PayloadAction<SortFilter>) => {
+      state.sort = action.payload;
+    },
+    setIsReversed: (state, action: PayloadAction<boolean>) => {
+      state.isReversed = action.payload;
+    },
     resetFilter: (state) => {
       state.appliedQuery = '';
       state.selectedCategory = 'all products';
       state.selectedBrands = [];
       state.selectedRating = [];
       state.selectedPrice = [0, 0];
+      state.sort = SortFilter.Reset;
+      state.isReversed = false;
     },
   },
 });
@@ -81,6 +95,8 @@ export const {
   setSelectedRating,
   resetFilter,
   setPriceRange,
+  setSortFilter,
+  setIsReversed,
 } = filterSlice.actions;
 
 export default filterSlice.reducer;

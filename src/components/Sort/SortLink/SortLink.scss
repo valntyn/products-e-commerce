@@ -1,0 +1,17 @@
+.sort-link {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  padding-left: 12px;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px;
+
+  &__svg {
+    transform: rotate(180deg);
+    &--reversed {
+      transform: rotate(0);
+    }
+  }
+}

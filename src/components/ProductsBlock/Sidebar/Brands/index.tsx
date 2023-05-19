@@ -7,17 +7,17 @@ import { useAppDispatch } from '@hooks/useAppDispatch';
 import { useAppSelector } from '@hooks/useAppSelector';
 import { setBrand, setSelectedBrands } from '@store/reducers/filterSlice';
 import { selectBrands } from '@store/selectors/selectBrands';
+import { Params } from '@utils/params';
 
 import { Checkbox } from '../Checkbox';
 
 import './Brands.scss';
 
 export const Brands = () => {
+  const dispatch = useAppDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const { isLoading } = useAppSelector((state) => state.products);
-
-  const dispatch = useAppDispatch();
   const brands = useAppSelector(selectBrands);
 
   const handleBrandChange = useCallback((text: string) => {
@@ -27,7 +27,7 @@ export const Brands = () => {
   const { selectedBrands } = useAppSelector((state) => state.filter);
 
   useEffect(() => {
-    const brandsInParams = searchParams.get('brands') || null;
+    const brandsInParams = searchParams.get(Params.Brand);
 
     if (brandsInParams) {
       const parsedBrands = brandsInParams.split(', ');
