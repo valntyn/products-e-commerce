@@ -1,10 +1,11 @@
 import { useEffect, useRef } from 'react';
-import './Dropdown.scss';
 import { Link, useSearchParams } from 'react-router-dom';
 
 import { paths } from '@constants/paths';
 import { capitalize } from '@helpers/capitalize';
 import { getSearchWith } from '@helpers/searchHelpers';
+
+import './Dropdown.scss';
 
 type PropTypes = {
   items: string[];

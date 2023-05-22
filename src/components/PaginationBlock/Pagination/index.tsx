@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 
 import { LabelLink } from '@components/LabelLink';
 import { getSearchWith } from '@helpers/searchHelpers';
+
 import './Pagination.scss';
 
 type PropTypes = {

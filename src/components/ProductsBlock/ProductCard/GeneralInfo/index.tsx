@@ -4,6 +4,7 @@ import { ReactComponent as FilledStar } from '@assets/svg/star-filled.svg';
 import { ReactComponent as EmptyStar } from '@assets/svg/star.svg';
 import { Stars } from '@components/UI/Stars';
 import { IProduct } from '@utils/product';
+
 import './GeneralInfo.scss';
 
 type PropTypes = {

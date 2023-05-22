@@ -2,8 +2,9 @@ import classNames from 'classnames';
 
 import { ReactComponent as ArrowRight } from '@assets/svg/arrow-right.svg';
 import { ReactComponent as Heart } from '@assets/svg/heart.svg';
-import './Buttons.scss';
 import { IProduct } from '@utils/product';
+
+import './Buttons.scss';
 
 type PropTypes = {
   product: IProduct;
