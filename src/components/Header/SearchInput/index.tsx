@@ -4,7 +4,7 @@ import { useDebouncedCallback } from 'use-debounce';
 
 import { ReactComponent as Cross } from '@assets/svg/cross.svg';
 import { ReactComponent as Search } from '@assets/svg/search.svg';
-import { DEFAULT_DELAY } from '@constants/default';
+import { DEFAULT_DELAY, DEFAULT_PAGE } from '@constants/default';
 import { getSearchWith } from '@helpers/searchHelpers';
 import { useAppDispatch } from '@hooks/useAppDispatch';
 import { useAppSelector } from '@hooks/useAppSelector';
@@ -29,7 +29,7 @@ export const SearchInput = () => {
     setVisualQuery(appliedQuery);
 
     setSearchParams(getSearchWith(searchParams, {
-      page: `${1}`,
+      page: `${DEFAULT_PAGE}`,
     }));
   }, [appliedQuery]);
 
@@ -69,7 +69,7 @@ export const SearchInput = () => {
         type="text"
         value={visualQuery || query}
         onChange={handleQuery}
-        placeholder="Search Products, categories ..."
+        placeholder="Search Products here ..."
         autoComplete="off"
         className="search__input"
       />
