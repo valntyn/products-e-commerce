@@ -3,6 +3,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 
 import { Spinner } from '@components/UI/Spinner';
 import './Categories.scss';
+import { DEFAULT_ITEMS_PER_PAGE, DEFAULT_PAGE } from '@constants/default';
 import { capitalize } from '@helpers/capitalize';
 import { getSearchWith } from '@helpers/searchHelpers';
 import { useAppSelector } from '@hooks/useAppSelector';
@@ -17,6 +18,8 @@ export const Categories = () => {
   const getSearch = (title: string) => {
     return getSearchWith(searchParams, {
       category: title,
+      page: `${DEFAULT_PAGE}`,
+      perPage: `${DEFAULT_ITEMS_PER_PAGE}`,
     });
   };
 

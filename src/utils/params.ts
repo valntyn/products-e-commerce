@@ -8,4 +8,6 @@ export enum Params {
   Order = 'order',
   Category = 'category',
   Query = 'query',
+  Page = 'page',
+  itemsPerPage = 'perPage',
 }

@@ -6,6 +6,7 @@ import { useDebouncedCallback } from 'use-debounce';
 
 import './Price.scss';
 import { Spinner } from '@components/UI/Spinner';
+import { DEFAULT_ITEMS_PER_PAGE, DEFAULT_PAGE } from '@constants/default';
 import { getSearchWith } from '@helpers/searchHelpers';
 import { useAppDispatch } from '@hooks/useAppDispatch';
 import { useAppSelector } from '@hooks/useAppSelector';
@@ -48,6 +49,8 @@ export const Price = () => {
       dispatch(setPriceRange(newValues));
       setSearchParams(getSearchWith(searchParams, {
         price: values.join(', ') || null,
+        page: `${DEFAULT_PAGE}`,
+        perPage: `${DEFAULT_ITEMS_PER_PAGE}`,
       }));
     }
   }, 500);
@@ -91,7 +94,7 @@ export const Price = () => {
         if (inputValue > fixedMax) {
           setError(`MAX price is $${fixedMax}`);
         } else if (inputValue < values[0]) {
-          setError(`MIN can't be more than MAX price`);
+          setError('MIN can\'t be more than MAX price');
         } else {
           handleSliderChange([values[0], inputValue]);
         }

@@ -23,18 +23,24 @@ type ProductsType = {
   products: IProduct[] | [];
   isError: boolean;
   isLoading: boolean;
+  visibleProducts: IProduct[] | [];
 };
 
 const initialState: ProductsType = {
   products: [],
   isError: false,
   isLoading: false,
+  visibleProducts: [],
 };
 
 export const productsSlice = createSlice({
   name: 'products',
   initialState,
-  reducers: {},
+  reducers: {
+    setVisibleProducts: (state, action) => {
+      state.visibleProducts = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getProducts.pending, (state) => {
@@ -51,5 +57,9 @@ export const productsSlice = createSlice({
       });
   },
 });
+
+export const {
+  setVisibleProducts,
+} = productsSlice.actions;
 
 export default productsSlice.reducer;

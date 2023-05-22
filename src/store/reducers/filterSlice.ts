@@ -1,6 +1,7 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+import { DEFAULT_ITEMS_PER_PAGE, DEFAULT_PAGE } from '@constants/default';
 import { SortFilter } from '@utils/sort';
 
 export type FilterState = {
@@ -11,6 +12,15 @@ export type FilterState = {
   selectedPrice: number[];
   sort: SortFilter;
   isReversed: boolean,
+  pagination: {
+    currentPage: number;
+    itemsPerPage: number;
+  };
+};
+
+const initialPagination = {
+  currentPage: DEFAULT_PAGE,
+  itemsPerPage: DEFAULT_ITEMS_PER_PAGE,
 };
 
 const initialState: FilterState = {
@@ -21,6 +31,7 @@ const initialState: FilterState = {
   selectedPrice: [0, 0],
   sort: SortFilter.Reset,
   isReversed: false,
+  pagination: initialPagination,
 };
 
 export const filterSlice = createSlice({
@@ -73,6 +84,12 @@ export const filterSlice = createSlice({
     setIsReversed: (state, action: PayloadAction<boolean>) => {
       state.isReversed = action.payload;
     },
+    setPage: (state, action: PayloadAction<number>) => {
+      state.pagination.currentPage = action.payload;
+    },
+    setItemsPerPage: (state, action: PayloadAction<number>) => {
+      state.pagination.itemsPerPage = action.payload;
+    },
     resetFilter: (state) => {
       state.appliedQuery = '';
       state.selectedCategory = 'all products';
@@ -81,6 +98,7 @@ export const filterSlice = createSlice({
       state.selectedPrice = [0, 0];
       state.sort = SortFilter.Reset;
       state.isReversed = false;
+      state.pagination = initialPagination;
     },
   },
 });
@@ -97,6 +115,8 @@ export const {
   setPriceRange,
   setSortFilter,
   setIsReversed,
+  setPage,
+  setItemsPerPage,
 } = filterSlice.actions;
 
 export default filterSlice.reducer;

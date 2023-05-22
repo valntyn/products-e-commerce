@@ -1,0 +1,45 @@
+@import "../../../styles/_mixins";
+@import "../../../styles/_variables";
+
+.pagination {
+  @include flex-settings;
+  gap: 8px;
+
+  &__title {
+    font-size: 14px;
+    line-height: 16px;
+    font-family: $font-sans;
+  }
+
+  &__position {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    @include flex-settings;
+  }
+
+  &__item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.1s linear;
+    cursor: pointer;
+    user-select: none;
+    color: $color-main-text;
+
+    &:hover {
+      background-color: $color-pale-green;
+    }
+
+    &--active {
+      color: $color-main-green;
+      font-weight: 600;
+    }
+
+    &--disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+  }
+}
