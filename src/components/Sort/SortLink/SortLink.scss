@@ -1,7 +1,9 @@
+@import "../../../styles/_variables";
+@import "../../../styles/_mixins";
+
 .sort-link {
   display: flex;
-  height: 100%;
-  width: 100%;
+  @include square-var(100%);
   align-items: center;
   padding-left: 12px;
   justify-content: space-between;

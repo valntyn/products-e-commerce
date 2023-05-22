@@ -25,6 +25,10 @@ export const SearchInput = () => {
 
   useEffect(() => {
     setVisualQuery(appliedQuery);
+
+    setSearchParams(getSearchWith(searchParams, {
+      page: `${1}`,
+    }));
   }, [appliedQuery]);
 
   const debouncedOnChange = useDebouncedCallback((e) => {

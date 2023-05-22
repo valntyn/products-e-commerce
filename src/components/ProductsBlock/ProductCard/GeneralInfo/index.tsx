@@ -4,7 +4,6 @@ import { ReactComponent as FilledStar } from '@assets/svg/star-filled.svg';
 import { ReactComponent as EmptyStar } from '@assets/svg/star.svg';
 import { Stars } from '@components/UI/Stars';
 import { IProduct } from '@utils/product';
-
 import './GeneralInfo.scss';
 
 type PropTypes = {
@@ -13,9 +12,26 @@ type PropTypes = {
 
 export const GeneralInfo: React.FC<PropTypes> = ({ product }) => {
   const {
-    title, description, delivery, brand, stock, fresheness, rating,
-  }
-    = product;
+    title,
+    description,
+    delivery,
+    brand,
+    stock,
+    fresheness,
+    rating,
+  } = product;
+
+  const descriptionCard = {
+    Freshness: (
+      <>
+        <span className="general__value--green">New</span>
+        {` ${fresheness}`}
+      </>
+    ),
+    Farm: brand,
+    Delivery: delivery,
+    Stock: `${stock} kgs`,
+  };
 
   return (
     <div className="general">
@@ -32,27 +48,12 @@ export const GeneralInfo: React.FC<PropTypes> = ({ product }) => {
       </div>
       <div className="general__box">
         <ul className="general__list-info">
-          <li className="general__item">
-            <p className="general__key">Freshness</p>
-            <p className="general__value">
-              <span className="general__new">New</span>
-              {` ${fresheness}`}
-            </p>
-          </li>
-          <li className="general__item">
-            <p className="general__key">Farm</p>
-            <p className="general__value">{brand}</p>
-          </li>
-          <li className="general__item">
-            <p className="general__key">Delivery</p>
-            <p className="general__value">{delivery}</p>
-          </li>
-          <li className="general__item">
-            <p className="general__key">Stock</p>
-            <p className="general__value general__value--green">
-              {`${stock} kgs`}
-            </p>
-          </li>
+          {Object.entries(descriptionCard).map(([key, value]) => (
+            <li className="general__item" key={key}>
+              <p className="general__key">{key}</p>
+              <p className="general__value">{value}</p>
+            </li>
+          ))}
         </ul>
       </div>
     </div>

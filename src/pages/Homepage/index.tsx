@@ -1,8 +1,9 @@
 import { useLocation } from 'react-router';
-import './Homepage.scss';
 import { Link } from 'react-router-dom';
 
 import { paths } from '@constants/paths';
+
+import './Homepage.scss';
 
 export const Homepage = () => {
   const location = useLocation();

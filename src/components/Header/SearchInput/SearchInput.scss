@@ -33,7 +33,7 @@
 
     &::placeholder {
       font-size: 10px;
-      color: $color-placeholder;
+      color: $color-gray-secondary;
 
       @include onTablet {
         font-size: 12px;

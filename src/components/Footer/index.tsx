@@ -1,8 +1,11 @@
-import './Footer.scss';
+import { memo } from 'react';
+
 import { LinksBlock } from './LinksBlock';
 import { Tags } from './Tags';
 
-export const Footer = () => {
+import './Footer.scss';
+
+export const Footer = memo(() => {
   return (
     <footer className="footer">
       <div className="footer__block">
@@ -12,4 +15,4 @@ export const Footer = () => {
       <p className="footer__copyright">Copyright © 2020 petrbilek.com</p>
     </footer>
   );
-};
+});

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo, useMemo } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 
 import { getSearchWith } from '@helpers/searchHelpers';
@@ -8,27 +8,28 @@ type PropTypes = {
   value: string;
 };
 
-export const LabelLink: React.FC<PropTypes> = ({ currentPage, value }) => {
+export const LabelLink: React.FC<PropTypes> = memo(({ currentPage, value }) => {
   const [searchParams] = useSearchParams();
+  const memoizedSearchParams = useMemo(() => searchParams, [searchParams]);
 
-  const getSearch = ((title: string) => {
+  const getSearch = (title: string) => {
     switch (title) {
       case '>':
-        return getSearchWith(searchParams, {
+        return getSearchWith(memoizedSearchParams, {
           page: `${currentPage + 1}`,
         });
 
       case '<':
-        return getSearchWith(searchParams, {
+        return getSearchWith(memoizedSearchParams, {
           page: `${currentPage - 1}`,
         });
 
       default:
-        return getSearchWith(searchParams, {
+        return getSearchWith(memoizedSearchParams, {
           page: `${currentPage}`,
         });
     }
-  });
+  };
 
   return (
     <Link
@@ -39,4 +40,4 @@ export const LabelLink: React.FC<PropTypes> = ({ currentPage, value }) => {
       {value}
     </Link>
   );
-};
+});

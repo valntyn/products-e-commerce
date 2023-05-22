@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 import { IProduct } from '@utils/product';
 
 import { Buttons } from './Buttons';
@@ -11,17 +13,19 @@ type PropTypes = {
   product: IProduct;
 };
 
-export const ProductCard: React.FC<PropTypes> = ({ product }) => {
-  return (
-    <li className="product">
-      <CardImage img={product.img} />
-      <div className="product__info">
-        <GeneralInfo product={product} />
-        <div className="product__right-box">
-          <PriceShipping product={product} />
-          <Buttons product={product} />
+export const ProductCard: React.FC<PropTypes> = memo(
+  ({ product }) => {
+    return (
+      <li className="product">
+        <CardImage img={product.img} />
+        <div className="product__info">
+          <GeneralInfo product={product} />
+          <div className="product__right-box">
+            <PriceShipping product={product} />
+            <Buttons product={product} />
+          </div>
         </div>
-      </div>
-    </li>
-  );
-};
+      </li>
+    );
+  },
+);

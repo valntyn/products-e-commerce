@@ -2,8 +2,9 @@ import {
   Dispatch, SetStateAction, useEffect, useRef,
 } from 'react';
 
-import './Menu.scss';
 import { Sidebar } from '@components/ProductsBlock/Sidebar';
+
+import './Menu.scss';
 
 type PropTypes = {
   menuActive: boolean;

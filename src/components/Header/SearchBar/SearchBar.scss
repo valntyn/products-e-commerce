@@ -3,8 +3,8 @@
 
 .search-bar {
   height: 42px;
-  background-color: $color-bg-placeholer;
-  border: 1px solid $color-border-searchbar;
+  background-color: $color-gray-main;
+  border: 1px solid $color-border-default;
   border-radius: 12px;
   padding: 10px 5px 10px 8px;
   font-family: inherit;
@@ -75,7 +75,7 @@
   }
 
   &__line {
-    border: 1px solid $color-border-searchbar;
+    border: 1px solid $color-border-default;
     height: 22px;
   }
 }
