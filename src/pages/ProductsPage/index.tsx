@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
 import { ReactComponent as Filter } from '@assets/svg/filter.svg';
-import { Breadcrumbs } from '@components/Breadcrumbs';
 import { Menu } from '@components/Menu';
 import { PaginationBlock } from '@components/PaginationBlock';
 import { ProductsBlock } from '@components/ProductsBlock';
@@ -25,7 +24,6 @@ export const ProductsPage = () => {
 
   return (
     <div className="products-page">
-      <Breadcrumbs />
       <div className="products-page__title-box">
         <h1>All Products</h1>
         <div className="products-page__box-qty">

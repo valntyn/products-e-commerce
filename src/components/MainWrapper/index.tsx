@@ -1,3 +1,4 @@
+import { Breadcrumbs } from '@components/Breadcrumbs';
 import './MainWrapper.scss';
 
 type PropTypes = {
@@ -7,6 +8,7 @@ type PropTypes = {
 export const MainWrapper: React.FC<PropTypes> = ({ children }) => {
   return (
     <main className="main-wrapper">
+      <Breadcrumbs />
       {children}
     </main>
   );
