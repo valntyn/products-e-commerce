@@ -4,12 +4,14 @@ import { useDebouncedCallback } from 'use-debounce';
 
 import { ReactComponent as Cross } from '@assets/svg/cross.svg';
 import { ReactComponent as Search } from '@assets/svg/search.svg';
+import { DEFAULT_DELAY } from '@constants/default';
 import { getSearchWith } from '@helpers/searchHelpers';
 import { useAppDispatch } from '@hooks/useAppDispatch';
 import { useAppSelector } from '@hooks/useAppSelector';
 import { setQuery } from '@store/reducers/filterSlice';
-import './SearchInput.scss';
 import { Params } from '@utils/params';
+
+import './SearchInput.scss';
 
 export const SearchInput = () => {
   const { appliedQuery } = useAppSelector((state) => state.filter);
@@ -33,7 +35,7 @@ export const SearchInput = () => {
 
   const debouncedOnChange = useDebouncedCallback((e) => {
     dispatch(setQuery(e.target.value.trim()));
-  }, 500);
+  }, DEFAULT_DELAY);
 
   const handleQuery = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;

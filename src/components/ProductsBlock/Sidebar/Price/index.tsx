@@ -8,7 +8,9 @@ import { useDebouncedCallback } from 'use-debounce';
 
 import './Price.scss';
 import { Spinner } from '@components/UI/Spinner';
-import { DEFAULT_ITEMS_PER_PAGE, DEFAULT_PAGE } from '@constants/default';
+import {
+  DEFAULT_DELAY, DEFAULT_ITEMS_PER_PAGE, DEFAULT_PAGE,
+} from '@constants/default';
 import { getSearchWith } from '@helpers/searchHelpers';
 import { useAppDispatch } from '@hooks/useAppDispatch';
 import { useAppSelector } from '@hooks/useAppSelector';
@@ -57,7 +59,7 @@ export const Price = () => {
         perPage: `${DEFAULT_ITEMS_PER_PAGE}`,
       }));
     }
-  }, 500);
+  }, DEFAULT_DELAY);
 
   const handleSliderChange = (newValues: number[]) => {
     setValues([newValues[0], newValues[1]]);
