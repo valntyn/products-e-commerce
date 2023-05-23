@@ -1,6 +1,7 @@
 import { useLocation } from 'react-router-dom';
 
 import { Breadcrumbs } from '@components/Breadcrumbs';
+import { paths } from '@constants/paths';
 
 import './MainWrapper.scss';
 
@@ -10,7 +11,7 @@ type PropTypes = {
 
 export const MainWrapper: React.FC<PropTypes> = ({ children }) => {
   const location = useLocation();
-  const isHomePage = location.pathname === '/';
+  const isHomePage = location.pathname === paths.main;
 
   return (
     <main className="main-wrapper">
