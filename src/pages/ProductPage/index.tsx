@@ -17,9 +17,9 @@ export const ProductPage = () => {
     dispatch(getSingleProduct(productId));
   }, [dispatch, productId]);
 
-  const { isSelectedProductLoaded } = useAppSelector(state => state.products);
+  const { isSelectedProductLoading } = useAppSelector(state => state.products);
 
-  if (isSelectedProductLoaded) {
+  if (isSelectedProductLoading) {
     return <Spinner />;
   }
 

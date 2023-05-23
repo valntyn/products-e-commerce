@@ -14,7 +14,7 @@ export const Breadcrumbs = () => {
     .split('/')
     .filter((pathname) => pathname !== '');
 
-  const { selectedProduct, isSelectedProductLoaded } = useAppSelector(
+  const { selectedProduct, isSelectedProductLoading } = useAppSelector(
     (state) => state.products,
   );
 
@@ -26,7 +26,7 @@ export const Breadcrumbs = () => {
 
     let displayName = BreadcrumbsNames[pathname] || pathname;
 
-    if (isLast && selectedProduct && isProduct && !isSelectedProductLoaded) {
+    if (isLast && selectedProduct && isProduct && !isSelectedProductLoading) {
       const fixedTitle = selectedProduct.title
         .split(' ')
         .map((el) => capitalize(el))
@@ -44,7 +44,7 @@ export const Breadcrumbs = () => {
 
   return (
     <nav className="breadcrumbs">
-      {!isSelectedProductLoaded && (
+      {!isSelectedProductLoading && (
         <ul className="breadcrumbs__list">
           <li className="breadcrumbs__item breadcrumbs__item--first">
             <Link

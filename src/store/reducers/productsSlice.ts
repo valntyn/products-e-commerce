@@ -41,7 +41,7 @@ type ProductsType = {
   isLoading: boolean;
   visibleProducts: IProduct[] | [];
   selectedProduct: IProduct | null;
-  isSelectedProductLoaded: boolean;
+  isSelectedProductLoading: boolean;
 };
 
 const initialState: ProductsType = {
@@ -50,7 +50,7 @@ const initialState: ProductsType = {
   isLoading: false,
   visibleProducts: [],
   selectedProduct: null,
-  isSelectedProductLoaded: false,
+  isSelectedProductLoading: false,
 };
 
 export const productsSlice = createSlice({
@@ -76,15 +76,15 @@ export const productsSlice = createSlice({
         state.isError = true;
       })
       .addCase(getSingleProduct.pending, (state) => {
-        state.isSelectedProductLoaded = true;
+        state.isSelectedProductLoading = true;
         state.isError = false;
       })
       .addCase(getSingleProduct.fulfilled, (state, action) => {
         state.selectedProduct = action.payload;
-        state.isSelectedProductLoaded = false;
+        state.isSelectedProductLoading = false;
       })
       .addCase(getSingleProduct.rejected, (state) => {
-        state.isSelectedProductLoaded = false;
+        state.isSelectedProductLoading = false;
         state.isError = true;
       });
   },
