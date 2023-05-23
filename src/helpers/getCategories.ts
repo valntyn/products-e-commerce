@@ -1,4 +1,4 @@
-import { IProduct } from '@utils/product';
+import { IProduct } from '@utils/product/product';
 
 export function getCategories(data: IProduct[]) {
   const categories = [

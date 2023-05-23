@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router';
 import { ReactComponent as ArrowRight } from '@assets/svg/arrow-right.svg';
 import { ReactComponent as Heart } from '@assets/svg/heart.svg';
 import { paths } from '@constants/paths';
-import { IProduct } from '@utils/product';
+import { IProduct } from '@utils/product/product';
 
 import './Buttons.scss';
 

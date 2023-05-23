@@ -2,7 +2,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import productsService from '@store/services/productsService';
-import { IProduct } from '@utils/product';
+import { IProduct } from '@utils/product/product';
 
 export const getProducts = createAsyncThunk<IProduct[]>(
   'GET_PRODUCTS',
@@ -42,6 +42,7 @@ type ProductsType = {
   visibleProducts: IProduct[] | [];
   selectedProduct: IProduct | null;
   isSelectedProductLoading: boolean;
+  isSelectedProductError: boolean;
 };
 
 const initialState: ProductsType = {
@@ -51,6 +52,7 @@ const initialState: ProductsType = {
   visibleProducts: [],
   selectedProduct: null,
   isSelectedProductLoading: false,
+  isSelectedProductError: false,
 };
 
 export const productsSlice = createSlice({
@@ -77,21 +79,20 @@ export const productsSlice = createSlice({
       })
       .addCase(getSingleProduct.pending, (state) => {
         state.isSelectedProductLoading = true;
-        state.isError = false;
+        state.isSelectedProductError = false;
       })
       .addCase(getSingleProduct.fulfilled, (state, action) => {
         state.selectedProduct = action.payload;
         state.isSelectedProductLoading = false;
+        state.isSelectedProductError = false;
       })
       .addCase(getSingleProduct.rejected, (state) => {
         state.isSelectedProductLoading = false;
-        state.isError = true;
+        state.isSelectedProductError = true;
       });
   },
 });
 
-export const {
-  setVisibleProducts,
-} = productsSlice.actions;
+export const { setVisibleProducts } = productsSlice.actions;
 
 export default productsSlice.reducer;

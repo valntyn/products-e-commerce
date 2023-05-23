@@ -4,7 +4,7 @@ import { ReactComponent as FilledStar } from '@assets/svg/star-filled.svg';
 import { ReactComponent as EmptyStar } from '@assets/svg/star.svg';
 import { Stars } from '@components/UI/Stars';
 import { paths } from '@constants/paths';
-import { IProduct } from '@utils/product';
+import { IProduct } from '@utils/product/product';
 
 import './GeneralInfo.scss';
 
@@ -35,7 +35,7 @@ export const GeneralInfo: React.FC<PropTypes> = ({
     ),
     Farm: brand,
     Delivery: delivery,
-    Stock: `${stock} kgs`,
+    Stock: `${stock.kgs} kgs`,
   };
 
   return (

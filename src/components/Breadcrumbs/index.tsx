@@ -14,7 +14,10 @@ export const Breadcrumbs = () => {
     .split('/')
     .filter((pathname) => pathname !== '');
 
-  const { selectedProduct, isSelectedProductLoading } = useAppSelector(
+  const {
+    selectedProduct,
+    isSelectedProductLoading,
+  } = useAppSelector(
     (state) => state.products,
   );
 
@@ -24,7 +27,7 @@ export const Breadcrumbs = () => {
     const isProduct
       = location.pathname === `${paths.products}/${selectedProduct?.id}`;
 
-    let displayName = BreadcrumbsNames[pathname] || pathname;
+    let displayName = BreadcrumbsNames[pathname];
 
     if (isLast && selectedProduct && isProduct && !isSelectedProductLoading) {
       const fixedTitle = selectedProduct.title
