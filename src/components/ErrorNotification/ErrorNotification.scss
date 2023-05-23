@@ -1,21 +1,17 @@
-@import "../../styles/_variables";
-@import "../../styles/_mixins";
+@import "@styles/_variables";
+@import "@styles/_mixins";
 
 .error_notify {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include flex-settings;
   flex-direction: column;
 
   &__img {
-    width: 250px;
-    height: 250px;
+    @include square-var(250px);
     margin-bottom: 30px;
   }
 
   &__svg {
-    width: 100%;
-    height: 100%;
+    @include square-var(100%);
   }
 
   &__text {
