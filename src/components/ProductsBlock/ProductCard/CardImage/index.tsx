@@ -2,19 +2,22 @@ import { memo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 import { NO_IMG } from '@constants/card';
+import { paths } from '@constants/paths';
 
 import './CardImage.scss';
 
 type PropTypes = {
   img: string;
+  id: string;
 };
 
-export const CardImage: React.FC<PropTypes> = memo(({ img }) => {
+export const CardImage: React.FC<PropTypes> = memo(({ img, id }) => {
   const location = useLocation();
 
   return (
     <Link
       to={{
+        pathname: `${paths.products}/${id}`,
         search: location.search,
       }}
       className="img-card"

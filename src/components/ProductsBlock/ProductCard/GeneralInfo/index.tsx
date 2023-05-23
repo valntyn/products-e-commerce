@@ -1,8 +1,9 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import { ReactComponent as FilledStar } from '@assets/svg/star-filled.svg';
 import { ReactComponent as EmptyStar } from '@assets/svg/star.svg';
 import { Stars } from '@components/UI/Stars';
+import { paths } from '@constants/paths';
 import { IProduct } from '@utils/product';
 
 import './GeneralInfo.scss';
@@ -20,8 +21,11 @@ export const GeneralInfo: React.FC<PropTypes> = ({
     stock,
     fresheness,
     rating,
+    id,
   },
 }) => {
+  const location = useLocation();
+
   const descriptionCard = {
     Freshness: (
       <>
@@ -36,7 +40,12 @@ export const GeneralInfo: React.FC<PropTypes> = ({
 
   return (
     <div className="general">
-      <Link to="/products">
+      <Link
+        to={{
+          pathname: `${paths.products}/${id}`,
+          search: location.search,
+        }}
+      >
         <h2 className="general__title">{title}</h2>
       </Link>
       <p className="general__desc">{description}</p>

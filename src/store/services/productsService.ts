@@ -8,7 +8,14 @@ const getProducts = async () => {
   return products.data;
 };
 
+const getSingleProduct = async (productId: string) => {
+  const product = await axios.get(`${BASE_URL}/api/products/${productId}`);
+
+  return product.data;
+};
+
 const productsService = {
+  getSingleProduct,
   getProducts,
 };
 
