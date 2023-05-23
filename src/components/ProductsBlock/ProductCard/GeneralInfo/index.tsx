@@ -11,8 +11,8 @@ type PropTypes = {
   product: IProduct;
 };
 
-export const GeneralInfo: React.FC<PropTypes> = ({ product }) => {
-  const {
+export const GeneralInfo: React.FC<PropTypes> = ({
+  product: {
     title,
     description,
     delivery,
@@ -20,8 +20,8 @@ export const GeneralInfo: React.FC<PropTypes> = ({ product }) => {
     stock,
     fresheness,
     rating,
-  } = product;
-
+  },
+}) => {
   const descriptionCard = {
     Freshness: (
       <>

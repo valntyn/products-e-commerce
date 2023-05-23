@@ -5,11 +5,9 @@ type PropTypes = {
   children: React.ReactNode;
 };
 
-export const MainWrapper: React.FC<PropTypes> = ({ children }) => {
-  return (
-    <main className="main-wrapper">
-      <Breadcrumbs />
-      {children}
-    </main>
-  );
-};
+export const MainWrapper: React.FC<PropTypes> = ({ children }) => (
+  <main className="main-wrapper">
+    <Breadcrumbs />
+    {children}
+  </main>
+);

@@ -10,9 +10,7 @@ type PropTypes = {
 };
 
 export const PriceShipping: React.FC<PropTypes> = memo(
-  ({ product }) => {
-    const { price, discount, time } = product;
-
+  ({ product: { price, discount, time } }) => {
     const fixedPrice = calculatePrice(price, discount);
 
     return (

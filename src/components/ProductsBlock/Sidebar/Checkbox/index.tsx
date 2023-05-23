@@ -11,29 +11,25 @@ interface PropTypes {
 }
 
 export const Checkbox: React.FC<PropTypes> = memo(
-  (props) => {
-    const {
-      disabled,
-      id,
-      text,
-      onChange,
-      checked,
-      value,
-    } = props;
-
-    return (
-      <>
-        <input
-          type="checkbox"
-          disabled={disabled}
-          className="checkbox__input"
-          id={id}
-          checked={checked}
-          onChange={() => onChange(value)}
-        />
-        <span className="checkbox__checkmark" />
-        {text && <p className="checkbox__text">{text}</p>}
-      </>
-    );
-  },
+  ({
+    disabled,
+    id,
+    text,
+    onChange,
+    checked,
+    value,
+  }) => (
+    <>
+      <input
+        type="checkbox"
+        disabled={disabled}
+        className="checkbox__input"
+        id={id}
+        checked={checked}
+        onChange={() => onChange(value)}
+      />
+      <span className="checkbox__checkmark" />
+      {text && <p className="checkbox__text">{text}</p>}
+    </>
+  ),
 );
