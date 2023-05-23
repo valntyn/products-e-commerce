@@ -13,7 +13,7 @@ export const LabelLink: React.FC<PropTypes> = memo(({ currentPage, value }) => {
   const [searchParams] = useSearchParams();
   const memoizedSearchParams = useMemo(() => searchParams, [searchParams]);
 
-  const getSearch = (title: PageChange | string) => {
+  const getSearch = (title: PageChange) => {
     switch (title) {
       case PageChange.NEXT:
         return getSearchWith(memoizedSearchParams, {
@@ -35,7 +35,7 @@ export const LabelLink: React.FC<PropTypes> = memo(({ currentPage, value }) => {
   return (
     <Link
       to={{
-        search: getSearch(value),
+        search: getSearch(value as PageChange),
       }}
     >
       {value}
