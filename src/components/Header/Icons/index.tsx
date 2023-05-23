@@ -1,19 +1,14 @@
-import classNames from 'classnames';
+import { memo } from 'react';
 
 import { ReactComponent as Basket } from '@assets/svg/basket.svg';
 import { ReactComponent as User } from '@assets/svg/user.svg';
 
 import './Icons.scss';
 
-export const Icons = () => {
-  return (
+export const Icons = memo(
+  () => (
     <div className="icons">
-      <button
-        type="button"
-        className={classNames(
-          'icons__button',
-        )}
-      >
+      <button type="button" className="icons__button">
         <User className="icons__svg" />
       </button>
       <button
@@ -24,5 +19,5 @@ export const Icons = () => {
         <Basket className="icons__svg" />
       </button>
     </div>
-  );
-};
+  ),
+);

@@ -1,5 +1,5 @@
-@import "../../../../styles/_variables";
-@import "../../../../styles/_mixins";
+@import "@styles/_variables";
+@import "@styles/_mixins";
 
 .reset {
   width: 100%;
@@ -15,7 +15,7 @@
     height: 35px;
     background-color: $color-bg;
     @include default-button;
-    color: $color-placeholder;
+    color: $color-gray-secondary;
     border-radius: 12px;
     transition: 0.1s linear;
 

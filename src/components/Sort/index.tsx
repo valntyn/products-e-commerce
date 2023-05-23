@@ -7,6 +7,7 @@ import { ReactComponent as ArrowSort } from '@assets/svg/arrow-down-sort.svg';
 import { capitalize } from '@helpers/capitalize';
 import { useAppDispatch } from '@hooks/useAppDispatch';
 import { useAppSelector } from '@hooks/useAppSelector';
+import { useClickOutside } from '@hooks/useClickOutside';
 import { setIsReversed, setSortFilter } from '@store/reducers/filterSlice';
 import { Params } from '@utils/params';
 import { SortFilter } from '@utils/sort';
@@ -17,28 +18,11 @@ import './Sort.scss';
 
 export const Sort = () => {
   const dispatch = useAppDispatch();
+  const { sort, isReversed } = useAppSelector((state) => state.filter);
+
   const [expanded, setExpanded] = useState(false);
   const [searchParams] = useSearchParams();
   const menuRef = useRef<HTMLDivElement>(null);
-
-  const { sort, isReversed } = useAppSelector((state) => state.filter);
-
-  useEffect(() => {
-    const handleDocumentClick = (event: MouseEvent) => {
-      if (
-        menuRef.current
-        && !menuRef.current.contains(event.target as HTMLElement)
-      ) {
-        setExpanded(false);
-      }
-    };
-
-    document.addEventListener('click', handleDocumentClick);
-
-    return () => {
-      document.removeEventListener('click', handleDocumentClick);
-    };
-  }, []);
 
   useEffect(() => {
     const sortInParams = searchParams.get(Params.Sort);
@@ -56,6 +40,12 @@ export const Sort = () => {
   const handleOpen = () => {
     setExpanded((prevExpanded) => !prevExpanded);
   };
+
+  const handleClickOutside = () => {
+    setExpanded(false);
+  };
+
+  useClickOutside(menuRef, handleClickOutside);
 
   return (
     <div className="sort">

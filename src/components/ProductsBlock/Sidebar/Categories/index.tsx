@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { useMemo } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 
 import { Spinner } from '@components/UI/Spinner';
@@ -10,13 +11,15 @@ import { useAppSelector } from '@hooks/useAppSelector';
 import { selectCategories } from '@store/selectors/selectCategories';
 
 export const Categories = () => {
-  const [searchParams] = useSearchParams();
   const { isLoading } = useAppSelector((state) => state.products);
   const { selectedCategory } = useAppSelector((state) => state.filter);
   const categories = useAppSelector(selectCategories);
 
+  const [searchParams] = useSearchParams();
+  const memoizedSearchParams = useMemo(() => searchParams, [searchParams]);
+
   const getSearch = (title: string) => {
-    return getSearchWith(searchParams, {
+    return getSearchWith(memoizedSearchParams, {
       category: title,
       page: `${DEFAULT_PAGE}`,
       perPage: `${DEFAULT_ITEMS_PER_PAGE}`,

@@ -1,5 +1,5 @@
-@import "../../../../styles/_variables";
-@import "../../../../styles/_mixins";
+@import "@styles/_variables";
+@import "@styles/_mixins";
 
 .product-buttons {
   display: flex;
@@ -65,20 +65,17 @@
   }
 
   &__svg {
-    height: 16px;
-    width: 16px;
+    @include square-var(16px);
 
     &--heart {
-      height: 22px;
-      width: 22px;
+      @include square-var(22px);
       position: absolute;
       left: 14px;
     }
 
     @include onTablet {
       &--heart {
-        height: 16px;
-        width: 16px;
+        @include square-var(16px)
       }
     }
   }

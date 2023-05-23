@@ -31,6 +31,15 @@ export const SortLink: React.FC<PropTypes> = ({ title, sort }) => {
   }, [dispatch, isReversed]);
 
   const getSearchWithSort = (sortBy: SortFilter) => {
+    const isReset = sortBy === SortFilter.Reset;
+
+    if (isReset) {
+      return getSearchWith(searchParams, {
+        sort: null,
+        order: null,
+      });
+    }
+
     if (!isCurrentSort) {
       return getSearchWith(searchParams, {
         sort: sortBy,
@@ -42,10 +51,7 @@ export const SortLink: React.FC<PropTypes> = ({ title, sort }) => {
       return getSearchWith(searchParams, { order: 'desc' });
     }
 
-    return getSearchWith(searchParams, {
-      sort: null,
-      order: null,
-    });
+    return getSearchWith(searchParams, { sort: null, order: null });
   };
 
   const handleClick = (sortType: SortFilter) => () => {

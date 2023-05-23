@@ -1,5 +1,5 @@
-@import "../../../styles/_variables";
-@import "../../../styles/_mixins";
+@import "@styles/_variables";
+@import "@styles/_mixins";
 
 .dropdown {
   position: absolute;
@@ -12,7 +12,7 @@
   transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
 
   &__list {
-    background-color: $color-bg-placeholer;
+    background-color: $color-gray-main;
     border: 1px solid $color-main-green;
   }
   

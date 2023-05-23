@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import './Checkbox.scss';
 
 interface PropTypes {
@@ -9,17 +10,15 @@ interface PropTypes {
   id?: string;
 }
 
-export const Checkbox: React.FC<PropTypes> = (props) => {
-  const {
+export const Checkbox: React.FC<PropTypes> = memo(
+  ({
     disabled,
     id,
     text,
     onChange,
     checked,
     value,
-  } = props;
-
-  return (
+  }) => (
     <>
       <input
         type="checkbox"
@@ -32,5 +31,5 @@ export const Checkbox: React.FC<PropTypes> = (props) => {
       <span className="checkbox__checkmark" />
       {text && <p className="checkbox__text">{text}</p>}
     </>
-  );
-};
+  ),
+);

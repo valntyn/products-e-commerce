@@ -1,5 +1,5 @@
-@import "../../../styles/_variables";
-@import "../../../styles/_mixins";
+@import "@styles/_variables";
+@import "@styles/_mixins";
 
 .navigation {
   width: 100%;
@@ -7,7 +7,7 @@
 
   &__list {
     min-height: 55px;
-    background-color: $color-bg-placeholer;
+    background-color: $color-gray-main;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     padding: 0 15px;

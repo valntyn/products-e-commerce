@@ -1,11 +1,11 @@
-@import "../../../../styles/_variables";
-@import "../../../../styles/_mixins";
+@import "@styles/_variables";
+@import "@styles/_mixins";
 
 .img-card {
   width: 100%;
   height: 190px;
   border-radius: 12px;
-  border: 1px solid $color-border-searchbar;
+  border: 1px solid $color-border-default;
 
   @include onTablet {
     height: inherit;
@@ -13,8 +13,7 @@
 
   &__img {
     display: block;
-    width: 100%;
-    height: 100%;
+    @include square-var(100%);
     object-fit: cover;
     border-radius: inherit;
     object-position: center;

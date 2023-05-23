@@ -1,18 +1,23 @@
 import classNames from 'classnames';
-import { useState, useEffect, ChangeEvent } from 'react';
+import {
+  useState, useEffect, ChangeEvent, useMemo,
+} from 'react';
 import { useSearchParams } from 'react-router-dom';
 import Slider from 'react-slider';
 import { useDebouncedCallback } from 'use-debounce';
 
 import './Price.scss';
 import { Spinner } from '@components/UI/Spinner';
-import { DEFAULT_ITEMS_PER_PAGE, DEFAULT_PAGE } from '@constants/default';
+import {
+  DEFAULT_DELAY, DEFAULT_ITEMS_PER_PAGE, DEFAULT_PAGE,
+} from '@constants/default';
 import { getSearchWith } from '@helpers/searchHelpers';
 import { useAppDispatch } from '@hooks/useAppDispatch';
 import { useAppSelector } from '@hooks/useAppSelector';
 import { setPriceRange } from '@store/reducers/filterSlice';
 import { selectPriceRange } from '@store/selectors/selectPrices';
 import { Params } from '@utils/params';
+import { PriceFilter } from '@utils/price';
 
 export const Price = () => {
   const { isLoading } = useAppSelector((state) => state.products);
@@ -23,12 +28,13 @@ export const Price = () => {
   const dispatch = useAppDispatch();
 
   const [searchParams, setSearchParams] = useSearchParams();
+  const memoizedSearchParams = useMemo(() => searchParams, [searchParams]);
 
   const fixedMin = Math.floor(minPrice);
   const fixedMax = Math.ceil(maxPrice);
 
   useEffect(() => {
-    const priceInParams = searchParams.get(Params.Price);
+    const priceInParams = memoizedSearchParams.get(Params.Price);
 
     if (priceInParams) {
       const parsedPrice = priceInParams.split(', ').map(Number);
@@ -42,18 +48,18 @@ export const Price = () => {
     }
 
     setError('');
-  }, [dispatch, fixedMin, fixedMax, searchParams]);
+  }, [dispatch, fixedMin, fixedMax, memoizedSearchParams]);
 
   const debouncedOnChange = useDebouncedCallback((newValues) => {
     if (!error) {
       dispatch(setPriceRange(newValues));
-      setSearchParams(getSearchWith(searchParams, {
+      setSearchParams(getSearchWith(memoizedSearchParams, {
         price: values.join(', ') || null,
         page: `${DEFAULT_PAGE}`,
         perPage: `${DEFAULT_ITEMS_PER_PAGE}`,
       }));
     }
-  }, 500);
+  }, DEFAULT_DELAY);
 
   const handleSliderChange = (newValues: number[]) => {
     setValues([newValues[0], newValues[1]]);
@@ -73,7 +79,7 @@ export const Price = () => {
     setError('');
 
     switch (e.target.name) {
-      case 'min':
+      case PriceFilter.MIN:
         setInputValues([inputValue, inputValues[1]]);
 
         if (inputValue > fixedMax) {
@@ -88,7 +94,7 @@ export const Price = () => {
 
         break;
 
-      case 'max':
+      case PriceFilter.MAX:
         setInputValues([inputValues[0], inputValue]);
 
         if (inputValue > fixedMax) {
@@ -149,7 +155,7 @@ export const Price = () => {
           Min
           <input
             type="text"
-            name="min"
+            name={PriceFilter.MIN}
             id="min"
             value={inputValues[0].toFixed()}
             className={classNames('price-filter__input', {
@@ -163,7 +169,7 @@ export const Price = () => {
           Max
           <input
             type="text"
-            name="max"
+            name={PriceFilter.MAX}
             id="max"
             value={inputValues[1].toFixed()}
             className={classNames('price-filter__input', {

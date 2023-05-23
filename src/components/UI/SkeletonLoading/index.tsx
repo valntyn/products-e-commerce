@@ -7,9 +7,6 @@ export const SkeletonLoading = () => {
       <li className="skeleton" />
       <li className="skeleton" />
       <li className="skeleton" />
-      <li className="skeleton" />
-      <li className="skeleton" />
-      <li className="skeleton" />
     </>
   );
 };

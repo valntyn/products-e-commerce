@@ -3,6 +3,8 @@ import { useSearchParams } from 'react-router-dom';
 
 import { LabelLink } from '@components/LabelLink';
 import { getSearchWith } from '@helpers/searchHelpers';
+import { PageChange } from '@utils/page';
+
 import './Pagination.scss';
 
 type PropTypes = {
@@ -43,10 +45,10 @@ export const Pagination: React.FC<PropTypes> = ({ total, currentPage }) => {
         forcePage={normalizedCurrentPage - 1}
         pageRangeDisplayed={4}
         previousLabel={
-          <LabelLink currentPage={currentPage} value="<" />
+          <LabelLink currentPage={currentPage} value={PageChange.PREVIOUS} />
         }
         nextLabel={
-          <LabelLink currentPage={currentPage} value=">" />
+          <LabelLink currentPage={currentPage} value={PageChange.NEXT} />
         }
         onPageChange={(data) => handleClick(data.selected + 1)}
         breakLabel="..."

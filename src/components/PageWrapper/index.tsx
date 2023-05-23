@@ -4,10 +4,6 @@ type PropTypes = {
   children: React.ReactNode;
 };
 
-export const PageWrapper: React.FC<PropTypes> = ({ children }) => {
-  return (
-    <div className="page-wrapper">
-      {children}
-    </div>
-  );
-};
+export const PageWrapper: React.FC<PropTypes> = ({ children }) => (
+  <div className="page-wrapper">{children}</div>
+);

@@ -1,5 +1,5 @@
-@import "../../styles/_variables";
-@import "../../styles/_mixins";
+@import "@styles/_variables";
+@import "@styles/_mixins";
 
 .sort {
   position: relative;
@@ -8,8 +8,8 @@
     max-width: 180px;
     height: 38px;
     padding: 9px 16px;
-    background: $color-bg-placeholer;
-    border: 1px solid $color-border-searchbar;
+    background: $color-gray-main;
+    border: 1px solid $color-border-default;
     border-radius: 12px;
     @include flex-settings;
     font-family: $font-sans;
@@ -42,7 +42,7 @@
   }
 
   &__line {
-    border: 1px solid $color-border-searchbar;
+    border: 1px solid $color-border-default;
     height: 100%;
     line-height: 19px;
   }
@@ -67,7 +67,7 @@
   }
 
   &__dropdown {
-    background-color: $color-bg-placeholer;
+    background-color: $color-gray-main;
     border: 1px solid $color-main-green;
     position: absolute;
     z-index: 30;

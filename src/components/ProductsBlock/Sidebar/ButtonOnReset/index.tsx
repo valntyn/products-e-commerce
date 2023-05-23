@@ -15,12 +15,21 @@ export const ButtonOnReset = () => {
     dispatch(resetFilter());
 
     navigate(`${paths.products}`, { replace: true });
-    window.scrollTo(0, 0);
+
+    const element = document.documentElement || document.body;
+
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   };
 
   return (
     <div className="reset">
-      <button className="reset__button" type="button" onClick={handleReset}>
+      <button
+        className="reset__button"
+        type="button"
+        onClick={handleReset}
+      >
         Reset
       </button>
     </div>
