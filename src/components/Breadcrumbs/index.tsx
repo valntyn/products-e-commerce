@@ -66,7 +66,7 @@ export const Breadcrumbs = () => {
               )}
             >
               {isLast ? (
-                <Link to={routeTo}>{displayName}</Link>
+                <span>{displayName}</span>
               ) : (
                 <>
                   <Link
