@@ -4,5 +4,5 @@ export const paths = {
   products: '/products',
   product: '/products/:id',
   checkout: '/checkout',
-  notFound: '*',
+  notFound: '/notfound',
 };

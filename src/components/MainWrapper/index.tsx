@@ -12,10 +12,11 @@ type PropTypes = {
 export const MainWrapper: React.FC<PropTypes> = ({ children }) => {
   const location = useLocation();
   const isHomePage = location.pathname === paths.main;
+  const isNotFoundPage = location.pathname === paths.notFound;
 
   return (
     <main className="main-wrapper">
-      {!isHomePage && <Breadcrumbs />}
+      {!isHomePage && !isNotFoundPage && <Breadcrumbs />}
       {children}
     </main>
   );
