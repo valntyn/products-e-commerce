@@ -4,6 +4,7 @@ import { useDebouncedCallback } from 'use-debounce';
 
 import { ReactComponent as Arrow } from '@assets/svg/arrow-down-small.svg';
 import { DEFAULT_DELAY, DEFAULT_QNTY } from '@constants/default';
+import { capitalize } from '@helpers/capitalize';
 import { useAppSelector } from '@hooks/useAppSelector';
 import { useClickOutside } from '@hooks/useClickOutside';
 import { Stock } from '@utils/product/stock';
@@ -99,7 +100,9 @@ export const QntyPanel: React.FC<PropTypes> = ({
       />
       <div className="qnty-panel__line" />
       <div className="qnty-panel__select-box">
-        <p className="qnty-panel__type">{typeOfPack}</p>
+        <p className="qnty-panel__type">
+          {capitalize(typeOfPack as keyof Stock)}
+        </p>
         <Arrow
           className={classNames('qnty-panel__svg', {
             'qnty-panel__svg--active': expanded,
@@ -114,7 +117,7 @@ export const QntyPanel: React.FC<PropTypes> = ({
               className="qnty-panel__item"
               onClick={handleChoose(item as keyof Stock)}
             >
-              {item}
+              {capitalize(item)}
             </li>
           ))}
         </ul>
