@@ -56,6 +56,8 @@ export const QntyPanel: React.FC<PropTypes> = ({
     name: Count,
   ) => (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
+    setError('');
+
     let updatedQuantity = visibleQnty;
 
     switch (name) {
@@ -75,7 +77,6 @@ export const QntyPanel: React.FC<PropTypes> = ({
       updatedQuantity = selectedStock;
     }
 
-    setError('');
     setVisibleQnty(updatedQuantity);
     setQuantity(updatedQuantity);
   };

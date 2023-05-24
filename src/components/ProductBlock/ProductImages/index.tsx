@@ -6,12 +6,12 @@ import './ProductImages.scss';
 export const ProductImages = () => {
   const { selectedProduct } = useAppSelector((state) => state.products);
 
-  const { discount, img = [], freeShipping } = selectedProduct || {};
+  const { discount = 0, img = [], freeShipping } = selectedProduct || {};
 
   return (
     <div className="product-images">
       <div className="product-images__addition-box">
-        {discount && (
+        {!!discount && (
           <p className="product-images__element">{`- ${discount} %`}</p>
         )}
         {freeShipping && (
