@@ -67,6 +67,12 @@ export const QntyPanel: React.FC<PropTypes> = ({
     }
   };
 
+  const handleChoose = (type: keyof Stock) => () => {
+    setQuantity(DEFAULT_QNTY);
+    handleSelectTypeOfPackage(type);
+    handleClear();
+  };
+
   const handleInputClick = (e: React.MouseEvent<HTMLInputElement>) => {
     e.stopPropagation();
   };
@@ -80,12 +86,6 @@ export const QntyPanel: React.FC<PropTypes> = ({
   };
 
   useClickOutside(menuRef, handleClickOutside);
-
-  const handleChoose = (type: keyof Stock) => () => {
-    setQuantity(DEFAULT_QNTY);
-    handleSelectTypeOfPackage(type);
-    handleClear();
-  };
 
   return (
     <div className="qnty-panel" onClick={handleOpen} ref={menuRef}>
