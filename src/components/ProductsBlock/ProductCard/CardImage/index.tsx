@@ -7,7 +7,7 @@ import { paths } from '@constants/paths';
 import './CardImage.scss';
 
 type PropTypes = {
-  img: string;
+  img: string[];
   id: string;
 };
 
@@ -23,7 +23,7 @@ export const CardImage: React.FC<PropTypes> = memo(({ img, id }) => {
       className="img-card"
     >
       <img
-        src={img || NO_IMG}
+        src={img[0] || NO_IMG}
         alt="good-product-food"
         className="img-card__img"
       />

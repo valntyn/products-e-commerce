@@ -10,9 +10,7 @@ import './Breadcrumbs.scss';
 
 export const Breadcrumbs = () => {
   const location = useLocation();
-  const pathnames = location.pathname
-    .split('/')
-    .filter((pathname) => pathname !== '');
+  const pathnames = location.pathname.split('/').filter(Boolean);
 
   const {
     selectedProduct,

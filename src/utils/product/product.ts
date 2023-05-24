@@ -17,7 +17,7 @@ export interface IProduct {
   color: string
   country: string
   description: string
-  img: string
+  img: string[]
   reviews: string[]
   id: string
 }
