@@ -15,7 +15,7 @@ export const ProductImages = () => {
           <p className="product-images__element">{`- ${discount} %`}</p>
         )}
         {freeShipping && (
-          <p className="product-images__element">Freeshipping</p>
+          <p className="product-images__element">Free shipping</p>
         )}
       </div>
       <div className="product-images__large-box">
