@@ -1,0 +1,40 @@
+@import "../../../../../styles/_mixins";
+@import "../../../../../styles/_variables";
+
+.price-panel {
+  font-family: $font-poppins;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+  @include onTablet {
+    justify-content: initial;
+  }
+
+  &__old {
+    font-size: 10px;
+    line-height: 18px;
+    color: $color-gray-secondary;
+    text-decoration: line-through;
+    font-weight: 600;
+
+    @include onTablet {
+      font-size: 12px;
+    }
+  }
+
+  &__new {
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 39px;
+    color: $color-main-text;
+
+    @include onTablet {
+      font-size: 22px;
+    }
+
+    @include onDesktop {
+      font-size: 26px;
+    }
+  }
+}

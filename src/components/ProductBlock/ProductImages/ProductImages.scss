@@ -1,0 +1,83 @@
+@import "@styles/_variables";
+@import "@styles/_mixins";
+
+.product-images {
+  margin: 0 auto;
+  margin-bottom: 24px;
+  width: 100%;
+
+  @include onTablet {
+    justify-content: center;
+    width: 90%;
+  }
+
+  @include onDesktop {
+    width: 100%;
+    margin-bottom: 0;
+  }
+
+  &__addition-box {
+    padding-left: 16px;
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  &__element {
+    font-weight: 600;
+    font-size: 10px;
+    line-height: 18px;
+    background-color: $color-pale-green;
+    padding: 4px 8px;
+    border-radius: 12px;
+    color: $color-main-green;
+    cursor: pointer;
+
+    @include onTablet {
+      font-size: 12px;
+    }
+  }
+
+  &__large-box {
+    border-radius: 12px;
+    margin-bottom: 26px;
+  }
+
+  &__large-img {
+    height: 350px;
+    width: 100%;
+    object-fit: cover;
+    border-radius: inherit;
+    object-position: center;
+    cursor: pointer;
+
+    @include onDesktop {
+      height: 450px;
+    }
+  }
+
+  &__small-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    border-radius: 12px;
+  }
+
+  &__small-img {
+    width: 100%;
+    height: 118px;
+    object-fit: cover;
+    border-radius: inherit;
+    object-position: center;
+    cursor: pointer;
+    border-radius: 12px;
+
+    @include onTablet {
+      height: 160px;
+    }
+
+    @include onDesktop {
+      height: 218px;
+    }
+  }
+}
