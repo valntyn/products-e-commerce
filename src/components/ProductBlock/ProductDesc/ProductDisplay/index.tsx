@@ -51,7 +51,7 @@ export const ProductDisplay = () => {
             <button
               type="button"
               className="display__button"
-              disabled={!!error || !quantity}
+              disabled={!quantity}
             >
               <Cross className="display__svg" />
               Add to cart

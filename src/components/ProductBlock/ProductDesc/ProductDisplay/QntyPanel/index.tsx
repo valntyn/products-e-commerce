@@ -75,6 +75,7 @@ export const QntyPanel: React.FC<PropTypes> = ({
       updatedQuantity = DEFAULT_QNTY;
     } else if (updatedQuantity > selectedStock) {
       updatedQuantity = selectedStock;
+      setError(`${selectedStock}${typeOfPack}(s) left`);
     }
 
     setVisibleQnty(updatedQuantity);
