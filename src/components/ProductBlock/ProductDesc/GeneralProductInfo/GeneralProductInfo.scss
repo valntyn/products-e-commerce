@@ -65,7 +65,7 @@
     padding: 0 20px;
     display: flex;
     justify-content: space-between;
-    gap: 6px;
+    gap: 12px;
     width: 100%;
     line-height: 19px;
     font-family: $font-sans;
@@ -82,10 +82,11 @@
 
   &__key {
     white-space: nowrap;
+    overflow: hidden;
     color: $color-gray-secondary;
 
     @include onTablet {
-      width: 50%;
+      width: 120px;
     }
   }
 
@@ -94,7 +95,7 @@
     overflow: hidden;
 
     @include onTablet {
-      width: 70%;
+      width: 120px;
     }
   }
 }

@@ -84,6 +84,47 @@
     width: 32px;
   }
 
+  &__label {
+    display: flex;
+    align-items: center;
+    height: 28px;
+  }
+
+  &__count-box {
+    height: 100%;
+    position: relative;
+  }
+
+  &__count-up {
+    top: -2px;
+    right: 2px;
+    position: absolute;
+    background-color: inherit;
+    border: none;
+
+    &:hover {
+      transform: scale(115%);
+    }
+  }
+
+  &__count-down {
+    right: 2px;
+    top: 14px;
+    position: absolute;
+    background-color: inherit;
+    border: none;
+
+    &:hover {
+      transform: scale(115%);
+    }
+  }
+
+  &__count-arrow {
+    &--reversed {
+      transform: rotate(180deg);
+    }
+  }
+
   &__input {
     border: none;
     width: 100%;
@@ -92,6 +133,8 @@
     outline: none;
     background-color: inherit;
     width: 60px;
+    padding-right: 30px;
+    line-height: 20px;
 
     &::placeholder {
       font-size: 12px;

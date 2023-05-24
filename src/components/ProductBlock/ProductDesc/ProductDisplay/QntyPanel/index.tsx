@@ -1,5 +1,7 @@
 import classNames from 'classnames';
-import { ChangeEvent, useRef, useState } from 'react';
+import {
+  ChangeEvent, useRef, useState,
+} from 'react';
 import { useDebouncedCallback } from 'use-debounce';
 
 import { ReactComponent as Arrow } from '@assets/svg/arrow-down-small.svg';
@@ -7,6 +9,7 @@ import { DEFAULT_DELAY, DEFAULT_QNTY } from '@constants/default';
 import { capitalize } from '@helpers/capitalize';
 import { useAppSelector } from '@hooks/useAppSelector';
 import { useClickOutside } from '@hooks/useClickOutside';
+import { Count } from '@utils/count';
 import { Stock } from '@utils/product/stock';
 
 import './QntyPanel.scss';
@@ -15,7 +18,6 @@ type PropTypes = {
   typeOfPack: keyof Stock | null;
   handleSelectTypeOfPackage: (type: keyof Stock) => void;
   setQuantity: (quantity: number) => void;
-  quantity: number;
   error: string;
   setError: (error: string) => void;
 };
@@ -34,9 +36,7 @@ export const QntyPanel: React.FC<PropTypes> = ({
 
   const menuRef = useRef<HTMLDivElement>(null);
 
-  const {
-    stock,
-  } = selectedProduct || {};
+  const { stock } = selectedProduct || {};
   const selectedStock = stock ? stock[typeOfPack as keyof Stock] : 0;
 
   const stockKeys = stock && Object.keys(stock);
@@ -52,18 +52,49 @@ export const QntyPanel: React.FC<PropTypes> = ({
     setVisibleQnty(DEFAULT_QNTY);
   };
 
+  const handleCount = (
+    name: Count,
+  ) => (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    let updatedQuantity = visibleQnty;
+
+    switch (name) {
+      case Count.UP:
+        updatedQuantity += 1;
+        break;
+      case Count.DOWN:
+        updatedQuantity -= 1;
+        break;
+      default:
+        break;
+    }
+
+    if (updatedQuantity < DEFAULT_QNTY) {
+      updatedQuantity = DEFAULT_QNTY;
+    } else if (updatedQuantity > selectedStock) {
+      updatedQuantity = selectedStock;
+    }
+
+    setError('');
+    setVisibleQnty(updatedQuantity);
+    setQuantity(updatedQuantity);
+  };
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const inputValue = +e.target.value;
 
-    if (inputValue === selectedStock) {
-      setVisibleQnty(inputValue);
-      setQuantity(inputValue);
+    if (!Number.isInteger(inputValue)) {
+      return;
+    }
+
+    if (inputValue > selectedStock) {
       setError(`available stock: ${selectedStock}${typeOfPack}(s)`);
     } else {
       setError('');
-      setVisibleQnty(inputValue);
       debouncedOnChange(inputValue);
     }
+
+    setVisibleQnty(inputValue);
   };
 
   const handleChoose = (type: keyof Stock) => () => {
@@ -84,25 +115,43 @@ export const QntyPanel: React.FC<PropTypes> = ({
     setExpanded(false);
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    e.preventDefault();
-  };
-
   useClickOutside(menuRef, handleClickOutside);
 
   return (
     <div className="qnty-panel" onClick={handleOpen} ref={menuRef}>
-      <input
-        type="number"
-        className="qnty-panel__input"
-        placeholder="qnty"
-        max={selectedStock}
-        min={DEFAULT_QNTY}
-        value={visibleQnty}
-        onChange={handleChange}
-        onClick={handleInputClick}
-        onKeyDown={handleKeyDown}
-      />
+      <label className="qnty-panel__label">
+        <input
+          type="text"
+          className="qnty-panel__input"
+          placeholder="qnty"
+          value={visibleQnty}
+          onChange={handleChange}
+          onClick={handleInputClick}
+        />
+        <div className="qnty-panel__count-box">
+          <button
+            type="button"
+            name={Count.UP}
+            className="qnty-panel__count-up"
+            onClick={handleCount(Count.UP)}
+          >
+            <Arrow
+              className="
+              qnty-panel__count-arrow
+              qnty-panel__count-arrow--reversed
+            "
+            />
+          </button>
+          <button
+            type="button"
+            name={Count.DOWN}
+            className="qnty-panel__count-down"
+            onClick={handleCount(Count.DOWN)}
+          >
+            <Arrow className="qnty-panel__count-arrow" />
+          </button>
+        </div>
+      </label>
       <div className="qnty-panel__line" />
       <div className="qnty-panel__select-box">
         <p className="qnty-panel__type">
@@ -127,7 +176,7 @@ export const QntyPanel: React.FC<PropTypes> = ({
           ))}
         </ul>
       )}
-      {error && (<p className="qnty-panel__error">{error}</p>)}
+      {error && <p className="qnty-panel__error">{error}</p>}
     </div>
   );
 };

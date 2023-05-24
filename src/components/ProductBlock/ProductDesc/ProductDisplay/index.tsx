@@ -43,7 +43,6 @@ export const ProductDisplay = () => {
           <div className="display__right">
             <QntyPanel
               setQuantity={setQuantity}
-              quantity={quantity}
               handleSelectTypeOfPackage={handleSelectTypeOfPackage}
               typeOfPack={typeOfPack}
               setError={setError}
