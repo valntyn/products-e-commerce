@@ -37,6 +37,7 @@ export const QntyPanel: React.FC<PropTypes> = ({
   const {
     stock,
   } = selectedProduct || {};
+  const selectedStock = stock ? stock[typeOfPack as keyof Stock] : 0;
 
   const stockKeys = stock && Object.keys(stock);
 
@@ -54,17 +55,14 @@ export const QntyPanel: React.FC<PropTypes> = ({
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const inputValue = +e.target.value;
 
-    if (Number.isInteger(inputValue)) {
-      const selectedStock = stock ? stock[typeOfPack as keyof Stock] : 0;
-
-      if (inputValue > selectedStock) {
-        setVisibleQnty(inputValue);
-        setError(`available stock: ${selectedStock}${typeOfPack}(s)`);
-      } else {
-        setError('');
-        setVisibleQnty(inputValue);
-        debouncedOnChange(inputValue);
-      }
+    if (inputValue === selectedStock) {
+      setVisibleQnty(inputValue);
+      setQuantity(inputValue);
+      setError(`available stock: ${selectedStock}${typeOfPack}(s)`);
+    } else {
+      setError('');
+      setVisibleQnty(inputValue);
+      debouncedOnChange(inputValue);
     }
   };
 
@@ -86,17 +84,24 @@ export const QntyPanel: React.FC<PropTypes> = ({
     setExpanded(false);
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    e.preventDefault();
+  };
+
   useClickOutside(menuRef, handleClickOutside);
 
   return (
     <div className="qnty-panel" onClick={handleOpen} ref={menuRef}>
       <input
-        type="text"
+        type="number"
         className="qnty-panel__input"
         placeholder="qnty"
+        max={selectedStock}
+        min={DEFAULT_QNTY}
         value={visibleQnty}
         onChange={handleChange}
         onClick={handleInputClick}
+        onKeyDown={handleKeyDown}
       />
       <div className="qnty-panel__line" />
       <div className="qnty-panel__select-box">

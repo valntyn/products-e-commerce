@@ -38,6 +38,7 @@
     @include frequently-button;
     @include flex-settings;
     @include main-button;
+    padding: 12px 16px;
     
     &:disabled {
       background-color: $color-gray-secondary;
