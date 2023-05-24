@@ -18,6 +18,8 @@ export const ProductPage = () => {
 
   useEffect(() => {
     dispatch(getSingleProduct(productId));
+
+    window.scrollTo(0, 0);
   }, [dispatch, productId]);
 
   const {
