@@ -22,7 +22,7 @@ export const GeneralProductInfo = () => {
   } = selectedProduct || {};
 
   const qntyReviews = reviews?.length;
-  const stockValues = stock && Object.values(stock).join(', ');
+  const stockKeys = stock && Object.keys(stock).join(', ');
 
   const descriptionInfo = {
     Country: country,
@@ -30,7 +30,7 @@ export const GeneralProductInfo = () => {
     Stock: stock ? 'In stock' : 'Out of stock',
     Color: color,
     Size: 'all sizes',
-    'Buy by': stockValues,
+    'Buy by': stockKeys,
     Delivery: `in ${time} days`,
     'Delivery area': delivery,
   };
