@@ -2,6 +2,7 @@
 @import "@styles/_mixins";
 
 .breadcrumbs {
+  min-height: 18px;
   margin-bottom: 24px;
   font-family: $font-sans;
   color: $color-main-text;
@@ -9,11 +10,21 @@
   &__list {
     display: flex;
     gap: 8px;
-    font-size: 12px;
+    font-size: 10px;
     line-height: 16px;
+
+    @include onTablet {
+      font-size: 12px;
+    }
   }
 
-  &__test {
-    color: $color-text-gray;
+  &__item {
+    display: flex;
+    gap: 8px;
+    cursor: pointer;
+
+    &--first {
+      color: $color-text-gray;
+    }
   }
 }

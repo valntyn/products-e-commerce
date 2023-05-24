@@ -1,0 +1,36 @@
+@import "@styles/_variables";
+@import "@styles/_mixins";
+
+.error_notify {
+  @include flex-settings;
+  flex-direction: column;
+
+  &__img {
+    @include square-var(250px);
+    margin-bottom: 30px;
+  }
+
+  &__svg {
+    @include square-var(100%);
+  }
+
+  &__text {
+    margin-bottom: 30px;
+  }
+
+  &__box {
+    display: flex;
+    gap: 12px;
+  }
+
+  &__button {
+    background-color: inherit;
+    cursor: pointer;
+    height: 50px;
+    width: 150px;
+
+    &:hover {
+      border: 1px solid $color-main-green;
+    }
+  }
+}

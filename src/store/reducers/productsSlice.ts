@@ -2,7 +2,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import productsService from '@store/services/productsService';
-import { IProduct } from '@utils/product';
+import { IProduct } from '@utils/product/product';
 
 export const getProducts = createAsyncThunk<IProduct[]>(
   'GET_PRODUCTS',
@@ -19,11 +19,30 @@ export const getProducts = createAsyncThunk<IProduct[]>(
   },
 );
 
+export const getSingleProduct = createAsyncThunk<IProduct, string>(
+  'GET_SINGLE_PRODUCT',
+
+  async (productId, thunkAPI) => {
+    try {
+      const product = await productsService.getSingleProduct(productId);
+
+      return product;
+    } catch (err: unknown | Error) {
+      return thunkAPI.rejectWithValue(
+        err instanceof Error ? err.message : 'An unexpected error occurred',
+      );
+    }
+  },
+);
+
 type ProductsType = {
   products: IProduct[] | [];
   isError: boolean;
   isLoading: boolean;
   visibleProducts: IProduct[] | [];
+  selectedProduct: IProduct | null;
+  isSelectedProductLoading: boolean;
+  isSelectedProductError: boolean;
 };
 
 const initialState: ProductsType = {
@@ -31,6 +50,9 @@ const initialState: ProductsType = {
   isError: false,
   isLoading: false,
   visibleProducts: [],
+  selectedProduct: null,
+  isSelectedProductLoading: false,
+  isSelectedProductError: false,
 };
 
 export const productsSlice = createSlice({
@@ -54,12 +76,23 @@ export const productsSlice = createSlice({
       .addCase(getProducts.rejected, (state) => {
         state.isLoading = false;
         state.isError = true;
+      })
+      .addCase(getSingleProduct.pending, (state) => {
+        state.isSelectedProductLoading = true;
+        state.isSelectedProductError = false;
+      })
+      .addCase(getSingleProduct.fulfilled, (state, action) => {
+        state.selectedProduct = action.payload;
+        state.isSelectedProductLoading = false;
+        state.isSelectedProductError = false;
+      })
+      .addCase(getSingleProduct.rejected, (state) => {
+        state.isSelectedProductLoading = false;
+        state.isSelectedProductError = true;
       });
   },
 });
 
-export const {
-  setVisibleProducts,
-} = productsSlice.actions;
+export const { setVisibleProducts } = productsSlice.actions;
 
 export default productsSlice.reducer;

@@ -17,7 +17,7 @@ import { useAppSelector } from '@hooks/useAppSelector';
 import { setPriceRange } from '@store/reducers/filterSlice';
 import { selectPriceRange } from '@store/selectors/selectPrices';
 import { Params } from '@utils/params';
-import { PriceFilter } from '@utils/price';
+import { PriceFilter } from '@utils/priceFilter';
 
 export const Price = () => {
   const { isLoading } = useAppSelector((state) => state.products);
@@ -131,7 +131,7 @@ export const Price = () => {
         thumbClassName="price-filter__thumb"
         trackClassName="price-filter__track"
         defaultValue={[fixedMin, fixedMax]}
-        minDistance={15}
+        minDistance={5}
         value={values}
         min={fixedMin}
         max={fixedMax}

@@ -2,7 +2,7 @@ import { createSelector } from '@reduxjs/toolkit';
 
 import { calculatePrice } from '@helpers/calculatePrice';
 import { RootState } from '@store/store';
-import { IProduct } from '@utils/product';
+import { IProduct } from '@utils/product/product';
 import { SortFilter } from '@utils/sort';
 
 const selectAllProducts = (state: RootState) => state.products.products;
@@ -23,7 +23,7 @@ export const selectFilteredProducts = createSelector(
 
     const filteredProducts = products
       .filter((product) => {
-        const fixedPrice = +calculatePrice(product.price, product.discount);
+        const fixedPrice = +calculatePrice(product.price.kgs, product.discount);
 
         const isCategoryMatch
           = selectedCategory === 'all products'
@@ -56,8 +56,8 @@ export const selectFilteredProducts = createSelector(
         return true;
       })
       .sort((a, b) => {
-        const fixedPriceA = +calculatePrice(a.price, a.discount);
-        const fixedPriceB = +calculatePrice(b.price, b.discount);
+        const fixedPriceA = +calculatePrice(a.price.kgs, a.discount);
+        const fixedPriceB = +calculatePrice(b.price.kgs, b.discount);
 
         switch (sort) {
           case SortFilter.Title:
@@ -65,7 +65,7 @@ export const selectFilteredProducts = createSelector(
           case SortFilter.Price:
             return fixedPriceA - fixedPriceB;
           case SortFilter.Stock:
-            return a.stock - b.stock;
+            return a.stock.kgs - b.stock.kgs;
           case SortFilter.Rating:
             return a.rating - b.rating;
           default:

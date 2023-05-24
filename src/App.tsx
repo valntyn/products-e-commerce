@@ -29,6 +29,7 @@ function App() {
         <Route path={paths.product} element={<ProductPage />} />
         <Route path={paths.checkout} element={<CheckoutPage />} />
         <Route path={paths.notFound} element={<NotFoundPage />} />
+        <Route path="*" element={<Navigate to={paths.notFound} replace />} />
       </Route>
     </Routes>
   );

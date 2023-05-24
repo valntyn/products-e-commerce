@@ -1,7 +1,8 @@
 export const paths = {
+  main: '/',
   home: '/home',
   products: '/products',
-  product: '/products:productId',
+  product: '/products/:id',
   checkout: '/checkout',
-  notFound: '*',
+  notFound: '/notfound',
 };
