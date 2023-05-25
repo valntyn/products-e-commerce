@@ -19,6 +19,8 @@
   background-color: $color-main-green;
   border: 2px solid $color-secondary-green;
   color: $color-bg;
+  transition: 0.2s all;
+  cursor: pointer;
 
   &:hover {
     border: 2px solid $color-main-green;
