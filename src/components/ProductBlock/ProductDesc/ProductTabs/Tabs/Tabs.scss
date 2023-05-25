@@ -1,0 +1,51 @@
+@import "@styles/_variables";
+@import "@styles/_mixins";
+
+.tabs {
+  width: 100%;
+  position: relative;
+  display: flex;
+  margin-bottom: 48px;
+
+  &__tab {
+    width: 33%;
+    cursor: pointer;
+    padding: 16px 0px;
+    display: flex;
+    gap: 8px;
+    border-bottom: 2px solid $color-tags;
+  }
+  
+  &__tab--selected {
+    font-weight: bold;
+  }
+
+  &__label {
+    color: $color-black;
+  }
+
+  &__tab-animated {
+    position: absolute;
+    bottom: 0;
+    height: 2px;
+    background-color: $color-main-text;
+    transition: transform 0.3s, width 0.3s;
+    transform-origin: left;
+  }
+
+  &__qnty {
+    font-weight: 600;
+    font-size: 10px;
+    min-width: 28px;
+    background-color: $color-pale-green;
+    padding: 0 4px;
+    border-radius: 10px;
+    color: $color-main-green;
+    @include flex-settings;
+
+    @include onTablet {
+      font-size: 12px;
+    }
+  }
+}
+

@@ -1,4 +1,6 @@
+import { Answers } from './answer';
 import { Price } from './price';
+import { Question } from './question';
 import { Stock } from './stock';
 
 export interface IProduct {
@@ -20,4 +22,8 @@ export interface IProduct {
   img: string[]
   reviews: string[]
   id: string
+  origin: string
+  recipe: string
+  questions: Question[]
+  answers: Answers[]
 }
