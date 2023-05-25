@@ -15,7 +15,19 @@
   border: none;
 }
 
-@mixin frequent-button {
+@mixin main-button {
+  background-color: $color-main-green;
+  border: 2px solid $color-secondary-green;
+  color: $color-bg;
+
+  &:hover {
+    border: 2px solid $color-main-green;
+    background-color: $color-secondary-green;
+  }
+}
+
+
+@mixin frequently-button {
   width: 100%;
   border: none;
   background-color: inherit;

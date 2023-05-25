@@ -20,7 +20,7 @@ export const ProductsList = () => {
   if (!isLoading && !filteredProducts.length && products.length) {
     return (
       <div className="product-list">
-        <h2 className="product-list__n-title">
+        <h2 className="product-list__title">
           There are no such products in our store
         </h2>
       </div>

@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { ErrorNotification } from '@components/ErrorNotification';
+import { ProductBlock } from '@components/ProductBlock';
 import { Spinner } from '@components/UI/Spinner';
 import { useAppDispatch } from '@hooks/useAppDispatch';
 import { useAppSelector } from '@hooks/useAppSelector';
@@ -17,6 +18,8 @@ export const ProductPage = () => {
 
   useEffect(() => {
     dispatch(getSingleProduct(productId));
+
+    window.scrollTo(0, 0);
   }, [dispatch, productId]);
 
   const {
@@ -33,6 +36,8 @@ export const ProductPage = () => {
   }
 
   return (
-    <div>ProductPage</div>
+    <div className="product-page">
+      <ProductBlock />
+    </div>
   );
 };
