@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { ReactComponent as Cross } from '@assets/svg/green-cross.svg';
 import { ReactComponent as Heart } from '@assets/svg/heart.svg';
@@ -30,10 +30,10 @@ export const ProductDisplay = () => {
     }
   }, []);
 
-  const handleSelectTypeOfPackage = (type: keyof Stock) => {
+  const handleSelectTypeOfPackage = useCallback((type: keyof Stock) => {
     selectTypeOfPack(type);
     setVisiblePrice(price ? price[type] : 0);
-  };
+  }, [price]);
 
   return (
     <>
