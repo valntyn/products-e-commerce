@@ -20,13 +20,6 @@ export const ProductCarousel = () => {
     (state) => state.products,
   );
 
-  const skipCardRange
-    = useWindowWidth() < MAX_WIDTH ? SINLGE_SKIP : DEFAULT_SKIP;
-
-  const [lastVisibleCard, setLastVisibleCard] = useState(skipCardRange);
-
-  const scroll = -(lastVisibleCard - skipCardRange) * (CARD_WIDTH + CARD_GAP);
-
   const { category } = selectedProduct || {};
 
   const productsForCarousel = useMemo(() => {
@@ -35,6 +28,13 @@ export const ProductCarousel = () => {
         && product.id !== selectedProduct?.id,
     );
   }, [products, category, selectedProduct]);
+
+  const skipCardRange
+    = useWindowWidth() < MAX_WIDTH ? SINLGE_SKIP : DEFAULT_SKIP;
+
+  const [lastVisibleCard, setLastVisibleCard] = useState(skipCardRange);
+
+  const scroll = -(lastVisibleCard - skipCardRange) * (CARD_WIDTH + CARD_GAP);
 
   const styles = useMemo(() => ({
     transform: `translateX(${scroll}px)`,
