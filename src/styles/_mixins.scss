@@ -59,6 +59,12 @@
   }
 }
 
+@mixin onMobile {
+  @media (min-width: 368px) {
+    @content;
+  }
+}
+
 @mixin onTablet {
   @media (min-width: 768px) {
     @content;

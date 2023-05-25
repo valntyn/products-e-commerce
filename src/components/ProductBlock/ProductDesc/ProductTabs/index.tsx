@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import { useState } from 'react';
 
 import { useAppSelector } from '@hooks/useAppSelector';
@@ -54,8 +55,13 @@ export const ProductTabs = () => {
               {reviewsQnty ? 'Last reviews:' : 'There are not reviews yet'}
             </h3>
             <ul className="product-tab__rewiew-list">
-              {reviews?.map((review) => (
-                <li className="product-tab__rewiew">{review}</li>
+              {reviews?.map((review, i) => (
+                <li
+                  className="product-tab__rewiew"
+                  key={i}
+                >
+                  {review}
+                </li>
               ))}
             </ul>
           </section>
@@ -69,7 +75,10 @@ export const ProductTabs = () => {
             </h3>
             <ul className="product-tab__questions-list">
               {questions?.map((el) => (
-                <li className="product-tab__question-item">
+                <li
+                  className="product-tab__question-item"
+                  key={el.questionId}
+                >
                   <p className="product-tab__question">{el.question}</p>
                   <p className="product-tab__answer">
                     {getAnswerByQuestionId(el.questionId)}

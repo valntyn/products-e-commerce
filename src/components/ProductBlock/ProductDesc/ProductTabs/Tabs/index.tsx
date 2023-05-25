@@ -27,15 +27,29 @@ export const Tabs: React.FC<PropTypes> = ({
       '.tabs__tab--selected',
     ) as HTMLElement;
 
-    if (selectedTab) {
-      const { width, left } = selectedTab.getBoundingClientRect();
-      const containerLeft = tabRef.current?.getBoundingClientRect().left || 0;
+    const recalculatePosition = () => {
+      if (selectedTab) {
+        const { width, left } = selectedTab.getBoundingClientRect();
+        const containerLeft = tabRef.current?.getBoundingClientRect().left || 0;
 
-      setAnimateStyle({
-        width,
-        transform: `translateX(${left - containerLeft}px)`,
-      });
-    }
+        setAnimateStyle({
+          width,
+          transform: `translateX(${left - containerLeft}px)`,
+        });
+      }
+    };
+
+    recalculatePosition();
+
+    const handleResize = () => {
+      recalculatePosition();
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
   }, [selectedId]);
 
   return (
@@ -56,11 +70,7 @@ export const Tabs: React.FC<PropTypes> = ({
             >
               {tab.label}
             </p>
-            {tab.quantity && (
-              <p className="tabs__qnty">
-                {tab.quantity}
-              </p>
-            )}
+            {tab.quantity && <p className="tabs__qnty">{tab.quantity}</p>}
           </div>
         ))}
       <div className="tabs__tab-animated" style={animateStyle} />
