@@ -1,0 +1,108 @@
+@import "@styles/_variables";
+@import "@styles/_mixins";
+
+.product-tab {
+  font-family: $font-sans;
+  min-height: 260px;
+  max-height: 260px;
+  scrollbar-width: thin;
+  scrollbar-color: $color-pale-green $color-main-green;
+  overflow-y: auto;
+  margin-bottom: 35px;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: $color-pale-green;
+    border-radius: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $color-secondary-green;
+    border-radius: 8px;
+  }
+
+  &__title {
+    font-family: $font-poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 22px;
+    margin-bottom: 8px;
+  }
+
+  &__section {
+    width: 90%;
+  }
+
+  &__desc {
+    line-height: 19px;
+    margin-bottom: 32px;
+    font-size: 12px;
+
+    @include onTablet {
+      font-size: 14px;
+    }
+  }
+
+  &__rewiew-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  &__rewiew {
+    padding: 8px 4px 8px 12px;
+    background-color: $color-pale-green;
+    border-radius: 10px;
+    font-size: 12px;
+
+    @include onTablet {
+      font-size: 14px;
+    }
+  }
+
+  &__questions-list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  &__question-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &__question {
+    padding: 8px 4px 8px 12px;
+    background-color: $color-pale-green;
+    border-radius: 10px;
+    width: 80%;
+    font-size: 12px;
+
+    @include onTablet {
+      font-size: 14px;
+    }
+  }
+
+  &__answer {
+    padding: 8px 4px 8px 12px;
+    border-radius: 10px;
+    background-color: $color-gray-main;
+    width: 100%;
+    font-size: 12px;
+
+    @include onMobile {
+      margin-left: 22px;
+    }
+
+    @include onTablet {
+      margin-left: 30px;
+      font-size: 14px;
+    }
+  }
+}
