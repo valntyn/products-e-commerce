@@ -1,12 +1,9 @@
 import classNames from 'classnames';
 import React, { useState, useEffect, useRef } from 'react';
-import './Tabs.scss';
 
-export type ITab = {
-  id: string | number;
-  label?: string | number;
-  quantity?: string;
-};
+import { ITab } from '@utils/tab';
+
+import './Tabs.scss';
 
 type PropTypes = {
   tabs: ITab[];

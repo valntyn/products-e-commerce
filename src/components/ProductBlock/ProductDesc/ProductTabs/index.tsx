@@ -1,8 +1,9 @@
 import { useState } from 'react';
 
 import { useAppSelector } from '@hooks/useAppSelector';
+import { ITab } from '@utils/tab';
 
-import { ITab, Tabs } from './Tabs';
+import { Tabs } from './Tabs';
 
 import './ProductTabs.scss';
 
