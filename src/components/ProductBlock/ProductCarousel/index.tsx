@@ -1,8 +1,15 @@
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
 import { ReactComponent as Arrow } from '@assets/svg/arrow-down.svg';
-import { CARD_GAP, CARD_WIDTH } from '@constants/carousel';
+import {
+  CARD_GAP,
+  CARD_WIDTH,
+  DEFAULT_SKIP,
+  MAX_WIDTH,
+  SINLGE_SKIP,
+} from '@constants/carousel';
 import { useAppSelector } from '@hooks/useAppSelector';
+import { useWindowWidth } from '@hooks/useWindowWidth';
 
 import { SingleCard } from './SingleCard';
 
@@ -13,47 +20,53 @@ export const ProductCarousel = () => {
     (state) => state.products,
   );
 
-  const CARDS_PER_PAGE = window.innerWidth < 1240 ? 1 : 4;
+  const skipCardRange
+    = useWindowWidth() < MAX_WIDTH ? SINLGE_SKIP : DEFAULT_SKIP;
 
-  const [lastVisibleCard, setLastVisibleCard] = useState(CARDS_PER_PAGE);
+  const [lastVisibleCard, setLastVisibleCard] = useState(skipCardRange);
 
-  const scroll = -(lastVisibleCard - CARDS_PER_PAGE) * (CARD_WIDTH + CARD_GAP);
-  const styles = {
-    transform: `translateX(${scroll}px)`,
-    transition: 'transform 1s',
-  };
+  const scroll = -(lastVisibleCard - skipCardRange) * (CARD_WIDTH + CARD_GAP);
 
   const { category } = selectedProduct || {};
 
   const productsForCarousel = useMemo(() => {
     return products.filter(
       (product) => product.category === category
-      && product.id !== selectedProduct?.id,
+        && product.id !== selectedProduct?.id,
     );
   }, [products, category, selectedProduct]);
 
-  const onNext = () => {
-    const totalCards = productsForCarousel.length;
-    let newCard = lastVisibleCard + CARDS_PER_PAGE;
+  const styles = useMemo(() => ({
+    transform: `translateX(${scroll}px)`,
+    transition: 'transform 1s',
+  }), [scroll]);
 
-    if (newCard > totalCards) {
-      newCard = productsForCarousel.length;
-    }
+  const onNext = useCallback(() => {
+    setLastVisibleCard((prev) => {
+      const totalCards = productsForCarousel.length;
+      let newCard = prev + skipCardRange;
 
-    setLastVisibleCard(newCard);
-  };
+      if (newCard > totalCards) {
+        newCard = totalCards;
+      }
 
-  const onPrev = () => {
-    let newCard = lastVisibleCard - CARDS_PER_PAGE;
+      return newCard;
+    });
+  }, [productsForCarousel.length, skipCardRange]);
 
-    if (newCard < CARDS_PER_PAGE) {
-      newCard = CARDS_PER_PAGE;
-    }
+  const onPrev = useCallback(() => {
+    setLastVisibleCard((prev) => {
+      let newCard = prev - skipCardRange;
 
-    setLastVisibleCard(newCard);
-  };
+      if (newCard < skipCardRange) {
+        newCard = skipCardRange;
+      }
 
-  const disabledOnPrev = lastVisibleCard === CARDS_PER_PAGE;
+      return newCard;
+    });
+  }, [skipCardRange]);
+
+  const disabledOnPrev = lastVisibleCard === skipCardRange;
   const disabledOnNext = lastVisibleCard === productsForCarousel.length;
 
   return (
