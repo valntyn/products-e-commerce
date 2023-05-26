@@ -4,12 +4,9 @@ import { ReactComponent as Arrow } from '@assets/svg/arrow-down.svg';
 import {
   CARD_GAP,
   CARD_WIDTH,
-  DEFAULT_SKIP,
-  MAX_WIDTH,
-  SINLGE_SKIP,
 } from '@constants/carousel';
+import { getWindowWidthRange } from '@helpers/getWindowWidthRange';
 import { useAppSelector } from '@hooks/useAppSelector';
-import { useWindowWidth } from '@hooks/useWindowWidth';
 
 import { SingleCard } from './SingleCard';
 
@@ -29,9 +26,7 @@ export const ProductCarousel = () => {
     );
   }, [products, category, selectedProduct]);
 
-  const skipCardRange
-    = useWindowWidth() < MAX_WIDTH ? SINLGE_SKIP : DEFAULT_SKIP;
-
+  const skipCardRange = getWindowWidthRange();
   const [lastVisibleCard, setLastVisibleCard] = useState(skipCardRange);
 
   const scroll = -(lastVisibleCard - skipCardRange) * (CARD_WIDTH + CARD_GAP);
