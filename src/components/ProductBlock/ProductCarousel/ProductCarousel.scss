@@ -1,0 +1,90 @@
+@import "@styles/_variables";
+@import "@styles/_mixins";
+
+.product-carousel {
+  &__wrapper {
+    width: 250px;
+    margin: 0 auto;
+    overflow: hidden;
+
+    @include onTablet {
+      width: 532px;
+    }
+    
+    @include onDesktop {
+      width: 814px;
+    }
+
+    @include onDesktopLarge {
+      width: 1096px;
+    }
+  }
+
+  &__box {
+    margin-bottom: 37px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__title {
+    text-align: center;
+    font-size: 14px;
+
+    @include onTablet {
+      font-size: 18px;
+    }
+  }
+
+  &__button-box {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: $color-main-text;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 22px;
+  }
+
+  &__more {
+    text-align: center;
+    font-size: 12px;
+
+    @include onTablet {
+      font-size: 14px;
+    }
+  }
+
+  &__button {
+    @include flex-settings;
+    background-color: inherit;
+    cursor: pointer;
+    border: none;
+    transition: 0.2s all;
+
+    &:hover {
+      transform: scale(120%);
+    }
+
+    &:disabled {
+      opacity: 0;
+      cursor: initial;
+    }
+  }
+
+  &__svg {
+    @include square-var(22px);
+
+    &--right {
+      transform: rotate(-90deg);
+    }
+
+    &--left {
+      transform: rotate(90deg);
+    }
+  }
+
+  &__cards {
+    display: flex;
+    gap: 32px;
+  }
+}

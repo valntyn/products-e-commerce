@@ -2,12 +2,20 @@
 @import "@styles/_mixins";
 
 .product-block {
-  display: flex;
-  flex-direction: column;
+  &__info {
+    display: flex;
+    flex-direction: column;
+  
+    @include onDesktop {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+  }
 
-  @include onDesktop {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 32px;
+  &__carousel {
+    @include onTablet {
+      padding: 0 30px;
+    }
   }
 }
