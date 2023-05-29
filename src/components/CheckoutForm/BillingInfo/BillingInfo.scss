@@ -1,0 +1,111 @@
+@import "@styles/_reset";
+@import "@styles/_variables";
+
+.billing-info {
+  margin-bottom: 64px;
+
+  &__title {
+    margin-bottom: 4px;
+  }
+
+  &__add-info {
+    font-size: 12px;
+    line-height: 16px;
+    font-family: $font-sans;
+    color: $color-gray-secondary;
+    margin-bottom: 32px;
+  }
+
+  &__inputs-block {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+
+  &__data {
+    position: relative;
+  }
+
+  &__arrows-box {
+    position: absolute;
+    right: 18px;
+    top: 27px;
+
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+    transition: 0.3s all;
+
+    &:hover {
+      transform: scale(115%);
+    }
+  }
+
+  &__svg {
+    height: 10px;
+    width: 10px;
+    transition: 0.3s all;
+
+    &--reverse {
+      transform: rotate(180deg);
+    }
+  }
+
+  &__cross-button {
+    position: absolute;
+    @include default-button;
+    right: 32px;
+    top: 26px;
+    transition: 0.3s all;
+
+    &:hover {
+      transform: scale(110%);
+    }
+  }
+
+  &__cross {
+    width: 20px;
+    height: 20px;
+  }
+
+  &__dropdown {
+    position: absolute;
+    background-color: $color-gray-main;
+    z-index: 10;
+    right: 0;
+    width: 100%;
+    max-height: 240px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: $color-pale-green $color-main-green;
+
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+  
+    &::-webkit-scrollbar-track {
+      background-color: $color-pale-green;
+      border-radius: 8px;
+    }
+  
+    &::-webkit-scrollbar-thumb {
+      background-color: $color-secondary-green;
+      border-radius: 8px;
+    }
+  }
+
+  &__item {
+    padding: 10px 16px;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 18px;
+    color: $color-main-text;
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid $color-border-default;
+
+    &:hover {
+      border: 1px solid $color-main-green;
+    }
+  }
+}

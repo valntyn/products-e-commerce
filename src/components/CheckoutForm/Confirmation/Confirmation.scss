@@ -1,0 +1,115 @@
+@import "@styles/_reset";
+@import "@styles/_variables";
+
+.confirm {
+  margin-bottom: 42px;
+
+  &__title {
+    margin-bottom: 4px;
+  }
+
+  &__label {
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    padding: 11px 18px;
+    border: 1px solid $color-border-default;
+    border-radius: 12px;
+    background-color: $color-gray-main;
+
+    &:hover {
+      border: 1px solid $color-main-green;
+    }
+
+    &--active {
+      border: 1px solid $color-main-green;
+    }
+  }
+
+  &__add-info {
+    font-size: 14px;
+    line-height: 16px;
+    font-family: $font-sans;
+    color: $color-gray-secondary;
+    margin-bottom: 32px;
+  }
+
+  &__inputs-block {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  &__input {
+    opacity: 0;
+  
+    &:not(:checked) + .confirm__checkmark {
+      background-color: $color-bg;
+    }
+
+    &:checked + .confirm__checkmark:after {
+      display: block;
+    }
+  }
+
+  &__checkmark {
+    position: absolute;
+    top: 11px;
+    left: 11px;
+    height: 20px;
+    width: 20px;
+    border: 1.5px solid $color-secondary-green;
+    border-radius: 4px;
+    background-color: $color-main-green;
+    font-size: 12px;
+  }
+
+  &__checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+
+  &__checkmark:after {
+    left: 6px;
+    width: 5px;
+    height: 11px;
+    border: solid $color-bg;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+
+  &__title-input {
+    line-height: 19px;
+    color: $color-main-text;
+    font-family: $font-sans;
+  }
+
+  &__error {
+    position: absolute;
+    top: -19px;
+    right: 0;
+    color: $color-warning;
+    font-size: 14px;
+  }
+
+  &__link {
+    position: relative;
+    display: inline-block;
+    transition: 0.1s all;
+
+    &:hover {
+      color: $color-main-green;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 2px;
+      width: 100%;
+      height: 1px; 
+      background-color: $color-main-text;
+    }
+  }
+}

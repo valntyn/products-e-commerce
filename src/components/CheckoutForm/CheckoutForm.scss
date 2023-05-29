@@ -1,0 +1,11 @@
+@import "@styles/_mixins";
+@import "@styles/_variables";
+
+.form {
+  &__button {
+    @include main-button;
+    padding: 16px 48px;
+    border-radius: 12px;
+    font-weight: 700;
+  }
+}

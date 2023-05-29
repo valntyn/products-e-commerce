@@ -17,3 +17,5 @@ export const INFO = [
       'Returns Centre', '100 % purchase protection', 'Chat with us', 'Help'],
   },
 ];
+
+export const GITHUB = 'https://github.com/valntyn';

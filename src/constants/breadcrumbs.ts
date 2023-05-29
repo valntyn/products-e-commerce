@@ -4,5 +4,5 @@ type Breadcrumbs = {
 
 export const BreadcrumbsNames: Breadcrumbs = {
   products: 'All Products',
-  cart: 'Cart',
+  checkout: 'Checkout page',
 };
