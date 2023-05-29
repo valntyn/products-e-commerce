@@ -22,7 +22,8 @@ export const validationSchema = Yup.object({
     .max(15, 'not more than 15 digits'),
   address: Yup.string()
     .required('is required')
-    .matches(/^[^!@#$%]+$/, 'invalid characters !@#$%^*&"'),
+    .matches(/^[^!@#$%]+$/, 'invalid characters !@#$%^*&"')
+    .max(90, 'not more than 90 symbols'),
   city: Yup.string()
     .required('is required')
     .matches(/^[^!@#$%]+$/, 'invalid characters !@#$%^*&"')

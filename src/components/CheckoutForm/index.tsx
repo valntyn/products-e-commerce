@@ -46,8 +46,11 @@ export const CheckoutForm = () => {
           handleChange,
           handleBlur,
           setFieldValue,
+          isSubmitting,
+          isValid,
         }) => {
-          const hasErrors = Object.keys(errors).length > 0;
+          const hasErrors = !Object.keys(errors).length;
+          const isTouched = !Object.keys(touched).length;
 
           return (
             <Form className="form__form">
@@ -64,7 +67,7 @@ export const CheckoutForm = () => {
               <button
                 className="form__button"
                 type="submit"
-                disabled={hasErrors}
+                disabled={!isValid || isSubmitting || (isTouched && hasErrors)}
               >
                 Complete order
               </button>
