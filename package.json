@@ -24,6 +24,7 @@
     "react-router-dom": "^6.11.1",
     "react-slider": "^2.0.4",
     "redux": "^4.2.1",
+    "redux-persist": "^6.0.0",
     "use-debounce": "^9.0.4",
     "vite-plugin-svgr": "^2.4.0"
   },
