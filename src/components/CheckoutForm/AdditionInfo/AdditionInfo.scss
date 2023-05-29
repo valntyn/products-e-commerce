@@ -2,7 +2,11 @@
 @import "@styles/_variables";
 
 .addition-info {
-  margin-bottom: 64px;
+  margin-bottom: 22px;
+
+  @include onTablet {
+    margin-bottom: 64px;
+  }
 
   &__title {
     margin-bottom: 4px;

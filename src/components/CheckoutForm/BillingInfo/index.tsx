@@ -129,6 +129,7 @@ export const BillingInfo: React.FC<PropsTypes> = ({
 
   const hanldeClear = () => {
     setFieldValue('country', '');
+    setFieldValue('city', '');
   };
 
   const handleOpenCountries = () => {

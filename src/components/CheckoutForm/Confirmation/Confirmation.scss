@@ -12,10 +12,14 @@
     position: relative;
     cursor: pointer;
     display: flex;
-    padding: 11px 18px;
+    padding: 11px 8px 11px 18px;
     border: 1px solid $color-border-default;
     border-radius: 12px;
     background-color: $color-gray-main;
+
+    @include onTablet {
+      padding: 11px 18px;
+    }
 
     &:hover {
       border: 1px solid $color-main-green;
@@ -27,7 +31,7 @@
   }
 
   &__add-info {
-    font-size: 14px;
+    font-size: 12px;
     line-height: 16px;
     font-family: $font-sans;
     color: $color-gray-secondary;
@@ -37,7 +41,11 @@
   &__inputs-block {
     display: flex;
     flex-direction: column;
-    gap: 32px;
+    gap: 18px;
+
+    @include onTablet {
+      margin-bottom: 32px;
+    }
   }
 
   &__input {
@@ -54,7 +62,7 @@
 
   &__checkmark {
     position: absolute;
-    top: 11px;
+    top: 20px;
     left: 11px;
     height: 20px;
     width: 20px;
@@ -62,6 +70,11 @@
     border-radius: 4px;
     background-color: $color-main-green;
     font-size: 12px;
+
+    @include onMobile {
+      top: 11px;
+      left: 11px;
+    }
   }
 
   &__checkmark:after {
@@ -83,6 +96,11 @@
     line-height: 19px;
     color: $color-main-text;
     font-family: $font-sans;
+    font-size: 10px;
+
+    @include onTablet {
+      font-size: 14px;
+    }
   }
 
   &__error {
@@ -90,7 +108,11 @@
     top: -19px;
     right: 0;
     color: $color-warning;
-    font-size: 14px;
+    font-size: 10px;
+
+    @include onTablet {
+      font-size: 12px;
+    }
   }
 
   &__link {

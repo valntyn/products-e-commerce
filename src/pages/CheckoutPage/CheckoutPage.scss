@@ -4,6 +4,7 @@
 .checkout-page {
   display: flex;
   flex-direction: column-reverse;
+  gap: 32px;
 
   @include onDesktop {
     display: grid;

@@ -46,26 +46,31 @@ export const CheckoutForm = () => {
           handleChange,
           handleBlur,
           setFieldValue,
-        }) => (
-          <Form className="form__form">
-            <BillingInfo
-              values={values}
-              errors={errors}
-              touched={touched}
-              handleBlur={handleBlur}
-              handleChange={handleChange}
-              setFieldValue={setFieldValue}
-            />
-            <AdditionInfo errors={errors} />
-            <Confirmation errors={errors} values={values} />
-            <button
-              className="form__button"
-              type="submit"
-            >
-              Complete order
-            </button>
-          </Form>
-        )}
+        }) => {
+          const hasErrors = Object.keys(errors).length > 0;
+
+          return (
+            <Form className="form__form">
+              <BillingInfo
+                values={values}
+                errors={errors}
+                touched={touched}
+                handleBlur={handleBlur}
+                handleChange={handleChange}
+                setFieldValue={setFieldValue}
+              />
+              <AdditionInfo errors={errors} />
+              <Confirmation errors={errors} values={values} />
+              <button
+                className="form__button"
+                type="submit"
+                disabled={hasErrors}
+              >
+                Complete order
+              </button>
+            </Form>
+          );
+        }}
       </Formik>
     </div>
   );
