@@ -8,7 +8,7 @@ import { paths } from '@constants/paths';
 
 export const Layout = () => {
   const location = useLocation();
-  const isCheckoutPage = location.pathname === paths.main;
+  const isCheckoutPage = location.pathname === paths.checkout;
 
   return (
     <PageWrapper>
@@ -16,7 +16,7 @@ export const Layout = () => {
       <MainWrapper>
         <Outlet />
       </MainWrapper>
-      {isCheckoutPage && <Footer />}
+      {!isCheckoutPage && <Footer />}
     </PageWrapper>
   );
 };
