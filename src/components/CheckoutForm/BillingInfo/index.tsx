@@ -217,7 +217,7 @@ export const BillingInfo: React.FC<PropsTypes> = ({
               <Cross className="billing-info__cross" />
             </button>
           )}
-          {filteredCountries && (
+          {!!filteredCountries.length && (
             <div
               className="billing-info__arrows-box"
               onClick={handleOpenCountries}
@@ -255,7 +255,7 @@ export const BillingInfo: React.FC<PropsTypes> = ({
             name="city"
             title="Town / City"
           />
-          {!!filteredCities.length && (
+          {(!!filteredCities.length && values.country) && (
             <div
               className="billing-info__arrows-box"
               onClick={handleOpenCities}
@@ -266,9 +266,9 @@ export const BillingInfo: React.FC<PropsTypes> = ({
           )}
           {cityExpanded && (
             <ul className="billing-info__dropdown">
-              {filteredCities?.map((item, i) => (
+              {filteredCities?.map((item) => (
                 <li
-                  key={i}
+                  key={`${item.latitude}-${item.longitude}`}
                   className="billing-info__item"
                   onClick={handleOptionCity(item)}
                 >

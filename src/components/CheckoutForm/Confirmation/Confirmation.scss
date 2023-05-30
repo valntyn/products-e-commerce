@@ -62,14 +62,13 @@
 
   &__checkmark {
     position: absolute;
-    top: 20px;
+    top: 9px;
     left: 11px;
     height: 20px;
     width: 20px;
     border: 1.5px solid $color-secondary-green;
     border-radius: 4px;
     background-color: $color-main-green;
-    font-size: 12px;
 
     @include onMobile {
       top: 11px;
@@ -93,13 +92,14 @@
   }
 
   &__title-input {
-    line-height: 19px;
+    line-height: 14px;
     color: $color-main-text;
     font-family: $font-sans;
     font-size: 10px;
 
     @include onTablet {
       font-size: 14px;
+      line-height: 19px;
     }
   }
 

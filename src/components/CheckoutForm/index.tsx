@@ -27,7 +27,17 @@ export const CheckoutForm = () => {
     values: IFormValues,
     formikHelpers: FormikHelpers<IFormValues>,
   ) => {
-    console.log(values);
+    const trimmedValues: IFormValues = Object.fromEntries(
+      Object.entries(values).map(([key, value]) => {
+        if (typeof value === 'string') {
+          return [key, value.trim()];
+        }
+
+        return [key, value];
+      }),
+    );
+
+    console.log(trimmedValues);
 
     formikHelpers.resetForm();
   };
