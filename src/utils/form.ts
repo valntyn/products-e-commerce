@@ -20,7 +20,13 @@ export enum AutoFillOff {
 export enum ChangeHandler {
   CODE = 'postalCode',
   CITY = 'city',
-  PHONE = 'phone',
+  PHONE = 'phoneNumber',
+}
+
+export enum Exceptions {
+  TERMS = 'terms',
+  CITY = 'city',
+  COUNTRY = 'country',
 }
 
 export type Errors<T> = Partial<{ [K in keyof T]: string }>;

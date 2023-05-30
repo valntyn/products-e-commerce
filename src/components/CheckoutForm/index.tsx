@@ -1,7 +1,7 @@
 import {
-  Formik, Form, FormikHelpers, useFormikContext,
+  Formik, Form, FormikHelpers,
 } from 'formik';
-import { useEffect } from 'react';
+import { useState } from 'react';
 
 import { AdditionInfo } from '@components/CheckoutForm/AdditionInfo';
 import { BillingInfo } from '@components/CheckoutForm/BillingInfo';
@@ -9,11 +9,15 @@ import { validationSchema } from '@constants/validationSchema';
 import { IFormValues } from '@utils/form';
 
 import { Confirmation } from './Confirmation';
+import { FormValuesStorage } from './FormStorage';
 
 import './CheckoutForm.scss';
 
 export const CheckoutForm = () => {
-  const storedFormValues = localStorage.getItem('formValues');
+  const [storedFormValues, setStoredFormValues] = useState(
+    localStorage.getItem('formValues'),
+  );
+
   const initialValues: IFormValues = storedFormValues
     ? JSON.parse(storedFormValues)
     : {
@@ -30,6 +34,11 @@ export const CheckoutForm = () => {
       terms: false,
     };
 
+  const clearFormValues = () => {
+    localStorage.removeItem('formValues');
+    setStoredFormValues(null);
+  };
+
   const handleSubmit = (
     values: IFormValues,
     formikHelpers: FormikHelpers<IFormValues>,
@@ -44,17 +53,8 @@ export const CheckoutForm = () => {
       }),
     );
 
-    formikHelpers.resetForm();
-  };
-
-  const FormValuesStorage = () => {
-    const formik = useFormikContext<IFormValues>();
-
-    useEffect(() => {
-      localStorage.setItem('formValues', JSON.stringify(formik.values));
-    }, [formik.values]);
-
-    return null;
+    clearFormValues();
+    formikHelpers.resetForm({ values: initialValues });
   };
 
   return (
@@ -71,9 +71,9 @@ export const CheckoutForm = () => {
           handleChange,
           handleBlur,
           setFieldValue,
-          isSubmitting,
           isValid,
           values,
+          isSubmitting,
         }) => {
           const hasErrors = !Object.keys(errors).length;
           const isTouched = !Object.keys(touched).length;
