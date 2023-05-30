@@ -11,6 +11,7 @@ import {
 import { ReactComponent as Arrow } from '@assets/svg/arrow-down-small.svg';
 import { ReactComponent as Cross } from '@assets/svg/cross.svg';
 import { InputField } from '@components/InputField';
+import { numbersRegExp } from '@constants/validationSchema';
 import {
   filterItems,
   findCountryCode,
@@ -116,10 +117,10 @@ export const BillingInfo: React.FC<PropsTypes> = ({
 
     switch (fieldName) {
       case ChangeHandler.PHONE:
-        formattedValue = formattedPhoneNumber(value.replace(/[^0-9]/g, ''));
+        formattedValue = formattedPhoneNumber(value.replace(numbersRegExp, ''));
         break;
       case ChangeHandler.CODE:
-        formattedValue = value.replace(/[^0-9]/g, '');
+        formattedValue = value.replace(numbersRegExp, '');
         break;
       case ChangeHandler.CITY:
         formattedValue = value;

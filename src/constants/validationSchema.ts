@@ -1,5 +1,7 @@
 import * as Yup from 'yup';
 
+export const numbersRegExp = /[^0-9]/g;
+
 export const validationSchema = Yup.object({
   name: Yup
     .string()
