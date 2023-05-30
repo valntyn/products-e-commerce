@@ -12,6 +12,10 @@
     color: $color-main-text;
   }
 
+  &__require {
+    color: $color-warning;
+  }
+
   &__input {
     width: 100%;
     outline: none;
@@ -43,6 +47,11 @@
     &:-webkit-autofill:focus {
       -webkit-box-shadow: 0 0 0px 1000px $color-pale-green inset;
       caret-color: initial;
+    }
+
+    &--shadow {
+      position: absolute;
+      left: 0;
     }
   }
 

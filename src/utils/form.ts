@@ -12,5 +12,10 @@ export type IFormValues = {
   terms: boolean,
 };
 
+export enum AutoFillOff {
+  COUNTRY = 'country',
+  CITY = 'city',
+}
+
 export type Errors<T> = Partial<{ [K in keyof T]: string }>;
 export type Touched<T> = Partial<{ [K in keyof T]: boolean }>;

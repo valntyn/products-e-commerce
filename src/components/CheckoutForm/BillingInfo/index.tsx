@@ -53,8 +53,8 @@ export const BillingInfo: React.FC<PropsTypes> = ({
   const citiesRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    setCityDisabled(!values.country);
-  }, [values.country]);
+    setCityDisabled(!values.country || !selectedCountryCode);
+  }, [values.country, selectedCountryCode]);
 
   const countryData = useCountryData();
 
