@@ -6,7 +6,8 @@ import './InputField.scss';
 type PropTypes = {
   error: string | undefined;
   values: string | number;
-  handleChange: (e: ChangeEvent<HTMLInputElement> | string) => void;
+  handleChange: (e: ChangeEvent<HTMLInputElement>) => void
+  | ((value: string) => void);
   type: string;
   name: string;
   title?: string;

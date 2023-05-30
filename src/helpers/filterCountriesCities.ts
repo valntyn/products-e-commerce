@@ -6,7 +6,7 @@ export const findCountryCode = (
 ) => {
   const matchingCountry = countryData.find(
     (country) => country.name
-      .toLowerCase() === countryName.trim().toLowerCase(),
+      .toLowerCase().trim() === countryName.trim().toLowerCase(),
   );
 
   return matchingCountry?.isoCode;
@@ -20,7 +20,7 @@ export const filterCountries = (
 
   return countries
     .filter((country) => country.name
-      .toLowerCase().includes(lowercaseFilterValue));
+      .toLowerCase().trim().includes(lowercaseFilterValue));
 };
 
 export const filterCities = (cities: ICity[], cityName: string): ICity[] => {
