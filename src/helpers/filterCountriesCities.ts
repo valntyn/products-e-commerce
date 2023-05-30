@@ -1,4 +1,4 @@
-import { ICity, ICountry } from 'country-state-city';
+import { ICountry } from 'country-state-city';
 
 export const findCountryCode = (
   countryName: string,
@@ -12,25 +12,15 @@ export const findCountryCode = (
   return matchingCountry?.isoCode;
 };
 
-export const filterCountries = (
-  countries: ICountry[],
-  filterValue: string,
-): ICountry[] => {
-  const lowercaseFilterValue = filterValue.trim().toLowerCase();
-
-  return countries
-    .filter((country) => country.name
-      .toLowerCase().trim().includes(lowercaseFilterValue));
-};
-
-export const filterCities = (cities: ICity[], cityName: string): ICity[] => {
-  if (!cityName) {
-    return cities;
+export const filterItems = <T>(
+  items: T[], filterValue: string, getValue: (item: T) => string,
+): T[] => {
+  if (!filterValue) {
+    return items;
   }
 
-  const filtered = cities
-    .filter((city) => city.name
-      .toLowerCase().includes(cityName.trim().toLowerCase()));
+  const lowercaseFilterValue = filterValue.trim().toLowerCase();
 
-  return filtered;
+  return items.filter((item) => getValue(item)
+    .toLowerCase().includes(lowercaseFilterValue));
 };

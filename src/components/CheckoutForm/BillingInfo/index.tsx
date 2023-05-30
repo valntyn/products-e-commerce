@@ -12,14 +12,15 @@ import { ReactComponent as Arrow } from '@assets/svg/arrow-down-small.svg';
 import { ReactComponent as Cross } from '@assets/svg/cross.svg';
 import { InputField } from '@components/InputField';
 import {
-  filterCities,
-  filterCountries,
+  filterItems,
   findCountryCode,
 } from '@helpers/filterCountriesCities';
 import { formattedPhoneNumber } from '@helpers/formatPhoneNumber';
 import { useClickOutside } from '@hooks/useClickOutside';
 import { useCountryData } from '@hooks/useCountryData';
-import { Errors, IFormValues, Touched } from '@utils/form';
+import {
+  ChangeHandler, Errors, IFormValues, Touched,
+} from '@utils/form';
 
 import './BillingInfo.scss';
 
@@ -58,20 +59,21 @@ export const BillingInfo: React.FC<PropsTypes> = ({
 
   const countryData = useCountryData();
 
-  const filteredCountries = useMemo(
-    () => filterCountries(countryData, values.country),
-    [countryData, values.country],
-  );
-
   const cities = useMemo(() => {
     return selectedCountryCode
       ? City.getCitiesOfCountry(selectedCountryCode)
       : [];
   }, [selectedCountryCode]);
 
-  const filteredCities = useMemo(() => {
-    return filterCities(cities || [], values.city);
-  }, [cities, values.city]);
+  const filteredCountries = useMemo(
+    () => filterItems(countryData, values.country, (country) => country.name),
+    [countryData, values.country],
+  );
+
+  const filteredCities = useMemo(
+    () => filterItems(cities || [], values.city, (city) => city.name),
+    [cities, values.city],
+  );
 
   const handleChangeCountry = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
@@ -90,14 +92,6 @@ export const BillingInfo: React.FC<PropsTypes> = ({
     setCountriesExpanded(true);
   };
 
-  const handleChangeCity = (event: ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target;
-
-    setFieldValue('city', value);
-
-    setCitiesExpanded(true);
-  };
-
   const handleOptionCountry = (country: ICountry) => () => {
     if (country) {
       setFieldValue('country', country.name);
@@ -113,18 +107,30 @@ export const BillingInfo: React.FC<PropsTypes> = ({
     }
   };
 
-  const handlePhoneNumberChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (
+    e: ChangeEvent<HTMLInputElement>,
+    fieldName: ChangeHandler,
+  ) => {
     const { value } = e.target;
-    const phoneNumber = value.replace(/[^0-9]/g, '');
+    let formattedValue = value;
 
-    setFieldValue('phoneNumber', formattedPhoneNumber(phoneNumber));
-  };
+    switch (fieldName) {
+      case ChangeHandler.PHONE:
+        formattedValue = formattedPhoneNumber(value.replace(/[^0-9]/g, ''));
+        break;
+      case ChangeHandler.CODE:
+        formattedValue = value.replace(/[^0-9]/g, '');
+        break;
+      case ChangeHandler.CITY:
+        formattedValue = value;
+        setCitiesExpanded(true);
+        break;
 
-  const handlePostalChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    const postalCode = value.replace(/[^0-9]/g, '');
+      default:
+        break;
+    }
 
-    setFieldValue('postalCode', postalCode);
+    setFieldValue(fieldName, formattedValue);
   };
 
   const hanldeClear = () => {
@@ -190,7 +196,7 @@ export const BillingInfo: React.FC<PropsTypes> = ({
           error={errors.phoneNumber}
           touched={touched.phoneNumber}
           values={values.phoneNumber}
-          handleChange={handlePhoneNumberChange}
+          handleChange={(e) => handleInputChange(e, ChangeHandler.PHONE)}
           handleBlur={handleBlur}
           type="text"
           name="phoneNumber"
@@ -248,7 +254,7 @@ export const BillingInfo: React.FC<PropsTypes> = ({
             error={errors.city}
             touched={touched.city}
             values={values.city}
-            handleChange={handleChangeCity}
+            handleChange={(e) => handleInputChange(e, ChangeHandler.CITY)}
             handleBlur={handleBlur}
             disabled={cityDisabled}
             type="text"
@@ -294,7 +300,7 @@ export const BillingInfo: React.FC<PropsTypes> = ({
           error={errors.postalCode}
           touched={touched.postalCode}
           values={values.postalCode}
-          handleChange={handlePostalChange}
+          handleChange={(e) => handleInputChange(e, ChangeHandler.CODE)}
           handleBlur={handleBlur}
           type="text"
           name="postalCode"

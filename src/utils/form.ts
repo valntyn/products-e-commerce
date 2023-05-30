@@ -17,5 +17,11 @@ export enum AutoFillOff {
   CITY = 'city',
 }
 
+export enum ChangeHandler {
+  CODE = 'postalCode',
+  CITY = 'city',
+  PHONE = 'phone',
+}
+
 export type Errors<T> = Partial<{ [K in keyof T]: string }>;
 export type Touched<T> = Partial<{ [K in keyof T]: boolean }>;
