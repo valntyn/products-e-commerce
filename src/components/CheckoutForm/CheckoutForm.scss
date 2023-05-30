@@ -1,0 +1,22 @@
+@import "@styles/_mixins";
+@import "@styles/_variables";
+
+.form {
+  &__button {
+    @include main-button;
+    padding: 16px 48px;
+    border-radius: 12px;
+    font-weight: 700;
+    width: 100%;
+
+    @include onTablet {
+      width: 218px;
+    }
+
+    &:disabled {
+      background-color: $color-gray-secondary;
+      border: 2px solid transparent;
+      cursor: not-allowed;
+    }
+  }
+}

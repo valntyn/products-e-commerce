@@ -1,0 +1,72 @@
+@import "@styles/_reset";
+@import "@styles/_variables";
+
+.addition-info {
+  margin-bottom: 22px;
+
+  @include onTablet {
+    margin-bottom: 64px;
+  }
+
+  &__title {
+    margin-bottom: 4px;
+  }
+
+  &__add-info {
+    font-size: 12px;
+    line-height: 16px;
+    font-family: $font-sans;
+    color: $color-gray-secondary;
+    margin-bottom: 32px;
+  }
+
+  &__inputs-block {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+
+  &__text {
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 18px;
+    color: $color-main-text;
+  }
+
+  &__label {
+    position: relative;
+  }
+
+  &__area {
+    resize: none;
+    width: 100%;
+    height: 112px;
+    outline: none;
+    padding: 11px 16px 11px 21px;
+    color: $color-main-text;
+    font-size: 14px;
+    font-family: $font-sans;
+    border: 1px solid $color-border-default;
+    border-radius: 12px;
+    background-color: $color-gray-main;
+
+    &:focus {
+      border: 1px solid $color-main-green;
+    }
+
+    &::placeholder {
+      line-height: 19px;
+      font-size: 12px;
+      color: $color-text-gray;
+      font-family: $font-sans;
+    }
+  }
+
+  &__error {
+    position: absolute;
+    color: $color-warning;
+    font-size: 14px;
+    top: -2px;
+    right: 0;
+  }
+}

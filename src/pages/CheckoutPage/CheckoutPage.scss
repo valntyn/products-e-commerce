@@ -1,0 +1,15 @@
+@import "@styles/_reset";
+@import "@styles/_variables";
+
+.checkout-page {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 32px;
+  margin-bottom: 80px;
+
+  @include onDesktop {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 32px;
+  }
+}
