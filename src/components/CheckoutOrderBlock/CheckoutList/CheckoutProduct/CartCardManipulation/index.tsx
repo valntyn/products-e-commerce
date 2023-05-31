@@ -10,9 +10,14 @@ type PropTypes = {
   product: ProductForCart;
 };
 
-export const CartCardManipulation: React.FC<PropTypes> = ({ product }) => {
+export const CartCardManipulation: React.FC<PropTypes> = ({
+  product: {
+    discount,
+    id,
+    img,
+  },
+}) => {
   const dispatch = useAppDispatch();
-  const { discount, id } = product;
 
   const hanldeDelete = () => {
     dispatch(removeItem(id));
@@ -23,7 +28,7 @@ export const CartCardManipulation: React.FC<PropTypes> = ({ product }) => {
     <div className="manipulation__left-box">
       <div className="manipulation__wrapper-img">
         <img
-          src={product.img[0]}
+          src={img[0]}
           alt="cart-product"
           className="manipulation__img"
         />

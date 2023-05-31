@@ -22,18 +22,18 @@ type PropTypes = {
 };
 
 export const GeneralCartInfo: React.FC<PropTypes> = ({
-  product,
+  product: {
+    title,
+    brand,
+    id,
+    time,
+    discount,
+    rating,
+  },
   quantity,
   price,
 }) => {
   const dispatch = useAppDispatch();
-  const {
-    brand,
-    title,
-    discount,
-    id,
-    time,
-  } = product;
 
   const oldPrice = price * quantity;
   const fixedPrice = +calculatePrice(price, discount) * quantity;
@@ -60,7 +60,7 @@ export const GeneralCartInfo: React.FC<PropTypes> = ({
       </ul>
       <div className="general-cart__stars-box">
         <Stars
-          number={product.rating}
+          number={rating}
           inactiveStarIcon={StarEmpty}
           activeStarIcon={StarFilled}
         />
