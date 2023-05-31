@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 
 import { paths } from '@constants/paths';
@@ -22,8 +22,13 @@ export const SingleCard: React.FC<PropTypes> = ({
   },
 }) => {
   const location = useLocation();
+  const navigate = useNavigate();
 
   const fixedPrice = calculatePrice(price.kgs, discount);
+
+  const hanldeNavigate = () => {
+    navigate(`${paths.products}/${id}`);
+  };
 
   return (
     <li className="carousel-card">
@@ -56,7 +61,11 @@ export const SingleCard: React.FC<PropTypes> = ({
           <p className="carousel-card__new-price">{`${fixedPrice} USD`}</p>
           <p className="carousel-card__old-price">{`${price.kgs} USD`}</p>
         </div>
-        <button type="button" className="carousel-card__button">
+        <button
+          type="button"
+          className="carousel-card__button"
+          onClick={hanldeNavigate}
+        >
           Buy now
         </button>
       </div>

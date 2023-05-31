@@ -1,0 +1,83 @@
+@import "@styles/_variables";
+@import "@styles/_mixins";
+
+.manipulation {
+  &__img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 1px solid $color-border-default;
+    margin-bottom: 10px;
+
+    @include onTablet {
+      width: 100px;
+      height: 67px;
+    }
+  }
+
+  &__wrapper-img {
+    position: relative;
+    cursor: pointer;
+  }
+
+  &__element {
+    font-weight: 600;
+    font-size: 8px;
+    line-height: 18px;
+    background-color: $color-pale-green;
+    padding: 2px 4px;
+    border-radius: 12px;
+    color: $color-main-green;
+    cursor: pointer;
+    position: absolute;
+    top: 4px;
+    left: 4px;
+
+    @include onTablet {
+      font-size: 10px;
+    }
+  }
+
+  &__buttons-box {
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 12px;
+
+    @include onTablet {
+      flex-direction: column;
+      margin-bottom: 0;
+      justify-content: initial;
+    }
+  }
+
+  &__button {
+    @include default-button;
+    color: $color-border-default;
+    font-size: 12px;
+    line-height: 16px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    border: 1px solid transparent;
+    border-radius: 12px;
+
+    transition: 0.2s linear all;
+
+    &:hover {
+      border: 1px solid $color-border-default;
+    }
+
+    &:hover * {
+      animation: colorChange 0.2s linear forwards;
+    }
+  }
+
+  &__svg {
+    height: 14px;
+    width: 14px;
+  }
+}

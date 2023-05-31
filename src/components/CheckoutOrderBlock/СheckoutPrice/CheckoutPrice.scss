@@ -1,0 +1,135 @@
+@import "@styles/_variables";
+@import "@styles/_mixins";
+
+.checkout-price {
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+
+  &__item {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 18px;
+    color: $color-main-text;
+  }
+
+  &__key {
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  &__label {
+    position: relative;
+    width: 100%;
+  }
+
+  &__input {
+    width: 100%;
+    outline: none;
+    padding: 12px 40% 11px 21px;
+    border: 1px solid $color-border-default;
+    border-radius: 12px;
+    background-color: $color-gray-main;
+    margin-bottom: 43px;
+
+    @include onTablet {
+      padding: 12px 30% 11px 21px;
+    }
+
+    &:focus {
+      border: 1px solid $color-main-green;
+    }
+
+    &::placeholder {
+      line-height: 19px;
+      font-size: 12px;
+      color: $color-text-gray;
+      font-family: $font-sans;
+    }
+  }
+
+  &__coupon {
+    position: absolute;
+    top: 0;
+    right: 20px;
+    @include default-button;
+
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 22px;
+    color: $color-main-text;
+    transition: 0.2s all;
+
+    @include onTablet {
+      font-size: 15px;
+    }
+
+    &:hover {
+      color: $color-main-green;
+    }
+  }
+
+  &__lower-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__left-box {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__order {
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 18px;
+    color: $color-main-text;
+  }
+
+  &__date {
+    font-size: 12px;
+    line-height: 16px;
+    color: $color-main-green;
+    font-family: $font-sans;
+  }
+
+  &__last-price {
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 39px;
+    color: $color-main-green;
+    width: 50%;
+    text-align: right;
+
+    @include onTablet {
+      font-size: 26px;
+      width: initial;
+    }
+  }
+
+  &__error {
+    position: absolute;
+    color: $color-warning;
+    right: 30px;
+    font-size: 12px;
+    padding: 2px;
+    background-color: $color-bg;
+    top: -20px;
+  }
+
+  &__applied-coupon {
+    position: absolute;
+    bottom: -35px;
+    left: 10px;
+    font-weight: bold;
+    color: $color-main-green;
+    font-size: 12px;
+  }
+}

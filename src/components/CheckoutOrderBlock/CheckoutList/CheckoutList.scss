@@ -1,0 +1,30 @@
+@import "@styles/_variables";
+@import "@styles/_mixins";
+
+.checkout-list {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  margin-bottom: 40px;
+  position: relative;
+  min-height: 480px;
+  max-height: 480px;
+  width: 100%;
+
+  overflow-y: auto;
+  scrollbar-color: $color-pale-green $color-main-green;
+
+  &::-webkit-scrollbar { 
+    width: 3px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: $color-pale-green;
+    border-radius: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $color-secondary-green;
+    border-radius: 8px;
+  }
+}

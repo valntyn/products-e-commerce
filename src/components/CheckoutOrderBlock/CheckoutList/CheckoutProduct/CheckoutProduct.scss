@@ -1,0 +1,38 @@
+@import "@styles/_variables";
+@import "@styles/_mixins";
+
+.check-product {
+  padding-bottom: 22px;
+  border-bottom: 1px solid $color-gray-main;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  @include onTablet {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 16px;
+  }
+
+  &__dropdown-menu {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    @include onTablet {
+      position: absolute;
+      right: 5px;
+      bottom: 22px;
+      height: 32px;
+    }
+  }
+}
+
+@keyframes colorChange {
+  from {
+    fill: transparent;
+  }
+  to {
+    fill: $color-warning;
+  }
+}

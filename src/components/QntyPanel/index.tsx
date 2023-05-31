@@ -7,7 +7,6 @@ import { useDebouncedCallback } from 'use-debounce';
 import { ReactComponent as Arrow } from '@assets/svg/arrow-down-small.svg';
 import { DEFAULT_DELAY, DEFAULT_QNTY } from '@constants/default';
 import { capitalize } from '@helpers/capitalize';
-import { useAppSelector } from '@hooks/useAppSelector';
 import { useClickOutside } from '@hooks/useClickOutside';
 import { Count } from '@utils/count';
 import { Stock } from '@utils/product/stock';
@@ -20,6 +19,10 @@ type PropTypes = {
   setQuantity: (quantity: number) => void;
   error: string;
   setError: (error: string) => void;
+  quantity: number;
+  selectedStock: number;
+  stockKeys?: string[];
+  isDisabled?: boolean;
 };
 
 export const QntyPanel: React.FC<PropTypes> = ({
@@ -28,18 +31,15 @@ export const QntyPanel: React.FC<PropTypes> = ({
   setQuantity,
   error,
   setError,
+  quantity,
+  stockKeys,
+  selectedStock,
+  isDisabled,
 }) => {
-  const { selectedProduct } = useAppSelector((state) => state.products);
-
   const [expanded, setExpanded] = useState(false);
-  const [visibleQnty, setVisibleQnty] = useState(1);
+  const [visibleQnty, setVisibleQnty] = useState(quantity || 1);
 
   const menuRef = useRef<HTMLDivElement>(null);
-
-  const { stock } = selectedProduct || {};
-  const selectedStock = stock ? stock[typeOfPack as keyof Stock] : 0;
-
-  const stockKeys = stock && Object.keys(stock);
 
   const debouncedOnChange = useDebouncedCallback((value: number) => {
     if (!error) {
@@ -120,7 +120,14 @@ export const QntyPanel: React.FC<PropTypes> = ({
   useClickOutside(menuRef, handleClickOutside);
 
   return (
-    <div className="qnty-panel" onClick={handleOpen} ref={menuRef}>
+    <div
+      className={classNames(
+        'qnty-panel',
+        { 'qnty-panel--disabled': isDisabled },
+      )}
+      onClick={handleOpen}
+      ref={menuRef}
+    >
       <label className="qnty-panel__label">
         <input
           type="text"
