@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 import {
   ReactComponent as StarFilled,
 } from '@assets/svg/star-sidebar-filled.svg';
-import {
-  ReactComponent as StarEmpty,
-} from '@assets/svg/star-sidebar.svg';
+import { ReactComponent as StarEmpty } from '@assets/svg/star-sidebar.svg';
 import { Stars } from '@components/UI/Stars';
+import { paths } from '@constants/paths';
 import { calculatePrice } from '@helpers/calculatePrice';
 import { formatNumber } from '@helpers/formatPrice';
 import { useAppDispatch } from '@hooks/useAppDispatch';
@@ -23,12 +23,7 @@ type PropTypes = {
 
 export const GeneralCartInfo: React.FC<PropTypes> = ({
   product: {
-    title,
-    brand,
-    id,
-    time,
-    discount,
-    rating,
+    title, brand, id, time, discount, rating,
   },
   quantity,
   price,
@@ -47,7 +42,15 @@ export const GeneralCartInfo: React.FC<PropTypes> = ({
 
   return (
     <div className="general-cart__right-box">
-      <h3 className="general-cart__title">{title}</h3>
+      <h3 className="general-cart__title">
+        <Link
+          to={{
+            pathname: `${paths.products}/${id}`,
+          }}
+        >
+          {title}
+        </Link>
+      </h3>
       <ul className="general-cart__list">
         <li className="general-cart__item">
           <p className="general-cart__key">Farm:</p>

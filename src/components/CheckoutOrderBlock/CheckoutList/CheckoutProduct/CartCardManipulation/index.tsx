@@ -1,5 +1,8 @@
+import { Link } from 'react-router-dom';
+
 import { ReactComponent as Heart } from '@assets/svg/cart-heart.svg';
 import { ReactComponent as Cross } from '@assets/svg/cross-cart.svg';
+import { paths } from '@constants/paths';
 import { useAppDispatch } from '@hooks/useAppDispatch';
 import { removeItem, removePrice } from '@store/reducers/cartSlice';
 import { ProductForCart } from '@utils/product/productForCart';
@@ -11,11 +14,7 @@ type PropTypes = {
 };
 
 export const CartCardManipulation: React.FC<PropTypes> = ({
-  product: {
-    discount,
-    id,
-    img,
-  },
+  product: { discount, id, img },
 }) => {
   const dispatch = useAppDispatch();
 
@@ -27,11 +26,13 @@ export const CartCardManipulation: React.FC<PropTypes> = ({
   return (
     <div className="manipulation__left-box">
       <div className="manipulation__wrapper-img">
-        <img
-          src={img[0]}
-          alt="cart-product"
-          className="manipulation__img"
-        />
+        <Link
+          to={{
+            pathname: `${paths.products}/${id}`,
+          }}
+        >
+          <img src={img[0]} alt="cart-product" className="manipulation__img" />
+        </Link>
         {!!discount && (
           <p className="manipulation__element">{`- ${discount} %`}</p>
         )}
@@ -46,9 +47,7 @@ export const CartCardManipulation: React.FC<PropTypes> = ({
           className="manipulation__button"
           onClick={hanldeDelete}
         >
-          <Cross
-            className="manipulation__svg"
-          />
+          <Cross className="manipulation__svg" />
           Remove
         </button>
       </div>
