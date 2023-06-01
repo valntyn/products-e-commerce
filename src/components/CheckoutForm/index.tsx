@@ -74,6 +74,8 @@ export const CheckoutForm = () => {
     setIsModalActive(false);
   };
 
+  const isValidStock = items.every(item => item.selectedStock);
+
   return (
     <div className="form">
       <Formik
@@ -115,6 +117,7 @@ export const CheckoutForm = () => {
                   || isSubmitting
                   || (isTouched && hasErrors)
                   || !items.length
+                  || !isValidStock
                 }
               >
                 Complete order

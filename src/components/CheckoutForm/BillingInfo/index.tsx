@@ -74,8 +74,6 @@ export const BillingInfo: React.FC<PropsTypes> = ({
     [countryData, values.country],
   );
 
-  console.log(selectedCountryCode);
-
   const filteredCities = useMemo(
     () => filterItems(cities || [], values.city, (city) => city.name),
     [cities, values.city],
