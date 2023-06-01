@@ -27,6 +27,7 @@ export enum Exceptions {
   TERMS = 'terms',
   CITY = 'city',
   COUNTRY = 'country',
+  SPAM = 'spam',
 }
 
 export type Errors<T> = Partial<{ [K in keyof T]: string }>;

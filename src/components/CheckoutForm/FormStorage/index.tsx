@@ -9,8 +9,8 @@ export const FormValuesStorage = () => {
   useEffect(() => {
     const filteredValues = Object.fromEntries(
       Object.entries(formik.values).filter(
-        ([key]) => key !== Exceptions.COUNTRY
-        && key !== Exceptions.CITY && key !== Exceptions.TERMS,
+        ([key]) => key !== Exceptions.TERMS
+          && key !== Exceptions.SPAM,
       ),
     );
 

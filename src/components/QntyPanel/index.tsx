@@ -103,8 +103,15 @@ export const QntyPanel: React.FC<PropTypes> = ({
   };
 
   const blurHandler = () => {
+    setError('');
+
     if (!visibleQnty) {
       setQuantity(DEFAULT_QNTY);
+    }
+
+    if (visibleQnty > selectedStock) {
+      setVisibleQnty(selectedStock);
+      setQuantity(selectedStock);
     }
   };
 
