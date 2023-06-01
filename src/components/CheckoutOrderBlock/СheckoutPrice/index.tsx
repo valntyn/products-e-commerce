@@ -2,7 +2,8 @@ import { useState } from 'react';
 
 import { promo } from '@constants/coupons';
 import { DEFAULT_TAX } from '@constants/default';
-import { calculatePercentage, calculateSum } from '@helpers/calculatePrice';
+import { calculatePercentage } from '@helpers/calculatePrice';
+import { calculatePriceForPackage } from '@helpers/calculatePriceForPackage';
 import { formatDate } from '@helpers/formatDays';
 import { formatNumber } from '@helpers/formatPrice';
 import { useAppSelector } from '@hooks/useAppSelector';
@@ -16,10 +17,10 @@ export const CheckoutPrice = () => {
   const [error, setError] = useState('');
   const [promoDiscount, setPromoDiscount] = useState(0);
 
-  const { prices } = useAppSelector((state) => state.cart);
+  const { items } = useAppSelector((state) => state.cart);
   const productsForCart = useAppSelector(selectProductsForCart);
 
-  const sum = calculateSum(prices);
+  const sum = calculatePriceForPackage(items, productsForCart);
   const fixedDirtSum = formatNumber(sum);
   const calculatedTax = calculatePercentage(DEFAULT_TAX, sum);
   const fixedCalculatedTax = formatNumber(calculatedTax);

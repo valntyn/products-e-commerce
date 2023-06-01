@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import {
@@ -9,8 +8,6 @@ import { Stars } from '@components/UI/Stars';
 import { paths } from '@constants/paths';
 import { calculatePrice } from '@helpers/calculatePrice';
 import { formatNumber } from '@helpers/formatPrice';
-import { useAppDispatch } from '@hooks/useAppDispatch';
-import { setPrice } from '@store/reducers/cartSlice';
 import { ProductForCart } from '@utils/product/productForCart';
 
 import './GeneralCartInfo.scss';
@@ -23,22 +20,21 @@ type PropTypes = {
 
 export const GeneralCartInfo: React.FC<PropTypes> = ({
   product: {
-    title, brand, id, time, discount, rating,
+    title,
+    brand,
+    id,
+    time,
+    discount,
+    rating,
   },
   quantity,
   price,
 }) => {
-  const dispatch = useAppDispatch();
-
   const oldPrice = price * quantity;
   const fixedPrice = +calculatePrice(price, discount) * quantity;
 
   const formattedFixedPrice = formatNumber(fixedPrice);
   const formattedOldPrice = formatNumber(oldPrice);
-
-  useEffect(() => {
-    dispatch(setPrice({ id, fixedPrice }));
-  }, [quantity, dispatch, id, fixedPrice]);
 
   return (
     <div className="general-cart__right-box">

@@ -6,12 +6,16 @@ import { ProductForCart } from '@utils/product/productForCart';
 
 type ProductsForCatType = {
   items: ProductForCart[];
-  prices: { [id: string]: number };
+  isModalOpen: boolean;
+};
+
+type MergedProducts = {
+  [productId: string]: ProductForCart;
 };
 
 const initialState: ProductsForCatType = {
   items: [],
-  prices: {},
+  isModalOpen: false,
 };
 
 const cartSlice = createSlice({
@@ -20,17 +24,28 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addItem: (state, action) => {
-      state.items.push(action.payload);
+      const { productId, selectedStock } = action.payload;
+
+      const existingProduct = state.items.find(
+        (item) => item.productId === productId,
+      );
+
+      if (existingProduct) {
+        existingProduct.selectedStock += selectedStock;
+      } else {
+        state.items.push(action.payload);
+      }
     },
     removeItem: (state, action) => {
-      state.items = state.items.filter(obj => obj.id !== action.payload);
+      state.items = state.items
+        .filter((obj) => obj.productId !== action.payload);
     },
     setSelectedStock: (
       state,
-      action: PayloadAction<{ id: string, quantity: number }>,
+      action: PayloadAction<{ id: string; quantity: number }>,
     ) => {
       const { id, quantity } = action.payload;
-      const product = state.items.find(item => item.id === id);
+      const product = state.items.find((item) => item.productId === id);
 
       if (product) {
         product.selectedStock = quantity;
@@ -38,31 +53,37 @@ const cartSlice = createSlice({
     },
     setSelectedPackage: (
       state,
-      action: PayloadAction<{ id: string, typeOfPack: string }>,
+      action: PayloadAction<{
+        id: string;
+        typeOfPack: string;
+        productId: string;
+      }>,
     ) => {
-      const { id, typeOfPack } = action.payload;
-      const product = state.items.find(item => item.id === id);
+      const { id, typeOfPack, productId } = action.payload;
+      const product = state.items.find((item) => item.productId === id);
 
       if (product) {
         product.selectedPackage = typeOfPack;
+        product.productId = productId;
       }
     },
-    setPrice: (
-      state,
-      action: PayloadAction<{ id: string; fixedPrice: number }>,
-    ) => {
-      const { id, fixedPrice } = action.payload;
+    mergeProducts: (state) => {
+      const mergedProducts: MergedProducts = {};
 
-      state.prices[id] = fixedPrice;
-    },
-    removePrice: (state, action) => {
-      const { id } = action.payload;
+      state.items.forEach((item) => {
+        const { productId, selectedStock } = item;
 
-      delete state.prices[id];
+        if (mergedProducts[productId]) {
+          mergedProducts[productId].selectedStock += selectedStock;
+        } else {
+          mergedProducts[productId] = { ...item };
+        }
+      });
+
+      state.items = Object.values(mergedProducts);
     },
     resetCart: (state) => {
       state.items = [];
-      state.prices = {};
     },
   },
 });
@@ -72,9 +93,8 @@ export const {
   removeItem,
   setSelectedPackage,
   setSelectedStock,
-  setPrice,
-  removePrice,
   resetCart,
+  mergeProducts,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

@@ -10,8 +10,8 @@ export const CheckoutList = () => {
 
   return (
     <ul className="checkout-list">
-      {productsForCart.map(item => (
-        <CheckoutProduct product={item} key={item.id} />
+      {productsForCart.map((item) => (
+        <CheckoutProduct product={item} key={item.productId} />
       ))}
     </ul>
   );

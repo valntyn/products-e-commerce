@@ -3,6 +3,7 @@ import { Stock } from './stock';
 
 export interface ProductForCart {
   id: string;
+  productId: string;
   selectedStock: number,
   selectedPackage: string,
   title: string

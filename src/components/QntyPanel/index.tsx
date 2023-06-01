@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import {
-  ChangeEvent, useRef, useState,
+  ChangeEvent, useEffect, useRef, useState,
 } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
 
@@ -22,7 +22,7 @@ type PropTypes = {
   quantity: number;
   selectedStock: number;
   stockKeys?: string[];
-  isDisabled?: boolean;
+  isProduct?: boolean;
 };
 
 export const QntyPanel: React.FC<PropTypes> = ({
@@ -34,12 +34,16 @@ export const QntyPanel: React.FC<PropTypes> = ({
   quantity,
   stockKeys,
   selectedStock,
-  isDisabled,
+  isProduct,
 }) => {
   const [expanded, setExpanded] = useState(false);
-  const [visibleQnty, setVisibleQnty] = useState(quantity || 1);
+  const [visibleQnty, setVisibleQnty] = useState(quantity);
 
   const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setVisibleQnty(quantity);
+  }, [quantity]);
 
   const debouncedOnChange = useDebouncedCallback((value: number) => {
     if (!error) {
@@ -49,7 +53,6 @@ export const QntyPanel: React.FC<PropTypes> = ({
 
   const handleClear = () => {
     setError('');
-    setVisibleQnty(DEFAULT_QNTY);
   };
 
   const handleCount = (
@@ -100,7 +103,10 @@ export const QntyPanel: React.FC<PropTypes> = ({
   };
 
   const handleChoose = (type: keyof Stock) => () => {
-    setQuantity(DEFAULT_QNTY);
+    if (isProduct) {
+      setQuantity(DEFAULT_QNTY);
+    }
+
     handleSelectTypeOfPackage(type);
     handleClear();
   };
@@ -123,7 +129,6 @@ export const QntyPanel: React.FC<PropTypes> = ({
     <div
       className={classNames(
         'qnty-panel',
-        { 'qnty-panel--disabled': isDisabled },
       )}
       onClick={handleOpen}
       ref={menuRef}

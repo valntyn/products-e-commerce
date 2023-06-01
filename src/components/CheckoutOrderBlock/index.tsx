@@ -14,7 +14,7 @@ import './CheckoutOrderBlock.scss';
 export const CheckoutOrderBlock = () => {
   const dispatch = useAppDispatch();
   const { items } = useAppSelector((state) => state.cart);
-  const { isCartLoading } = useAppSelector((state) => state.products);
+  const { isLoading } = useAppSelector((state) => state.products);
 
   useEffect(() => {
     const productsIds = items.map(item => item.id);
@@ -22,7 +22,7 @@ export const CheckoutOrderBlock = () => {
     dispatch(getProductsByIds(productsIds));
   }, [items, dispatch]);
 
-  if (isCartLoading) {
+  if (isLoading) {
     return (
       <div className="order-block">
         <Spinner />

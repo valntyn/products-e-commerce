@@ -7,7 +7,7 @@ import { QntyPanel } from '@components/QntyPanel';
 import { DEFAULT_QNTY } from '@constants/default';
 import { useAppDispatch } from '@hooks/useAppDispatch';
 import { useAppSelector } from '@hooks/useAppSelector';
-import { addItem, removeItem } from '@store/reducers/cartSlice';
+import { addItem } from '@store/reducers/cartSlice';
 import { Price } from '@utils/product/price';
 import { Stock } from '@utils/product/stock';
 
@@ -24,11 +24,13 @@ export const ProductDisplay = () => {
   const [visiblePrice, setVisiblePrice] = useState<number>(0);
   const [quantity, setQuantity] = useState(DEFAULT_QNTY);
   const [error, setError] = useState('');
+  const [notification, setNotification] = useState('');
 
   const {
     price = null,
     stock,
     id,
+    title,
   } = selectedProduct || {};
 
   const isProductInCart = items.some(item => item.id === id);
@@ -43,6 +45,13 @@ export const ProductDisplay = () => {
     }
   }, []);
 
+  useEffect(() => {
+    const timeoutId
+      = notification && setTimeout(() => setNotification(''), 1000);
+
+    return () => clearTimeout(timeoutId);
+  }, [notification]);
+
   const handleSelectTypeOfPackage = useCallback(
     (type: keyof Stock) => {
       selectTypeOfPack(type);
@@ -56,14 +65,13 @@ export const ProductDisplay = () => {
       dispatch(
         addItem({
           id,
+          productId: `${id}-${typeOfPack}`,
           selectedStock: quantity,
           selectedPackage: typeOfPack,
         }),
       );
-    }
 
-    if (isProductInCart) {
-      dispatch(removeItem(id));
+      setNotification(`Added ${quantity} ${typeOfPack} of ${title}`);
     }
   };
 
@@ -83,13 +91,13 @@ export const ProductDisplay = () => {
                 quantity={quantity}
                 stockKeys={stockKeys}
                 selectedStock={selectedStock}
+                isProduct
               />
             </div>
             <button
               type="button"
               className={classNames(
                 'display__button',
-                { 'display__button--active': isProductInCart },
               )}
               disabled={!isProductInCart && !quantity}
               onClick={handleAddToCart}
@@ -97,13 +105,16 @@ export const ProductDisplay = () => {
               <Cross
                 className={classNames(
                   'display__svg',
-                  { 'display__svg--active': isProductInCart },
                 )}
               />
-              {isProductInCart
-                ? 'Remove'
-                : 'Add to cart'}
+              Add to cart
             </button>
+            {notification
+              && (
+                <p className="display__notification">
+                  {notification}
+                </p>
+              )}
           </div>
         </div>
         <div className="display__wish-box">

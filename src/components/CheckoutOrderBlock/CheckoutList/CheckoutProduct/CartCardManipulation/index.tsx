@@ -4,7 +4,7 @@ import { ReactComponent as Heart } from '@assets/svg/cart-heart.svg';
 import { ReactComponent as Cross } from '@assets/svg/cross-cart.svg';
 import { paths } from '@constants/paths';
 import { useAppDispatch } from '@hooks/useAppDispatch';
-import { removeItem, removePrice } from '@store/reducers/cartSlice';
+import { removeItem } from '@store/reducers/cartSlice';
 import { ProductForCart } from '@utils/product/productForCart';
 
 import './CartCardManipulation.scss';
@@ -14,13 +14,17 @@ type PropTypes = {
 };
 
 export const CartCardManipulation: React.FC<PropTypes> = ({
-  product: { discount, id, img },
+  product: {
+    discount,
+    productId,
+    img,
+    id,
+  },
 }) => {
   const dispatch = useAppDispatch();
 
   const hanldeDelete = () => {
-    dispatch(removeItem(id));
-    dispatch(removePrice({ id }));
+    dispatch(removeItem(productId));
   };
 
   return (

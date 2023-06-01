@@ -18,6 +18,7 @@
   &__right {
     display: flex;
     align-items: center;
+    position: relative;
     flex-direction: column;
     gap: 12px;
     
@@ -59,6 +60,17 @@
   
   &__qnt-wrapper {
     height: 48px;
+  }
+
+  &__notification {
+    position: absolute;
+    top: -25px;
+    background-color: $color-bg;
+    right: -70px;
+    color: $color-main-green;
+    font-weight: 700;
+    font-size: 12px;
+    width: 300px;
   }
 
   &__wish-box {

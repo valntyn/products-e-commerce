@@ -4,7 +4,7 @@ import { RootState } from '@store/store';
 import { ProductForCart } from '@utils/product/productForCart';
 
 const selectCartItems = (state: RootState) => state.cart.items;
-const selectProducts = (state: RootState) => state.products.cartProducts;
+const selectProducts = (state: RootState) => state.products.products;
 
 export const selectProductsForCart = createSelector(
   [selectCartItems, selectProducts],
@@ -40,6 +40,7 @@ export const selectProductsForCart = createSelector(
           rating,
           img,
           id: product.id,
+          productId: cartItem.productId,
           selectedStock: cartItem.selectedStock,
           selectedPackage: cartItem.selectedPackage,
         };
