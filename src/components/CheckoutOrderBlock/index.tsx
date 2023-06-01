@@ -1,6 +1,10 @@
+import { useEffect } from 'react';
+
 import { ReactComponent as EmptyCart } from '@assets/svg/cart-img.svg';
 import { Spinner } from '@components/UI/Spinner';
+import { useAppDispatch } from '@hooks/useAppDispatch';
 import { useAppSelector } from '@hooks/useAppSelector';
+import { getProductsByIds } from '@store/reducers/productsSlice';
 
 import { CheckoutList } from './CheckoutList/CheckoutList';
 import { CheckoutPrice } from './СheckoutPrice';
@@ -8,12 +12,17 @@ import { CheckoutPrice } from './СheckoutPrice';
 import './CheckoutOrderBlock.scss';
 
 export const CheckoutOrderBlock = () => {
-  const { isLoading } = useAppSelector(
-    (state) => state.products,
-  );
+  const dispatch = useAppDispatch();
   const { items } = useAppSelector((state) => state.cart);
+  const { isCartLoading } = useAppSelector((state) => state.products);
 
-  if (isLoading) {
+  useEffect(() => {
+    const productsIds = items.map(item => item.id);
+
+    dispatch(getProductsByIds(productsIds));
+  }, [items, dispatch]);
+
+  if (isCartLoading) {
     return (
       <div className="order-block">
         <Spinner />
