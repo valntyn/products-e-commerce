@@ -33,8 +33,6 @@ export const ProductDisplay = () => {
     title,
   } = selectedProduct || {};
 
-  const isProductInCart = items.some(item => item.id === id);
-
   const selectedStock = stock ? stock[typeOfPack as keyof Stock] : 0;
   const stockKeys = stock && Object.keys(stock);
 
@@ -61,6 +59,20 @@ export const ProductDisplay = () => {
   );
 
   const handleAddToCart = () => {
+    const productInCart = items.find(item => item.productId === `${id}-${typeOfPack}`);
+
+    if (productInCart) {
+      const itemsInCart = productInCart?.selectedStock;
+      const available = selectedStock - itemsInCart;
+
+      if (itemsInCart > selectedStock || quantity > available) {
+        setQuantity(available);
+        setError(`in stock only ${selectedStock}${typeOfPack}, in cart ${itemsInCart}`);
+
+        return;
+      }
+    }
+
     if (selectedProduct) {
       dispatch(
         addItem({
@@ -68,6 +80,7 @@ export const ProductDisplay = () => {
           productId: `${id}-${typeOfPack}`,
           selectedStock: quantity,
           selectedPackage: typeOfPack,
+          stock,
         }),
       );
 
@@ -99,7 +112,7 @@ export const ProductDisplay = () => {
               className={classNames(
                 'display__button',
               )}
-              disabled={!isProductInCart && !quantity}
+              disabled={!quantity}
               onClick={handleAddToCart}
             >
               <Cross

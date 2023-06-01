@@ -102,6 +102,12 @@ export const QntyPanel: React.FC<PropTypes> = ({
     setVisibleQnty(inputValue);
   };
 
+  const blurHandler = () => {
+    if (!visibleQnty) {
+      setQuantity(DEFAULT_QNTY);
+    }
+  };
+
   const handleChoose = (type: keyof Stock) => () => {
     if (isProduct) {
       setQuantity(DEFAULT_QNTY);
@@ -138,6 +144,7 @@ export const QntyPanel: React.FC<PropTypes> = ({
           type="text"
           className="qnty-panel__input"
           placeholder="qnty"
+          onBlur={blurHandler}
           value={visibleQnty}
           onChange={handleChange}
           onClick={handleInputClick}

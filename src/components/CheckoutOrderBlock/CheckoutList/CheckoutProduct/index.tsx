@@ -22,12 +22,12 @@ type PropTypes = {
   product: ProductForCart;
 };
 
-export const CheckoutProduct: React.FC<PropTypes> = ({ product }) => {
-  const {
+export const CheckoutProduct: React.FC<PropTypes> = ({
+  product,
+  product: {
     selectedStock, stock, price, selectedPackage, id, productId,
-  }
-    = product;
-
+  },
+}) => {
   const dispatch = useAppDispatch();
   const productsInCart = useAppSelector(selectProductsForCart);
 
@@ -47,8 +47,6 @@ export const CheckoutProduct: React.FC<PropTypes> = ({ product }) => {
       setVisiblePrice(price ? price[selectedPackage as keyof Stock] : 0);
     }
   }, []);
-
-  console.log(quantity);
 
   useEffect(() => {
     setQuantity(selectedStock);
@@ -93,7 +91,7 @@ export const CheckoutProduct: React.FC<PropTypes> = ({ product }) => {
         }),
       );
       setVisiblePrice(price ? price[tempPack] : 0);
-      dispatch(mergeProducts());
+      dispatch(mergeProducts({ tempPack }));
     }
 
     setIsModalActive(false);

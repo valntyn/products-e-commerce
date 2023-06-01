@@ -3,6 +3,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { ProductForCart } from '@utils/product/productForCart';
+import { Stock } from '@utils/product/stock';
 
 type ProductsForCatType = {
   items: ProductForCart[];
@@ -67,14 +68,24 @@ const cartSlice = createSlice({
         product.productId = productId;
       }
     },
-    mergeProducts: (state) => {
+    mergeProducts: (state, action: PayloadAction<{
+      tempPack: keyof Stock;
+    }>) => {
+      const { tempPack } = action.payload;
       const mergedProducts: MergedProducts = {};
 
       state.items.forEach((item) => {
-        const { productId, selectedStock } = item;
+        const { productId, selectedStock, stock } = item;
 
         if (mergedProducts[productId]) {
-          mergedProducts[productId].selectedStock += selectedStock;
+          const currentStock = mergedProducts[productId].selectedStock;
+          const availableStock = stock[tempPack];
+
+          if (currentStock + selectedStock > availableStock) {
+            mergedProducts[productId].selectedStock = availableStock;
+          } else {
+            mergedProducts[productId].selectedStock += selectedStock;
+          }
         } else {
           mergedProducts[productId] = { ...item };
         }
