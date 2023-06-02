@@ -1,5 +1,7 @@
-import { Formik, Form, FormikHelpers } from 'formik';
-import { useState } from 'react';
+import {
+  Formik, Form, FormikHelpers, FormikProps,
+} from 'formik';
+import { useState, useRef, useEffect } from 'react';
 
 import orderImg from '@assets/png/order.png';
 import { AdditionInfo } from '@components/CheckoutForm/AdditionInfo';
@@ -9,7 +11,7 @@ import { validationSchema } from '@constants/validationSchema';
 import { useAppDispatch } from '@hooks/useAppDispatch';
 import { useAppSelector } from '@hooks/useAppSelector';
 import { resetCart } from '@store/reducers/cartSlice';
-import { IFormValues } from '@utils/form';
+import { IFormValues, SetTouchedFunction } from '@utils/form';
 
 import { Confirmation } from './Confirmation';
 import { FormValuesStorage } from './FormStorage';
@@ -23,6 +25,7 @@ export const CheckoutForm = () => {
     localStorage.getItem('formValues'),
   );
   const [isModalActive, setIsModalActive] = useState(false);
+  const formikRef = useRef<FormikProps<IFormValues>>(null);
 
   const initialValues: IFormValues = storedFormValues
     ? JSON.parse(storedFormValues)
@@ -44,6 +47,24 @@ export const CheckoutForm = () => {
     localStorage.removeItem('formValues');
     setStoredFormValues(null);
   };
+
+  const setAllFieldsTouched = (setTouched: SetTouchedFunction) => {
+    if (storedFormValues) {
+      const parsedFormValues = JSON.parse(storedFormValues);
+
+      Object.keys(parsedFormValues).forEach((fieldName) => {
+        if (initialValues[fieldName]) {
+          setTouched(fieldName, true);
+        }
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (formikRef.current && storedFormValues) {
+      setAllFieldsTouched(formikRef.current.setFieldTouched);
+    }
+  }, []);
 
   const handleSubmit = (
     values: IFormValues,
@@ -74,11 +95,12 @@ export const CheckoutForm = () => {
     setIsModalActive(false);
   };
 
-  const isValidStock = items.every(item => item.selectedStock);
+  const isValidStock = items.every((item) => item.selectedStock);
 
   return (
     <div className="form">
       <Formik
+        innerRef={formikRef}
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
@@ -93,9 +115,18 @@ export const CheckoutForm = () => {
           isValid,
           values,
           isSubmitting,
+          dirty,
         }) => {
           const hasErrors = !Object.keys(errors).length;
           const isTouched = !Object.keys(touched).length;
+
+          const isFormInvalid
+            = !isValid
+            || isSubmitting
+            || (isTouched && hasErrors)
+            || !items.length
+            || !isValidStock
+            || !dirty;
 
           return (
             <Form className="form__form">
@@ -112,13 +143,7 @@ export const CheckoutForm = () => {
               <button
                 className="form__button"
                 type="submit"
-                disabled={
-                  !isValid
-                  || isSubmitting
-                  || (isTouched && hasErrors)
-                  || !items.length
-                  || !isValidStock
-                }
+                disabled={isFormInvalid}
               >
                 Complete order
               </button>

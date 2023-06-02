@@ -15,7 +15,7 @@ export const FormValuesStorage = () => {
     );
 
     localStorage.setItem('formValues', JSON.stringify(filteredValues));
-  }, [formik.values]);
+  }, [formik, formik.values]);
 
   return null;
 };

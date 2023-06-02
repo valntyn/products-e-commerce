@@ -40,8 +40,8 @@ export const validationSchema = Yup.object({
   comment: Yup.string()
     .matches(/^[^!@#$%]+$/, 'invalid characters !@#$%^*&"')
     .max(300, 'not more than 300 symbols'),
-  spam: Yup.boolean()
-    .oneOf([true], 'You must accept the terms and conditions'),
+  spam: Yup.boolean(),
   terms: Yup.boolean()
+    .required('is required')
     .oneOf([true], 'You must accept the terms and conditions'),
 });

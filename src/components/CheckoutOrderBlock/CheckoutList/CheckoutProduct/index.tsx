@@ -79,6 +79,11 @@ export const CheckoutProduct: React.FC<PropTypes> = ({
     [dispatch, productId, price, id, selectedPackage],
   );
 
+  const hanldeCloseModal = () => {
+    setIsModalActive(false);
+    selectTempPack(null);
+  };
+
   const handleApprove = () => {
     selectTypeOfPack(tempPack);
 
@@ -94,11 +99,7 @@ export const CheckoutProduct: React.FC<PropTypes> = ({
       dispatch(mergeProducts({ tempPack }));
     }
 
-    setIsModalActive(false);
-  };
-
-  const hanldeCloseModal = () => {
-    setIsModalActive(false);
+    hanldeCloseModal();
   };
 
   return (

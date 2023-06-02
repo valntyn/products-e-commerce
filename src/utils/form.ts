@@ -10,6 +10,7 @@ export type IFormValues = {
   comment: string,
   spam: boolean,
   terms: boolean,
+  [key: string]: string | boolean;
 };
 
 export enum AutoFillOff {
@@ -32,3 +33,4 @@ export enum Exceptions {
 
 export type Errors<T> = Partial<{ [K in keyof T]: string }>;
 export type Touched<T> = Partial<{ [K in keyof T]: boolean }>;
+export type SetTouchedFunction = (fieldName: string, touched: boolean) => void;

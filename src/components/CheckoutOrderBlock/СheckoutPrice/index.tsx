@@ -37,7 +37,11 @@ export const CheckoutPrice = () => {
   };
 
   const handleApply = () => {
-    const lowerCaseQueryPromo = queryPromo.toLowerCase();
+    const lowerCaseQueryPromo = queryPromo.toLowerCase().trim();
+
+    if (!lowerCaseQueryPromo) {
+      return;
+    }
 
     const appliedPromoCode = promo.find(
       (item) => item.promo.toLowerCase() === lowerCaseQueryPromo,
