@@ -18,7 +18,7 @@ import './ProductDisplay.scss';
 export const ProductDisplay = () => {
   const dispatch = useAppDispatch();
   const { selectedProduct } = useAppSelector((state) => state.products);
-  const { items } = useAppSelector(state => state.cart);
+  const { items } = useAppSelector((state) => state.cart);
 
   const [typeOfPack, selectTypeOfPack] = useState<keyof Stock | null>(null);
   const [visiblePrice, setVisiblePrice] = useState<number>(0);
@@ -27,10 +27,7 @@ export const ProductDisplay = () => {
   const [notification, setNotification] = useState('');
 
   const {
-    price = null,
-    stock,
-    id,
-    title,
+    price = null, stock, id, title,
   } = selectedProduct || {};
 
   const selectedStock = stock ? stock[typeOfPack as keyof Stock] : 0;
@@ -59,7 +56,9 @@ export const ProductDisplay = () => {
   );
 
   const handleAddToCart = () => {
-    const productInCart = items.find(item => item.productId === `${id}-${typeOfPack}`);
+    const productInCart = items.find(
+      (item) => item.productId === `${id}-${typeOfPack}`,
+    );
 
     if (productInCart) {
       const itemsInCart = productInCart?.selectedStock;
@@ -67,7 +66,9 @@ export const ProductDisplay = () => {
 
       if (itemsInCart > selectedStock || quantity > available) {
         setQuantity(available);
-        setError(`in stock only ${selectedStock}${typeOfPack}, in cart ${itemsInCart}`);
+        setError(
+          `in stock only ${selectedStock}${typeOfPack}, in cart ${itemsInCart}`,
+        );
 
         return;
       }
@@ -84,7 +85,15 @@ export const ProductDisplay = () => {
         }),
       );
 
-      setNotification(`Added ${quantity} ${typeOfPack} of ${title}`);
+      if (productInCart) {
+        const itemsInCart = productInCart?.selectedStock;
+
+        setNotification(`Added ${quantity} ${typeOfPack} of ${title}. In cart ${itemsInCart}${typeOfPack}`);
+      } else {
+        setNotification(`Added ${quantity} ${typeOfPack} of ${title}.`);
+      }
+
+      setQuantity(DEFAULT_QNTY);
     }
   };
 
@@ -109,25 +118,16 @@ export const ProductDisplay = () => {
             </div>
             <button
               type="button"
-              className={classNames(
-                'display__button',
-              )}
+              className={classNames('display__button')}
               disabled={!quantity}
               onClick={handleAddToCart}
             >
-              <Cross
-                className={classNames(
-                  'display__svg',
-                )}
-              />
+              <Cross className={classNames('display__svg')} />
               Add to cart
             </button>
-            {notification
-              && (
-                <p className="display__notification">
-                  {notification}
-                </p>
-              )}
+            {notification && (
+              <p className="display__notification">{notification}</p>
+            )}
           </div>
         </div>
         <div className="display__wish-box">
