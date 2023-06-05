@@ -99,7 +99,17 @@ export const CheckoutProduct: React.FC<PropTypes> = ({
         setIsModalActive(true);
         selectTempPack(type);
       } else {
+        const maxQntyChange = stock[type];
+
+        if (selectedStock > maxQntyChange) {
+          dispatch(setSelectedStock({
+            id: productId,
+            quantity: maxQntyChange,
+          }));
+        }
+
         setVisiblePrice(price ? price[type] : 0);
+
         dispatch(
           setSelectedPackage({
             id: productId,
@@ -117,6 +127,8 @@ export const CheckoutProduct: React.FC<PropTypes> = ({
       price,
       dispatch,
       productId,
+      stock,
+      error,
     ],
   );
 

@@ -21,6 +21,7 @@ type PropTypes = {
   setError: (error: string) => void;
   quantity: number;
   selectedStock: number;
+  availableStock?: number;
   stockKeys?: string[];
   isProduct?: boolean;
 };
@@ -35,6 +36,7 @@ export const QntyPanel: React.FC<PropTypes> = ({
   stockKeys,
   selectedStock,
   isProduct,
+  availableStock = 0,
 }) => {
   const [expanded, setExpanded] = useState(false);
   const [visibleQnty, setVisibleQnty] = useState(quantity);
@@ -93,7 +95,7 @@ export const QntyPanel: React.FC<PropTypes> = ({
     }
 
     if (inputValue > selectedStock) {
-      setError(`available stock: ${selectedStock}${typeOfPack}(s)`);
+      setError(`available stock: ${selectedStock - availableStock}${typeOfPack}(s)`);
     } else {
       setError('');
       debouncedOnChange(inputValue);

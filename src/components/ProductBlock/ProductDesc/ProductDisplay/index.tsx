@@ -156,6 +156,7 @@ export const ProductDisplay = () => {
                 quantity={quantity}
                 stockKeys={stockKeys}
                 selectedStock={selectedStock}
+                availableStock={itemsInCart}
                 isProduct
               />
             </div>
