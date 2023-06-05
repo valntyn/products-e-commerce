@@ -30,6 +30,7 @@ export const ProductDisplay = () => {
   const [error, setError] = useState('');
   const [notification, setNotification] = useState('');
   const [isModalActive, setIsModalActive] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
 
   const {
     price = null, stock, id, title,
@@ -56,6 +57,11 @@ export const ProductDisplay = () => {
 
     return () => clearTimeout(timeoutId);
   }, [notification]);
+
+  const clearChecking = () => {
+    setError('');
+    setIsDisabled(false);
+  };
 
   const handleSelectTypeOfPackage = useCallback(
     (type: keyof Stock) => {
@@ -105,12 +111,13 @@ export const ProductDisplay = () => {
   };
 
   const handleAdd = () => {
-    setError('');
+    clearChecking();
 
     if (itemsInCart) {
       const total = itemsInCart + quantity;
 
       if (total > selectedStock) {
+        setIsDisabled(true);
         setError(
           `in stock only ${selectedStock}${typeOfPack}, in cart ${itemsInCart}${typeOfPack}(s)`,
         );
@@ -188,6 +195,7 @@ export const ProductDisplay = () => {
             handleDismiss={handleDismiss}
             message={`You have ${itemsInCart} item(s) in your cart with the selected package already. Do you want to add ${quantity}${typeOfPack} more?`}
             error={error}
+            isDisabled={isDisabled}
           />
         </Modal>
       )}

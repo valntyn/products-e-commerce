@@ -3,6 +3,7 @@ import './ApprovalModal.scss';
 type PropTypes = {
   handleApprove: () => void;
   handleDismiss: () => void;
+  isDisabled: boolean;
   message: string;
   error: string;
 };
@@ -12,6 +13,7 @@ export const ApprovalModal: React.FC<PropTypes> = ({
   message,
   handleApprove,
   error,
+  isDisabled,
 }) => {
   return (
     <div className="approval__notify-wrapper">
@@ -23,7 +25,7 @@ export const ApprovalModal: React.FC<PropTypes> = ({
           type="button"
           className="approval__button"
           onClick={handleApprove}
-          disabled={!!error}
+          disabled={isDisabled}
         >
           Of course
         </button>

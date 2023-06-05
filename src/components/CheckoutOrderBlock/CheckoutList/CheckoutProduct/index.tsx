@@ -38,6 +38,7 @@ export const CheckoutProduct: React.FC<PropTypes> = ({
   const [quantity, setQuantity] = useState(selectedStock);
   const [error, setError] = useState('');
   const [isModalActive, setIsModalActive] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
   const [notification, setNotification] = useState('');
 
   const availableStock = stock ? stock[typeOfPack as keyof Stock] : 0;
@@ -58,6 +59,11 @@ export const CheckoutProduct: React.FC<PropTypes> = ({
     dispatch(setSelectedStock({ id: productId, quantity }));
   }, [dispatch, productId, quantity, selectedPackage]);
 
+  const clearChecking = () => {
+    setNotification('');
+    setIsDisabled(false);
+  };
+
   const handleSelectTypeOfPackage = useCallback(
     (type: keyof Stock) => {
       const existedProduct = productsInCart.find(
@@ -65,7 +71,7 @@ export const CheckoutProduct: React.FC<PropTypes> = ({
       );
       const isTheSameType = type === selectedPackage;
 
-      setNotification('');
+      clearChecking();
 
       if (isTheSameType) {
         return;
@@ -84,6 +90,7 @@ export const CheckoutProduct: React.FC<PropTypes> = ({
         }
 
         if (!difference) {
+          setIsDisabled(true);
           setNotification(
             `you can not merge, in stock only ${anotherAvailbaleQnty}${type}(s)`,
           );
@@ -168,6 +175,7 @@ export const CheckoutProduct: React.FC<PropTypes> = ({
             the selected package already.
             Do you want to merge them?"
             error={notification}
+            isDisabled={isDisabled}
           />
         </Modal>
       )}
