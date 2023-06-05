@@ -14,7 +14,7 @@ export const WishlistBlock = () => {
 
   const navigate = useNavigate();
 
-  const hanldeBack = () => {
+  const handleBack = () => {
     navigate(-1);
   };
 
@@ -33,7 +33,7 @@ export const WishlistBlock = () => {
           <p className="wishlist__notify">
             Your favorite list is empty, come back here when you add some items
           </p>
-          <Wish className="wishlist__svg" onClick={hanldeBack} />
+          <Wish className="wishlist__svg" onClick={handleBack} />
         </div>
       </div>
     );
