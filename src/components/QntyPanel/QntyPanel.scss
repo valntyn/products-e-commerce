@@ -4,7 +4,7 @@
 .qnty-panel {
   position: relative;
   max-width: 140px;
-  height: 47px;
+  height: 100%;
   background: $color-gray-main;
   border: 1px solid $color-border-default;
   border-radius: 12px;
@@ -31,8 +31,8 @@
     background-color: $color-gray-main;
     border: 1px solid $color-main-green;
     position: absolute;
-    z-index: 30;
-    top: 50px;
+    z-index: 1000;
+    top: 110%;
     right: 0;
     transform: translateY(-3px);
     transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
@@ -96,11 +96,12 @@
   }
 
   &__count-up {
-    top: -2px;
+    top: 0;
     right: 2px;
     position: absolute;
     background-color: inherit;
     border: none;
+    cursor: pointer;
 
     &:hover {
       transform: scale(115%);
@@ -109,10 +110,11 @@
 
   &__count-down {
     right: 2px;
-    top: 14px;
+    top: 12px;
     position: absolute;
     background-color: inherit;
     border: none;
+    cursor: pointer;
 
     &:hover {
       transform: scale(115%);

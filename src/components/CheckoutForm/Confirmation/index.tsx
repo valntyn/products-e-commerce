@@ -74,6 +74,7 @@ export const Confirmation: React.FC<PropsTypes> = ({ errors, values }) => {
               privacy policy
             </a>
             .
+            <span className="confirm__star">*</span>
           </p>
           {errors.terms && <p className="confirm__error">{errors.terms}</p>}
         </label>

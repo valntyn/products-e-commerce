@@ -35,8 +35,27 @@ export const getSingleProduct = createAsyncThunk<IProduct, string>(
   },
 );
 
+export const getProductsByIds = createAsyncThunk<IProduct[], string[]>(
+  'GET_PRODUCTS_BY_IDS',
+  async (ids, thunkAPI) => {
+    try {
+      const productPromises = ids
+        .map(id => productsService.getSingleProduct(id));
+      const products = await Promise.all(productPromises);
+
+      return products;
+    } catch (err: unknown | Error) {
+      return thunkAPI.rejectWithValue(
+        err instanceof Error ? err.message : 'An unexpected error occurred',
+      );
+    }
+  },
+);
+
 type ProductsType = {
   products: IProduct[] | [];
+  isCartLoading: boolean;
+  cartProducts: IProduct[] | [];
   isError: boolean;
   isLoading: boolean;
   visibleProducts: IProduct[] | [];
@@ -50,6 +69,8 @@ const initialState: ProductsType = {
   isError: false,
   isLoading: false,
   visibleProducts: [],
+  cartProducts: [],
+  isCartLoading: false,
   selectedProduct: null,
   isSelectedProductLoading: false,
   isSelectedProductError: false,
@@ -89,6 +110,16 @@ export const productsSlice = createSlice({
       .addCase(getSingleProduct.rejected, (state) => {
         state.isSelectedProductLoading = false;
         state.isSelectedProductError = true;
+      })
+      .addCase(getProductsByIds.pending, (state) => {
+        state.isCartLoading = true;
+      })
+      .addCase(getProductsByIds.fulfilled, (state, action) => {
+        state.cartProducts = action.payload;
+        state.isCartLoading = false;
+      })
+      .addCase(getProductsByIds.rejected, (state) => {
+        state.isCartLoading = false;
       });
   },
 });

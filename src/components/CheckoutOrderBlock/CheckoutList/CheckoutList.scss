@@ -1,0 +1,12 @@
+@import "@styles/_variables";
+@import "@styles/_mixins";
+
+.checkout-list {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  margin-bottom: 40px;
+  position: relative;
+  min-height: 320px;
+  width: 100%;
+}

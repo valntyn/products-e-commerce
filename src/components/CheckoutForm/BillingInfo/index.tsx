@@ -49,12 +49,15 @@ export const BillingInfo: React.FC<PropsTypes> = ({
   const [countiresExpanded, setCountriesExpanded] = useState(false);
   const [cityExpanded, setCitiesExpanded] = useState(false);
   const [cityDisabled, setCityDisabled] = useState(false);
-  const [selectedCountryCode, setSelectedCountryCode] = useState('');
+  const [selectedCountryCode, setSelectedCountryCode] = useState(
+    localStorage.getItem('selectedCountryCode') || '',
+  );
 
   const countriesRef = useRef<HTMLDivElement>(null);
   const citiesRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    localStorage.setItem('selectedCountryCode', selectedCountryCode);
     setCityDisabled(!values.country || !selectedCountryCode);
   }, [values.country, selectedCountryCode]);
 

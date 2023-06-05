@@ -1,26 +1,36 @@
+import classNames from 'classnames';
 import { useCallback, useEffect, useState } from 'react';
 
 import { ReactComponent as Cross } from '@assets/svg/green-cross.svg';
 import { ReactComponent as Heart } from '@assets/svg/heart.svg';
+import { QntyPanel } from '@components/QntyPanel';
 import { DEFAULT_QNTY } from '@constants/default';
+import { useAppDispatch } from '@hooks/useAppDispatch';
 import { useAppSelector } from '@hooks/useAppSelector';
+import { addItem } from '@store/reducers/cartSlice';
 import { Price } from '@utils/product/price';
 import { Stock } from '@utils/product/stock';
 
 import { PricePanel } from './PricePanel';
-import { QntyPanel } from './QntyPanel';
 
 import './ProductDisplay.scss';
 
 export const ProductDisplay = () => {
+  const dispatch = useAppDispatch();
   const { selectedProduct } = useAppSelector((state) => state.products);
+  const { items } = useAppSelector((state) => state.cart);
 
   const [typeOfPack, selectTypeOfPack] = useState<keyof Stock | null>(null);
   const [visiblePrice, setVisiblePrice] = useState<number>(0);
   const [quantity, setQuantity] = useState(DEFAULT_QNTY);
   const [error, setError] = useState('');
+  const [notification, setNotification] = useState('');
 
-  const { price = null, stock } = selectedProduct || {};
+  const {
+    price = null, stock, id, title,
+  } = selectedProduct || {};
+
+  const selectedStock = stock ? stock[typeOfPack as keyof Stock] : 0;
   const stockKeys = stock && Object.keys(stock);
 
   useEffect(() => {
@@ -30,10 +40,62 @@ export const ProductDisplay = () => {
     }
   }, []);
 
-  const handleSelectTypeOfPackage = useCallback((type: keyof Stock) => {
-    selectTypeOfPack(type);
-    setVisiblePrice(price ? price[type] : 0);
-  }, [price]);
+  useEffect(() => {
+    const timeoutId
+      = notification && setTimeout(() => setNotification(''), 1000);
+
+    return () => clearTimeout(timeoutId);
+  }, [notification]);
+
+  const handleSelectTypeOfPackage = useCallback(
+    (type: keyof Stock) => {
+      selectTypeOfPack(type);
+      setVisiblePrice(price ? price[type] : 0);
+    },
+    [price],
+  );
+
+  const handleAddToCart = () => {
+    const productInCart = items.find(
+      (item) => item.productId === `${id}-${typeOfPack}`,
+    );
+
+    if (productInCart) {
+      const itemsInCart = productInCart?.selectedStock;
+      const available = selectedStock - itemsInCart;
+
+      if (itemsInCart > selectedStock || quantity > available) {
+        setQuantity(available);
+        setError(
+          `in stock only ${selectedStock}${typeOfPack}, in cart ${itemsInCart}`,
+        );
+
+        return;
+      }
+    }
+
+    if (selectedProduct) {
+      dispatch(
+        addItem({
+          id,
+          productId: `${id}-${typeOfPack}`,
+          selectedStock: quantity,
+          selectedPackage: typeOfPack,
+          stock,
+        }),
+      );
+
+      if (productInCart) {
+        const itemsInCart = productInCart?.selectedStock;
+
+        setNotification(`Added ${quantity} ${typeOfPack} of ${title}. In cart ${itemsInCart}${typeOfPack}`);
+      } else {
+        setNotification(`Added ${quantity} ${typeOfPack} of ${title}.`);
+      }
+
+      setQuantity(DEFAULT_QNTY);
+    }
+  };
 
   return (
     <>
@@ -41,21 +103,31 @@ export const ProductDisplay = () => {
         <div className="display__box">
           <PricePanel price={visiblePrice} quantity={quantity} />
           <div className="display__right">
-            <QntyPanel
-              setQuantity={setQuantity}
-              handleSelectTypeOfPackage={handleSelectTypeOfPackage}
-              typeOfPack={typeOfPack}
-              setError={setError}
-              error={error}
-            />
+            <div className="display__qnt-wrapper">
+              <QntyPanel
+                setQuantity={setQuantity}
+                handleSelectTypeOfPackage={handleSelectTypeOfPackage}
+                typeOfPack={typeOfPack}
+                setError={setError}
+                error={error}
+                quantity={quantity}
+                stockKeys={stockKeys}
+                selectedStock={selectedStock}
+                isProduct
+              />
+            </div>
             <button
               type="button"
-              className="display__button"
+              className={classNames('display__button')}
               disabled={!quantity}
+              onClick={handleAddToCart}
             >
-              <Cross className="display__svg" />
+              <Cross className={classNames('display__svg')} />
               Add to cart
             </button>
+            {notification && (
+              <p className="display__notification">{notification}</p>
+            )}
           </div>
         </div>
         <div className="display__wish-box">

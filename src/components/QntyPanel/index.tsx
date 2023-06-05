@@ -1,13 +1,12 @@
 import classNames from 'classnames';
 import {
-  ChangeEvent, useRef, useState,
+  ChangeEvent, useEffect, useRef, useState,
 } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
 
 import { ReactComponent as Arrow } from '@assets/svg/arrow-down-small.svg';
 import { DEFAULT_DELAY, DEFAULT_QNTY } from '@constants/default';
 import { capitalize } from '@helpers/capitalize';
-import { useAppSelector } from '@hooks/useAppSelector';
 import { useClickOutside } from '@hooks/useClickOutside';
 import { Count } from '@utils/count';
 import { Stock } from '@utils/product/stock';
@@ -20,6 +19,10 @@ type PropTypes = {
   setQuantity: (quantity: number) => void;
   error: string;
   setError: (error: string) => void;
+  quantity: number;
+  selectedStock: number;
+  stockKeys?: string[];
+  isProduct?: boolean;
 };
 
 export const QntyPanel: React.FC<PropTypes> = ({
@@ -28,18 +31,19 @@ export const QntyPanel: React.FC<PropTypes> = ({
   setQuantity,
   error,
   setError,
+  quantity,
+  stockKeys,
+  selectedStock,
+  isProduct,
 }) => {
-  const { selectedProduct } = useAppSelector((state) => state.products);
-
   const [expanded, setExpanded] = useState(false);
-  const [visibleQnty, setVisibleQnty] = useState(1);
+  const [visibleQnty, setVisibleQnty] = useState(quantity);
 
   const menuRef = useRef<HTMLDivElement>(null);
 
-  const { stock } = selectedProduct || {};
-  const selectedStock = stock ? stock[typeOfPack as keyof Stock] : 0;
-
-  const stockKeys = stock && Object.keys(stock);
+  useEffect(() => {
+    setVisibleQnty(quantity);
+  }, [quantity]);
 
   const debouncedOnChange = useDebouncedCallback((value: number) => {
     if (!error) {
@@ -49,7 +53,6 @@ export const QntyPanel: React.FC<PropTypes> = ({
 
   const handleClear = () => {
     setError('');
-    setVisibleQnty(DEFAULT_QNTY);
   };
 
   const handleCount = (
@@ -99,8 +102,24 @@ export const QntyPanel: React.FC<PropTypes> = ({
     setVisibleQnty(inputValue);
   };
 
+  const blurHandler = () => {
+    setError('');
+
+    if (!visibleQnty) {
+      setQuantity(DEFAULT_QNTY);
+    }
+
+    if (visibleQnty > selectedStock) {
+      setVisibleQnty(selectedStock);
+      setQuantity(selectedStock);
+    }
+  };
+
   const handleChoose = (type: keyof Stock) => () => {
-    setQuantity(DEFAULT_QNTY);
+    if (isProduct) {
+      setQuantity(DEFAULT_QNTY);
+    }
+
     handleSelectTypeOfPackage(type);
     handleClear();
   };
@@ -120,12 +139,19 @@ export const QntyPanel: React.FC<PropTypes> = ({
   useClickOutside(menuRef, handleClickOutside);
 
   return (
-    <div className="qnty-panel" onClick={handleOpen} ref={menuRef}>
+    <div
+      className={classNames(
+        'qnty-panel',
+      )}
+      onClick={handleOpen}
+      ref={menuRef}
+    >
       <label className="qnty-panel__label">
         <input
           type="text"
           className="qnty-panel__input"
           placeholder="qnty"
+          onBlur={blurHandler}
           value={visibleQnty}
           onChange={handleChange}
           onClick={handleInputClick}

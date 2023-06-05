@@ -1,0 +1,73 @@
+@import "@styles/_variables";
+@import "@styles/_mixins";
+
+.check-product {
+  padding-bottom: 22px;
+  border-bottom: 1px solid $color-gray-main;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  @include onTablet {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 16px;
+  }
+
+  &__dropdown-menu {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    @include onTablet {
+      position: absolute;
+      right: 5px;
+      bottom: 22px;
+      height: 32px;
+    }
+  }
+
+  &__notify-message {
+    font-family: $font-sans;
+    text-align: center
+  }
+
+  &__button {
+    @include main-button;
+    padding: 6px 12px;
+    font-size: 18px;
+    font-weight: 700;
+    width: 140px;
+  }
+
+  &__notify-wrapper {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 30px 10px;
+    gap: 18px;
+
+    @include onTablet {
+      gap: 24px;
+    }
+  }
+
+  &__notify-box {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    @include onTablet {
+      flex-direction: row;
+    }
+  }
+}
+
+@keyframes colorChange {
+  from {
+    fill: transparent;
+  }
+  to {
+    fill: $color-warning;
+  }
+}
