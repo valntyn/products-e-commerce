@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 
+import { ApprovalModal } from '@components/ApprovalModal';
 import { Modal } from '@components/Modal';
 import { QntyPanel } from '@components/QntyPanel';
 import { useAppDispatch } from '@hooks/useAppDispatch';
@@ -37,6 +38,8 @@ export const CheckoutProduct: React.FC<PropTypes> = ({
   const [quantity, setQuantity] = useState(selectedStock);
   const [error, setError] = useState('');
   const [isModalActive, setIsModalActive] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
+  const [notification, setNotification] = useState('');
 
   const availableStock = stock ? stock[typeOfPack as keyof Stock] : 0;
   const stockKeys = stock && Object.keys(stock);
@@ -56,17 +59,57 @@ export const CheckoutProduct: React.FC<PropTypes> = ({
     dispatch(setSelectedStock({ id: productId, quantity }));
   }, [dispatch, productId, quantity, selectedPackage]);
 
+  const clearChecking = () => {
+    setNotification('');
+    setIsDisabled(false);
+  };
+
   const handleSelectTypeOfPackage = useCallback(
     (type: keyof Stock) => {
-      const isTypeExist = productsInCart.some(
+      const existedProduct = productsInCart.find(
         (el) => el.productId === `${id}-${type}`,
       );
+      const isTheSameType = type === selectedPackage;
 
-      if (isTypeExist) {
+      clearChecking();
+
+      if (isTheSameType) {
+        return;
+      }
+
+      if (existedProduct) {
+        const anotherAvailbaleQnty = existedProduct.stock[type];
+        const anotherProductQnty = existedProduct.selectedStock;
+        const difference = anotherAvailbaleQnty - anotherProductQnty;
+        const sumOfMerge = anotherProductQnty + selectedStock;
+
+        if (sumOfMerge > anotherAvailbaleQnty) {
+          setNotification(
+            `you can merge only ${difference}${selectedPackage}(s) to ${type}`,
+          );
+        }
+
+        if (!difference) {
+          setIsDisabled(true);
+          setNotification(
+            `you can not merge, in stock only ${anotherAvailbaleQnty}${type}(s)`,
+          );
+        }
+
         setIsModalActive(true);
         selectTempPack(type);
       } else {
+        const maxQntyChange = stock[type];
+
+        if (selectedStock > maxQntyChange) {
+          dispatch(setSelectedStock({
+            id: productId,
+            quantity: maxQntyChange,
+          }));
+        }
+
         setVisiblePrice(price ? price[type] : 0);
+
         dispatch(
           setSelectedPackage({
             id: productId,
@@ -76,7 +119,16 @@ export const CheckoutProduct: React.FC<PropTypes> = ({
         );
       }
     },
-    [dispatch, productId, price, id, selectedPackage],
+    [
+      productsInCart,
+      selectedPackage,
+      id,
+      selectedStock,
+      price,
+      dispatch,
+      productId,
+      stock,
+    ],
   );
 
   const hanldeCloseModal = () => {
@@ -127,28 +179,15 @@ export const CheckoutProduct: React.FC<PropTypes> = ({
           setIsModalActive={setIsModalActive}
           isModalActive={isModalActive}
         >
-          <div className="check-product__notify-wrapper">
-            <p className="check-product__notify-message">
-              You have an item in your cart with the selected package already.
-              Do you want to merge them?
-            </p>
-            <div className="check-product__notify-box">
-              <button
-                type="button"
-                className="check-product__button"
-                onClick={handleApprove}
-              >
-                Of course
-              </button>
-              <button
-                type="button"
-                className="check-product__button"
-                onClick={hanldeCloseModal}
-              >
-                Nope
-              </button>
-            </div>
-          </div>
+          <ApprovalModal
+            handleApprove={handleApprove}
+            handleDismiss={hanldeCloseModal}
+            message="You have an item in your cart with
+            the selected package already.
+            Do you want to merge them?"
+            error={notification}
+            isDisabled={isDisabled}
+          />
         </Modal>
       )}
     </li>

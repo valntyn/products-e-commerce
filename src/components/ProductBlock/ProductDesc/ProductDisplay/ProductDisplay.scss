@@ -2,6 +2,7 @@
 @import "@styles/_mixins";
 
 .display {
+  position: relative;
   width: 100%;
   margin-bottom: 60px;
 
@@ -76,10 +77,13 @@
   &__wish-box {
     width: 100%;
     display: flex;
-    justify-content: center;
+    gap: 8px;
+    flex-direction: column;
+    align-items: center;
 
     @include onTablet {
-      justify-content: start;
+      flex-direction: row;
+      justify-content: space-between;
     }
   }
 
@@ -90,7 +94,7 @@
     line-height: 22px;
     font-family: $font-poppins;
     padding: 7px 12px;
-    max-width: max-content;
+    max-width: 220px;
 
     transition: 0.2s linear;
 
@@ -108,6 +112,27 @@
 
     &--active {
       transform: rotate(45deg);
+    }
+  }
+
+  &__cart {
+    font-weight: 600;
+    font-size: 10px;
+    line-height: 18px;
+    background-color: $color-pale-green;
+    padding: 4px 8px;
+    border-radius: 12px;
+    color: $color-main-green;
+    cursor: pointer;
+    text-align: center;
+    transition: 0.2s all;
+    
+    &:hover {
+      color: $color-secondary-green;
+    }
+
+    @include onTablet {
+      font-size: 12px;
     }
   }
 }
