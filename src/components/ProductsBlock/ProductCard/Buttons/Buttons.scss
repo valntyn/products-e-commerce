@@ -62,6 +62,18 @@
     &:hover {
       background-color: $color-text-gray;
     }
+
+    &--active {
+      background-color: $color-pale-green;
+
+      &:hover {
+        background-color: initial;
+      }
+
+      & * {
+        fill: $color-warning;
+      }
+    }
   }
 
   &__svg {

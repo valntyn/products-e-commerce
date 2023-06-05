@@ -1,0 +1,51 @@
+@import "@styles/_variables";
+@import "@styles/_mixins";
+
+.wishlist {
+  &__cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+  }
+
+  &__wrapper {
+    width: 250px;
+    padding: 20px 0;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    @include onTablet {
+      width: 532px;
+    }
+    
+    @include onDesktop {
+      width: 814px;
+    }
+
+    @include onDesktopLarge {
+      width: 1096px;
+    }
+  }
+
+  &__notify {
+    font-size: 22px;
+    width: 80%;
+    text-align: center;
+  }
+
+  &__empty {
+    display: flex;
+    flex-direction: column;
+    height: 35vh;
+    align-items: center;
+    gap: 24px;
+  }
+
+  &__svg {
+    width: 52px;
+    height: 52px;
+    cursor: pointer;
+  }
+}

@@ -8,7 +8,7 @@ import {
 import { getWindowWidthRange } from '@helpers/getWindowWidthRange';
 import { useAppSelector } from '@hooks/useAppSelector';
 
-import { SingleCard } from './SingleCard';
+import { SingleCard } from '../../SingleCard';
 
 import './ProductCarousel.scss';
 

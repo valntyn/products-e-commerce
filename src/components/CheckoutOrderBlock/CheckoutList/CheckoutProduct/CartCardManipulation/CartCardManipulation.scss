@@ -71,8 +71,15 @@
       border: 1px solid $color-border-default;
     }
 
-    &:hover * {
-      animation: colorChange 0.2s linear forwards;
+    &--inactive {
+      &:hover * {
+        animation: colorChange 0.2s linear forwards;
+        @include colorChange;
+      }
+    }
+
+    &--active * {
+      fill: $color-warning;
     }
   }
 

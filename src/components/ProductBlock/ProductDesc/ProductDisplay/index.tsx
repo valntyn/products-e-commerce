@@ -12,6 +12,9 @@ import { paths } from '@constants/paths';
 import { useAppDispatch } from '@hooks/useAppDispatch';
 import { useAppSelector } from '@hooks/useAppSelector';
 import { addItem } from '@store/reducers/cartSlice';
+import {
+  addItemToFavorite, removeItemFromFavorite,
+} from '@store/reducers/wishlistSlice';
 import { Price } from '@utils/product/price';
 import { Stock } from '@utils/product/stock';
 
@@ -22,6 +25,7 @@ import './ProductDisplay.scss';
 export const ProductDisplay = () => {
   const dispatch = useAppDispatch();
   const { selectedProduct } = useAppSelector((state) => state.products);
+  const { itemsInFavorite } = useAppSelector((state) => state.wishlist);
   const { items } = useAppSelector((state) => state.cart);
 
   const [typeOfPack, selectTypeOfPack] = useState<keyof Stock | null>(null);
@@ -39,6 +43,7 @@ export const ProductDisplay = () => {
   const selectedStock = stock ? stock[typeOfPack as keyof Stock] : 0;
   const stockKeys = stock && Object.keys(stock);
   const isProductInCart = items.some((el) => el.id === id);
+  const isProductInFavorite = itemsInFavorite.some((el) => el === id);
   const productInCart = items.find(
     (item) => item.productId === `${id}-${typeOfPack}`,
   );
@@ -140,6 +145,16 @@ export const ProductDisplay = () => {
     handeAddingToCart();
   };
 
+  const handleAddInWish = () => {
+    if (selectedProduct) {
+      if (isProductInFavorite) {
+        dispatch(removeItemFromFavorite(selectedProduct?.id));
+      } else {
+        dispatch(addItemToFavorite(selectedProduct?.id));
+      }
+    }
+  };
+
   return (
     <>
       <div className="display">
@@ -175,9 +190,17 @@ export const ProductDisplay = () => {
           </div>
         </div>
         <div className="display__wish-box">
-          <button className="display__button-wish" type="button">
+          <button
+            className={classNames('display__button-wish', {
+              'display__button-wish--active': isProductInFavorite,
+            })}
+            type="button"
+            onClick={handleAddInWish}
+          >
             <Heart className="display__svg display__svg--heart" />
-            Add to my wish list
+            {isProductInFavorite
+              ? 'Remove from wish list'
+              : 'Add to my wish list'}
           </button>
           {isProductInCart && (
             <Link className="display__cart" to={paths.checkout}>
