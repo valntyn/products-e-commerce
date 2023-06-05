@@ -7,7 +7,6 @@ import { Stock } from '@utils/product/stock';
 
 type ProductsForCatType = {
   items: ProductForCart[];
-  isModalOpen: boolean;
 };
 
 type MergedProducts = {
@@ -16,7 +15,6 @@ type MergedProducts = {
 
 const initialState: ProductsForCatType = {
   items: [],
-  isModalOpen: false,
 };
 
 const cartSlice = createSlice({
