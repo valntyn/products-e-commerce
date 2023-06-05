@@ -107,13 +107,17 @@
     line-height: 22px;
     font-family: $font-poppins;
     padding: 7px 16px;
-    max-width: 220px;
+    max-width: 240px;
     justify-content: space-around;
 
     transition: 0.2s linear;
 
     &:hover {
       background-color: $color-text-gray;
+    }
+
+    @include onDesktop {
+      max-width: 220px;
     }
 
     &--active {
