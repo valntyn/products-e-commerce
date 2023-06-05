@@ -128,7 +128,6 @@ export const CheckoutProduct: React.FC<PropTypes> = ({
       dispatch,
       productId,
       stock,
-      error,
     ],
   );
 

@@ -131,13 +131,13 @@ export const ProductDisplay = () => {
     handeAddingToCart();
   };
 
-  const handleApprove = () => {
+  const hanldeCloseModal = () => {
     setIsModalActive(false);
-    handeAddingToCart();
   };
 
-  const handleDismiss = () => {
-    setIsModalActive(false);
+  const handleApprove = () => {
+    hanldeCloseModal();
+    handeAddingToCart();
   };
 
   return (
@@ -193,7 +193,7 @@ export const ProductDisplay = () => {
         >
           <ApprovalModal
             handleApprove={handleApprove}
-            handleDismiss={handleDismiss}
+            handleDismiss={hanldeCloseModal}
             message={`You have ${itemsInCart} item(s) in your cart with the selected package already. Do you want to add ${quantity}${typeOfPack} more?`}
             error={error}
             isDisabled={isDisabled}
