@@ -13,7 +13,8 @@ import { useAppDispatch } from '@hooks/useAppDispatch';
 import { useAppSelector } from '@hooks/useAppSelector';
 import { addItem } from '@store/reducers/cartSlice';
 import {
-  addItemToFavorite, removeItemFromFavorite,
+  addItemToFavorite,
+  removeItemFromFavorite,
 } from '@store/reducers/wishlistSlice';
 import { Price } from '@utils/product/price';
 import { Stock } from '@utils/product/stock';
@@ -37,7 +38,7 @@ export const ProductDisplay = () => {
   const [isDisabled, setIsDisabled] = useState(false);
 
   const {
-    price = null, stock, id, title,
+    price = null, stock, id = '', title,
   } = selectedProduct || {};
 
   const selectedStock = stock ? stock[typeOfPack as keyof Stock] : 0;
@@ -146,12 +147,10 @@ export const ProductDisplay = () => {
   };
 
   const handleAddInWish = () => {
-    if (selectedProduct) {
-      if (isProductInFavorite) {
-        dispatch(removeItemFromFavorite(selectedProduct?.id));
-      } else {
-        dispatch(addItemToFavorite(selectedProduct?.id));
-      }
+    if (isProductInFavorite) {
+      dispatch(removeItemFromFavorite(id));
+    } else {
+      dispatch(addItemToFavorite(id));
     }
   };
 

@@ -4,11 +4,11 @@ import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import productsService from '@store/services/productsService';
 import { IProduct } from '@utils/product/product';
 
-export interface FavoriteSliceState {
+type FavoriteSliceState = {
   isLoading: boolean;
   itemsInFavorite: string[],
   productsInFavorite: IProduct[],
-}
+};
 
 const initialState: FavoriteSliceState = {
   isLoading: true,

@@ -64,7 +64,7 @@ export const Buttons: React.FC<PropTypes> = ({ product }) => {
         )}
       >
         <Heart className="product-buttons__svg product-buttons__svg--heart" />
-        {isProductInFavorite ? 'In wishlist' : 'Add to wish list'}
+        {isProductInFavorite ? 'Remove from wishlist' : 'Add to wishlist'}
       </button>
     </div>
   );
