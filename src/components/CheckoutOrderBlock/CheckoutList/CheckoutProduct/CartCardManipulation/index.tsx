@@ -1,11 +1,16 @@
 import classNames from 'classnames';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { ReactComponent as Heart } from '@assets/svg/cart-heart.svg';
 import { ReactComponent as Cross } from '@assets/svg/cross-cart.svg';
+import { Modal } from '@components/Modal';
+import { SingInModal } from '@components/SignInModal';
 import { paths } from '@constants/paths';
 import { useAppDispatch } from '@hooks/useAppDispatch';
 import { useAppSelector } from '@hooks/useAppSelector';
+import { useAuth } from '@hooks/useAuth';
+import { githubSignIn, googleSignIn } from '@store/reducers/authSlice';
 import { removeItem } from '@store/reducers/cartSlice';
 import {
   addItemToFavorite,
@@ -28,16 +33,37 @@ export const CartCardManipulation: React.FC<PropTypes> = ({
   const { itemsInFavorite } = useAppSelector((state) => state.wishlist);
   const isProductInFavorite = itemsInFavorite.some((el) => el === id);
 
+  const [isModalActive, setIsModalActive] = useState(false);
+  const { isAuth } = useAuth();
+
   const hanldeDelete = () => {
     dispatch(removeItem(productId));
   };
 
   const handleWishList = () => {
+    if (!isAuth) {
+      setIsModalActive(true);
+
+      return;
+    }
+
     if (isProductInFavorite) {
       dispatch(removeItemFromFavorite(id));
     } else {
       dispatch(addItemToFavorite(id));
     }
+  };
+
+  const handleGoogleSignIn = async () => {
+    await dispatch(googleSignIn());
+    dispatch(addItemToFavorite(id));
+    setIsModalActive(false);
+  };
+
+  const handleGithhubSignIn = async () => {
+    await dispatch(githubSignIn());
+    dispatch(addItemToFavorite(id));
+    setIsModalActive(false);
   };
 
   return (
@@ -80,6 +106,17 @@ export const CartCardManipulation: React.FC<PropTypes> = ({
           Remove
         </button>
       </div>
+      {isModalActive && (
+        <Modal
+          setIsModalActive={setIsModalActive}
+          isModalActive={isModalActive}
+        >
+          <SingInModal
+            handleGithhubSignIn={handleGithhubSignIn}
+            handleGoogleSignIn={handleGoogleSignIn}
+          />
+        </Modal>
+      )}
     </div>
   );
 };

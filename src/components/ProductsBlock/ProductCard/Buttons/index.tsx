@@ -1,11 +1,16 @@
 import classNames from 'classnames';
+import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 
 import { ReactComponent as ArrowRight } from '@assets/svg/arrow-right.svg';
 import { ReactComponent as Heart } from '@assets/svg/heart.svg';
+import { Modal } from '@components/Modal';
+import { SingInModal } from '@components/SignInModal';
 import { paths } from '@constants/paths';
 import { useAppDispatch } from '@hooks/useAppDispatch';
 import { useAppSelector } from '@hooks/useAppSelector';
+import { useAuth } from '@hooks/useAuth';
+import { githubSignIn, googleSignIn } from '@store/reducers/authSlice';
 import {
   addItemToFavorite,
   removeItemFromFavorite,
@@ -22,6 +27,9 @@ export const Buttons: React.FC<PropTypes> = ({ product }) => {
   const dispatch = useAppDispatch();
   const { itemsInFavorite } = useAppSelector((state) => state.wishlist);
 
+  const [isModalActive, setIsModalActive] = useState(false);
+  const { isAuth } = useAuth();
+
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -32,11 +40,29 @@ export const Buttons: React.FC<PropTypes> = ({ product }) => {
   const isProductInFavorite = itemsInFavorite.some((el) => el === product.id);
 
   const handleAddInWish = () => {
+    if (!isAuth) {
+      setIsModalActive(true);
+
+      return;
+    }
+
     if (isProductInFavorite) {
       dispatch(removeItemFromFavorite(product.id));
     } else {
       dispatch(addItemToFavorite(product.id));
     }
+  };
+
+  const handleGoogleSignIn = async () => {
+    await dispatch(googleSignIn());
+    dispatch(addItemToFavorite(product.id));
+    setIsModalActive(false);
+  };
+
+  const handleGithhubSignIn = async () => {
+    await dispatch(githubSignIn());
+    dispatch(addItemToFavorite(product.id));
+    setIsModalActive(false);
   };
 
   return (
@@ -64,8 +90,19 @@ export const Buttons: React.FC<PropTypes> = ({ product }) => {
         )}
       >
         <Heart className="product-buttons__svg product-buttons__svg--heart" />
-        {isProductInFavorite ? 'Remove from wishlist' : 'Add to wishlist'}
+        {isProductInFavorite ? 'In wishlist' : 'Add to wish list'}
       </button>
+      {isModalActive && (
+        <Modal
+          setIsModalActive={setIsModalActive}
+          isModalActive={isModalActive}
+        >
+          <SingInModal
+            handleGithhubSignIn={handleGithhubSignIn}
+            handleGoogleSignIn={handleGoogleSignIn}
+          />
+        </Modal>
+      )}
     </div>
   );
 };

@@ -7,10 +7,13 @@ import { ReactComponent as Heart } from '@assets/svg/heart.svg';
 import { ApprovalModal } from '@components/ApprovalModal';
 import { Modal } from '@components/Modal';
 import { QntyPanel } from '@components/QntyPanel';
+import { SingInModal } from '@components/SignInModal';
 import { DEFAULT_QNTY } from '@constants/default';
 import { paths } from '@constants/paths';
 import { useAppDispatch } from '@hooks/useAppDispatch';
 import { useAppSelector } from '@hooks/useAppSelector';
+import { useAuth } from '@hooks/useAuth';
+import { githubSignIn, googleSignIn } from '@store/reducers/authSlice';
 import { addItem } from '@store/reducers/cartSlice';
 import {
   addItemToFavorite,
@@ -35,7 +38,9 @@ export const ProductDisplay = () => {
   const [error, setError] = useState('');
   const [notification, setNotification] = useState('');
   const [isModalActive, setIsModalActive] = useState(false);
+  const [isAuthActive, setIsAuthActive] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
+  const { isAuth } = useAuth();
 
   const {
     price = null, stock, id = '', title,
@@ -147,11 +152,38 @@ export const ProductDisplay = () => {
   };
 
   const handleAddInWish = () => {
+    if (!isAuth) {
+      setIsAuthActive(true);
+
+      return;
+    }
+
     if (isProductInFavorite) {
       dispatch(removeItemFromFavorite(id));
     } else {
       dispatch(addItemToFavorite(id));
     }
+  };
+
+  const handleGoogleSignIn = async () => {
+    await dispatch(googleSignIn());
+
+    if (isAuth) {
+      dispatch(addItemToFavorite(id));
+    }
+
+    setIsAuthActive(false);
+  };
+
+  const handleGithhubSignIn = async () => {
+    await dispatch(githubSignIn());
+
+    if (isAuth) {
+      dispatch(addItemToFavorite(id));
+    }
+
+    dispatch(addItemToFavorite(id));
+    setIsAuthActive(false);
   };
 
   return (
@@ -219,6 +251,14 @@ export const ProductDisplay = () => {
             message={`You have ${itemsInCart} item(s) in your cart with the selected package already. Do you want to add ${quantity}${typeOfPack} more?`}
             error={error}
             isDisabled={isDisabled}
+          />
+        </Modal>
+      )}
+      {isAuthActive && (
+        <Modal setIsModalActive={setIsAuthActive} isModalActive={isAuthActive}>
+          <SingInModal
+            handleGithhubSignIn={handleGithhubSignIn}
+            handleGoogleSignIn={handleGoogleSignIn}
           />
         </Modal>
       )}
