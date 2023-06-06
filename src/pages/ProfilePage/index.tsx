@@ -4,7 +4,6 @@ import {
   GoogleLoginButton,
 } from 'react-social-login-buttons';
 
-import { Spinner } from '@components/UI/Spinner';
 import { NO_IMG } from '@constants/card';
 import { paths } from '@constants/paths';
 import { useAppDispatch } from '@hooks/useAppDispatch';
@@ -21,7 +20,6 @@ export const ProfilePage = () => {
     displayName,
     photoURL,
     email,
-    isLoading,
     providerId,
     altEmail,
   } = useAuth();
@@ -44,14 +42,6 @@ export const ProfilePage = () => {
   const hanldeNavigateList = () => {
     navigate(paths.products);
   };
-
-  if (isLoading) {
-    return (
-      <div className="profile-page">
-        <Spinner />
-      </div>
-    );
-  }
 
   if (!isAuth) {
     return (

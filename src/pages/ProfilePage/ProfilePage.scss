@@ -2,7 +2,7 @@
 @import "@styles/_variables";
 
 .profile-page {
-  min-height: 42vh;
+  min-height: 45vh;
   @include flex-settings;
   flex-direction: column;
 
@@ -64,10 +64,6 @@
     overflow: hidden;
     color: $color-gray-secondary;
     width: 30%;
-
-    @include onTablet {
-
-    }
   } 
 
   &__value {

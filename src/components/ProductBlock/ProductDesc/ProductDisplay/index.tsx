@@ -1,5 +1,7 @@
 import classNames from 'classnames';
-import { useCallback, useEffect, useState } from 'react';
+import {
+  useCallback, useEffect, useState,
+} from 'react';
 import { Link } from 'react-router-dom';
 
 import { ReactComponent as Cross } from '@assets/svg/green-cross.svg';
@@ -21,6 +23,7 @@ import {
 } from '@store/reducers/wishlistSlice';
 import { Price } from '@utils/product/price';
 import { Stock } from '@utils/product/stock';
+import { AuthProvider } from '@utils/providers';
 
 import { PricePanel } from './PricePanel';
 
@@ -165,21 +168,19 @@ export const ProductDisplay = () => {
     }
   };
 
-  const handleGoogleSignIn = async () => {
-    await dispatch(googleSignIn());
+  const handleSignIn = async (provider: AuthProvider) => {
+    switch (provider) {
+      case AuthProvider.GOOGLE:
+        await dispatch(googleSignIn());
 
-    if (isAuth) {
-      dispatch(addItemToFavorite(id));
-    }
+        break;
+      case AuthProvider.GITHUB:
+        await dispatch(githubSignIn());
 
-    setIsAuthActive(false);
-  };
+        break;
 
-  const handleGithhubSignIn = async () => {
-    await dispatch(githubSignIn());
-
-    if (isAuth) {
-      dispatch(addItemToFavorite(id));
+      default:
+        break;
     }
 
     dispatch(addItemToFavorite(id));
@@ -257,8 +258,7 @@ export const ProductDisplay = () => {
       {isAuthActive && (
         <Modal setIsModalActive={setIsAuthActive} isModalActive={isAuthActive}>
           <SingInModal
-            handleGithhubSignIn={handleGithhubSignIn}
-            handleGoogleSignIn={handleGoogleSignIn}
+            handleSignIn={handleSignIn}
           />
         </Modal>
       )}

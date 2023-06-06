@@ -17,6 +17,7 @@ import {
   removeItemFromFavorite,
 } from '@store/reducers/wishlistSlice';
 import { ProductForCart } from '@utils/product/productForCart';
+import { AuthProvider } from '@utils/providers';
 
 import './CartCardManipulation.scss';
 
@@ -54,14 +55,21 @@ export const CartCardManipulation: React.FC<PropTypes> = ({
     }
   };
 
-  const handleGoogleSignIn = async () => {
-    await dispatch(googleSignIn());
-    dispatch(addItemToFavorite(id));
-    setIsModalActive(false);
-  };
+  const handleSignIn = async (provider: AuthProvider) => {
+    switch (provider) {
+      case AuthProvider.GOOGLE:
+        await dispatch(googleSignIn());
 
-  const handleGithhubSignIn = async () => {
-    await dispatch(githubSignIn());
+        break;
+      case AuthProvider.GITHUB:
+        await dispatch(githubSignIn());
+
+        break;
+
+      default:
+        break;
+    }
+
     dispatch(addItemToFavorite(id));
     setIsModalActive(false);
   };
@@ -112,8 +120,7 @@ export const CartCardManipulation: React.FC<PropTypes> = ({
           isModalActive={isModalActive}
         >
           <SingInModal
-            handleGithhubSignIn={handleGithhubSignIn}
-            handleGoogleSignIn={handleGoogleSignIn}
+            handleSignIn={handleSignIn}
           />
         </Modal>
       )}

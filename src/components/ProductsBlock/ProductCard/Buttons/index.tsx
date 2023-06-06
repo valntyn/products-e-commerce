@@ -16,6 +16,7 @@ import {
   removeItemFromFavorite,
 } from '@store/reducers/wishlistSlice';
 import { IProduct } from '@utils/product/product';
+import { AuthProvider } from '@utils/providers';
 
 import './Buttons.scss';
 
@@ -53,14 +54,21 @@ export const Buttons: React.FC<PropTypes> = ({ product }) => {
     }
   };
 
-  const handleGoogleSignIn = async () => {
-    await dispatch(googleSignIn());
-    dispatch(addItemToFavorite(product.id));
-    setIsModalActive(false);
-  };
+  const handleSignIn = async (provider: AuthProvider) => {
+    switch (provider) {
+      case AuthProvider.GOOGLE:
+        await dispatch(googleSignIn());
 
-  const handleGithhubSignIn = async () => {
-    await dispatch(githubSignIn());
+        break;
+      case AuthProvider.GITHUB:
+        await dispatch(githubSignIn());
+
+        break;
+
+      default:
+        break;
+    }
+
     dispatch(addItemToFavorite(product.id));
     setIsModalActive(false);
   };
@@ -98,8 +106,7 @@ export const Buttons: React.FC<PropTypes> = ({ product }) => {
           isModalActive={isModalActive}
         >
           <SingInModal
-            handleGithhubSignIn={handleGithhubSignIn}
-            handleGoogleSignIn={handleGoogleSignIn}
+            handleSignIn={handleSignIn}
           />
         </Modal>
       )}
