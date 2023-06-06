@@ -46,13 +46,18 @@
   &__item {
     font-family: $font-sans;
     height: 22px;
-    font-size: 12px;
+    font-size: 10px;
     line-height: 22px;
     display: flex;
     gap: 14px;
-    width: 280px;
+    width: 220px;
     justify-content: space-between;
     align-items: center;
+
+    @include onTablet {
+      width: 320px;
+      font-size: 12px;
+    }
 
     @include onTablet {
       width: 350px;

@@ -53,7 +53,7 @@ export const BillingInfo: React.FC<PropsTypes> = ({
   const [selectedCountryCode, setSelectedCountryCode] = useState(
     localStorage.getItem('selectedCountryCode') || '',
   );
-  const { email, displayName, altEmail } = useAuth();
+  const { email, displayName, altEmail, isAuth } = useAuth();
 
   const userName = displayName?.split(' ');
 
@@ -71,7 +71,7 @@ export const BillingInfo: React.FC<PropsTypes> = ({
     if (!values.lastName && userName?.length) {
       setFieldValue('lastName', userName[1]);
     }
-  }, []);
+  }, [isAuth]);
 
   const countriesRef = useRef<HTMLDivElement>(null);
   const citiesRef = useRef<HTMLDivElement>(null);
