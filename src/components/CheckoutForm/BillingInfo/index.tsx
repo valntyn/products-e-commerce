@@ -53,13 +53,15 @@ export const BillingInfo: React.FC<PropsTypes> = ({
   const [selectedCountryCode, setSelectedCountryCode] = useState(
     localStorage.getItem('selectedCountryCode') || '',
   );
-  const { email, displayName } = useAuth();
+  const { email, displayName, altEmail } = useAuth();
 
   const userName = displayName?.split(' ');
 
+  const receivedEmail = email || altEmail;
+
   useEffect(() => {
-    if (!values.email && email) {
-      setFieldValue('email', email);
+    if (!values.email && receivedEmail) {
+      setFieldValue('email', receivedEmail);
     }
 
     if (!values.name && userName?.length) {

@@ -11,10 +11,8 @@ import { paths } from '@constants/paths';
 import { useAppDispatch } from '@hooks/useAppDispatch';
 import { useAppSelector } from '@hooks/useAppSelector';
 import { useAuth } from '@hooks/useAuth';
-import {
-  githubSignIn,
-  googleSignIn,
-} from '@store/reducers/authSlice';
+import { githubSignIn, googleSignIn } from '@store/reducers/authSlice';
+import { AuthProvider } from '@utils/providers';
 
 import './Icons.scss';
 
@@ -43,14 +41,21 @@ export const Icons = memo(() => {
     }
   };
 
-  const handleGoogleSignIn = async () => {
-    await dispatch(googleSignIn());
-    navigate(paths.wishlist);
-    setIsModalActive(false);
-  };
+  const handleSignIn = async (provider: AuthProvider) => {
+    switch (provider) {
+      case AuthProvider.GOOGLE:
+        await dispatch(googleSignIn());
 
-  const handleGithhubSignIn = async () => {
-    await dispatch(githubSignIn());
+        break;
+      case AuthProvider.GITHUB:
+        await dispatch(githubSignIn());
+
+        break;
+
+      default:
+        break;
+    }
+
     navigate(paths.wishlist);
     setIsModalActive(false);
   };
@@ -92,10 +97,7 @@ export const Icons = memo(() => {
           setIsModalActive={setIsModalActive}
           isModalActive={isModalActive}
         >
-          <SingInModal
-            handleGithhubSignIn={handleGithhubSignIn}
-            handleGoogleSignIn={handleGoogleSignIn}
-          />
+          <SingInModal handleSignIn={handleSignIn} />
         </Modal>
       )}
     </div>
