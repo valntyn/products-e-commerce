@@ -25,6 +25,8 @@
     font-weight: 500;
     font-size: 15px;
     line-height: 22px;
+    height: 22px;
+    overflow: hidden;
   }
 
   &__desc {
@@ -82,5 +84,42 @@
     border-radius: 12px;
     top: 10px;
     left: 8px;
+  }
+
+  &__wishlist-box {
+    display: flex;
+    gap: 8px;
+  }
+
+  &__wishlist {
+    @include default-button;
+    background-color: $color-tags;
+    border: 2px solid $color-main-green;
+    border-radius: 8px;
+    padding: 0 12px;
+    transition: 0.2s all;
+
+    &:hover {
+      border: 2px solid $color-secondary-green;
+    }
+
+    &--inactive {
+      &:hover * {
+        animation: colorChange 0.2s linear forwards;
+        @include colorChange;
+      }
+    }
+
+    &--active {
+      background-color: $color-pale-green;
+      & * {
+        fill: $color-warning;
+      }
+    }
+  }
+
+  &__svg {
+    @include flex-settings;
+    @include square-var(24px);
   }
 }

@@ -1,8 +1,15 @@
+import classNames from 'classnames';
 import { useLocation, useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 
+import { ReactComponent as Heart } from '@assets/svg/cart-heart.svg';
 import { paths } from '@constants/paths';
 import { calculatePrice } from '@helpers/calculatePrice';
+import { useAppDispatch } from '@hooks/useAppDispatch';
+import { useAppSelector } from '@hooks/useAppSelector';
+import {
+  addItemToFavorite, removeItemFromFavorite,
+} from '@store/reducers/wishlistSlice';
 import { IProduct } from '@utils/product/product';
 
 import './SingleCard.scss';
@@ -13,14 +20,11 @@ type PropTypes = {
 
 export const SingleCard: React.FC<PropTypes> = ({
   product: {
-    price,
-    discount = 0,
-    title,
-    description,
-    img,
-    id,
+    price, discount = 0, title, description, img, id,
   },
 }) => {
+  const dispatch = useAppDispatch();
+  const { itemsInFavorite } = useAppSelector((state) => state.wishlist);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -28,6 +32,16 @@ export const SingleCard: React.FC<PropTypes> = ({
 
   const hanldeNavigate = () => {
     navigate(`${paths.products}/${id}`);
+  };
+
+  const isProductInFavorite = itemsInFavorite.some((el) => el === id);
+
+  const handleWishList = () => {
+    if (isProductInFavorite) {
+      dispatch(removeItemFromFavorite(id));
+    } else {
+      dispatch(addItemToFavorite(id));
+    }
   };
 
   return (
@@ -61,13 +75,28 @@ export const SingleCard: React.FC<PropTypes> = ({
           <p className="carousel-card__new-price">{`${fixedPrice} USD`}</p>
           <p className="carousel-card__old-price">{`${price.kgs} USD`}</p>
         </div>
-        <button
-          type="button"
-          className="carousel-card__button"
-          onClick={hanldeNavigate}
-        >
-          Buy now
-        </button>
+        <div className="carousel-card__wishlist-box">
+          <button
+            type="button"
+            className={classNames(
+              'carousel-card__wishlist',
+              {
+                'carousel-card__wishlist--active': isProductInFavorite,
+                'carousel-card__wishlist--inactive': !isProductInFavorite,
+              },
+            )}
+            onClick={handleWishList}
+          >
+            <Heart className="carousel-card__svg" />
+          </button>
+          <button
+            type="button"
+            className="carousel-card__button"
+            onClick={hanldeNavigate}
+          >
+            Buy now
+          </button>
+        </div>
       </div>
     </li>
   );

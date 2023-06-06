@@ -61,6 +61,18 @@
   }
 }
 
+@mixin colorChange {
+  @keyframes colorChange {
+    from {
+      fill: transparent;
+    }
+    to {
+      fill: $color-warning;
+    }
+  }
+}
+
+
 @mixin onMobile {
   @media (min-width: 368px) {
     @content;

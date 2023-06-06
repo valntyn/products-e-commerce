@@ -87,19 +87,52 @@
     }
   }
 
+  &__wish-box {
+    width: 100%;
+    display: flex;
+    gap: 8px;
+    flex-direction: column;
+    align-items: center;
+
+    @include onTablet {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+
   &__button-wish {
     @include frequently-button;
     font-weight: 700;
     font-size: 15px;
     line-height: 22px;
     font-family: $font-poppins;
-    padding: 7px 12px;
-    max-width: 220px;
+    padding: 7px 16px;
+    max-width: 240px;
+    justify-content: space-around;
 
     transition: 0.2s linear;
 
     &:hover {
       background-color: $color-text-gray;
+    }
+
+    @include onDesktop {
+      max-width: 220px;
+    }
+
+    &--active {
+      & * {
+        fill: $color-warning;
+      }
+      background-color: $color-pale-green;
+
+      &:hover {
+        background-color: $color-gray-main;
+      }
+    }
+
+    &:hover * {
+      fill: $color-warning;
     }
   }
 

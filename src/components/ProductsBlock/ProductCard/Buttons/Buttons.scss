@@ -52,15 +52,24 @@
     position: relative;
     color: $color-main-text;
     background-color: $color-tags;
-    padding: 6px;
     border: 2px solid $color-tags;
-
-    @include onDesktop {
-      padding: 6px 12px;
-    }
+    display: flex;
+    padding: 6px 10px 6px 22px;
 
     &:hover {
       background-color: $color-text-gray;
+    }
+
+    &--active {
+      background-color: $color-pale-green;
+
+      &:hover {
+        background-color: initial;
+      }
+
+      & * {
+        fill: $color-warning;
+      }
     }
   }
 
