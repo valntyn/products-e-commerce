@@ -25,6 +25,13 @@ export const ProfilePage = () => {
     altEmail,
   } = useAuth();
 
+  const profileInfo = {
+    Name: displayName,
+    Email: email || altEmail || 'none',
+    Number: phoneNumber || 'none',
+    Provider: providerId || 'none',
+  };
+
   const navigate = useNavigate();
 
   const handleGoogleSignIn = () => {
@@ -71,22 +78,12 @@ export const ProfilePage = () => {
         />
       </div>
       <ul className="profile-page__list">
-        <li className="profile-page__item">
-          <p className="profile-page__key">Name:</p>
-          <p className="profile-page__value">{displayName}</p>
-        </li>
-        <li className="profile-page__item">
-          <p className="profile-page__key">Email:</p>
-          <p className="profile-page__value">{email || altEmail || 'none'}</p>
-        </li>
-        <li className="profile-page__item">
-          <p className="profile-page__key">Number:</p>
-          <p className="profile-page__value">{phoneNumber || 'none'}</p>
-        </li>
-        <li className="profile-page__item">
-          <p className="profile-page__key">Provider:</p>
-          <p className="profile-page__value">{providerId || 'none'}</p>
-        </li>
+        {Object.entries(profileInfo).map(([key, value]) => (
+          <li className="profile-page__item" key={key}>
+            <p className="profile-page__key">{`${key}:`}</p>
+            <p className="profile-page__value">{value}</p>
+          </li>
+        ))}
       </ul>
       <div className="profile-page__buttons-box">
         <button
