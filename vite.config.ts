@@ -1,10 +1,13 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import svgrPlugin from 'vite-plugin-svgr';
+import dotenv from 'dotenv';
 import path from 'path';
 
+dotenv.config();
+
 export default defineConfig({
-    plugins: [
+  plugins: [
     react(),
     svgrPlugin({
       svgrOptions: {
@@ -23,7 +26,7 @@ export default defineConfig({
       '@store': path.resolve(__dirname, 'src/store'),
       '@styles': path.resolve(__dirname, 'src/styles'),
       '@utils': path.resolve(__dirname, 'src/utils'),
-    }
+    },
   },
-  base: '/products-e-commerce/'
+  base: '/products-e-commerce/',
 });

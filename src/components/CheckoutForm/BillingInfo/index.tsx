@@ -17,6 +17,7 @@ import {
   findCountryCode,
 } from '@helpers/filterCountriesCities';
 import { formattedPhoneNumber } from '@helpers/formatPhoneNumber';
+import { useAuth } from '@hooks/useAuth';
 import { useClickOutside } from '@hooks/useClickOutside';
 import { useCountryData } from '@hooks/useCountryData';
 import {
@@ -52,6 +53,27 @@ export const BillingInfo: React.FC<PropsTypes> = ({
   const [selectedCountryCode, setSelectedCountryCode] = useState(
     localStorage.getItem('selectedCountryCode') || '',
   );
+  const {
+    email, displayName, altEmail, isAuth,
+  } = useAuth();
+
+  const userName = displayName?.split(' ');
+
+  const receivedEmail = email || altEmail;
+
+  useEffect(() => {
+    if (!values.email && receivedEmail) {
+      setFieldValue('email', receivedEmail);
+    }
+
+    if (!values.name && userName?.length) {
+      setFieldValue('name', userName[0]);
+    }
+
+    if (!values.lastName && userName?.length) {
+      setFieldValue('lastName', userName[1]);
+    }
+  }, [isAuth]);
 
   const countriesRef = useRef<HTMLDivElement>(null);
   const citiesRef = useRef<HTMLDivElement>(null);

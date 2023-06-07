@@ -1,11 +1,15 @@
 import classNames from 'classnames';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { ReactComponent as Heart } from '@assets/svg/cart-heart.svg';
 import { ReactComponent as Cross } from '@assets/svg/cross-cart.svg';
+import { Modal } from '@components/Modal';
+import { SingInModal } from '@components/SignInModal';
 import { paths } from '@constants/paths';
 import { useAppDispatch } from '@hooks/useAppDispatch';
 import { useAppSelector } from '@hooks/useAppSelector';
+import { useAuth } from '@hooks/useAuth';
 import { removeItem } from '@store/reducers/cartSlice';
 import {
   addItemToFavorite,
@@ -25,14 +29,25 @@ export const CartCardManipulation: React.FC<PropTypes> = ({
   },
 }) => {
   const dispatch = useAppDispatch();
+
   const { itemsInFavorite } = useAppSelector((state) => state.wishlist);
+  const [isModalActive, setIsModalActive] = useState(false);
+  const { isAuth } = useAuth();
+
   const isProductInFavorite = itemsInFavorite.some((el) => el === id);
+  const isActiveWishList = isAuth && isProductInFavorite;
 
   const hanldeDelete = () => {
     dispatch(removeItem(productId));
   };
 
   const handleWishList = () => {
+    if (!isAuth) {
+      setIsModalActive(true);
+
+      return;
+    }
+
     if (isProductInFavorite) {
       dispatch(removeItemFromFavorite(id));
     } else {
@@ -60,7 +75,7 @@ export const CartCardManipulation: React.FC<PropTypes> = ({
           className={classNames(
             'manipulation__button',
             {
-              'manipulation__button--active': isProductInFavorite,
+              'manipulation__button--active': isActiveWishList,
               'manipulation__button--inactive': !isProductInFavorite,
             },
           )}
@@ -69,7 +84,7 @@ export const CartCardManipulation: React.FC<PropTypes> = ({
           <Heart
             className="manipulation__svg"
           />
-          {isProductInFavorite ? 'In wishlist' : 'Wishlist'}
+          {isActiveWishList ? 'In wishlist' : 'Wishlist'}
         </button>
         <button
           type="button"
@@ -80,6 +95,17 @@ export const CartCardManipulation: React.FC<PropTypes> = ({
           Remove
         </button>
       </div>
+      {isModalActive && (
+        <Modal
+          setIsModalActive={setIsModalActive}
+          isModalActive={isModalActive}
+        >
+          <SingInModal
+            id={id}
+            setIsModalActive={setIsModalActive}
+          />
+        </Modal>
+      )}
     </div>
   );
 };

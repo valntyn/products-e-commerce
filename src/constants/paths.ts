@@ -6,4 +6,5 @@ export const paths = {
   checkout: '/checkout',
   notFound: '/notfound',
   wishlist: '/wishlist',
+  profile: '/profile',
 };

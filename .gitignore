@@ -5,6 +5,7 @@ dist
 node_modules
 .DS_Store
 deploy.sh
+.env
 
 npm-debug.log*
 yarn-debug.log*

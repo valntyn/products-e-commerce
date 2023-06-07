@@ -53,6 +53,10 @@ const favoriteSlice = createSlice({
       state.productsInFavorite = state.productsInFavorite
         .filter((product) => product.id !== id);
     },
+    resetWishList: (state) => {
+      state.productsInFavorite = [];
+      state.itemsInFavorite = [];
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -72,6 +76,7 @@ const favoriteSlice = createSlice({
 export const {
   addItemToFavorite,
   removeItemFromFavorite,
+  resetWishList,
 } = favoriteSlice.actions;
 
 export default favoriteSlice.reducer;

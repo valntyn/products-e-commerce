@@ -1,5 +1,7 @@
 import classNames from 'classnames';
-import { useCallback, useEffect, useState } from 'react';
+import {
+  useCallback, useEffect, useState,
+} from 'react';
 import { Link } from 'react-router-dom';
 
 import { ReactComponent as Cross } from '@assets/svg/green-cross.svg';
@@ -7,10 +9,12 @@ import { ReactComponent as Heart } from '@assets/svg/heart.svg';
 import { ApprovalModal } from '@components/ApprovalModal';
 import { Modal } from '@components/Modal';
 import { QntyPanel } from '@components/QntyPanel';
+import { SingInModal } from '@components/SignInModal';
 import { DEFAULT_QNTY } from '@constants/default';
 import { paths } from '@constants/paths';
 import { useAppDispatch } from '@hooks/useAppDispatch';
 import { useAppSelector } from '@hooks/useAppSelector';
+import { useAuth } from '@hooks/useAuth';
 import { addItem } from '@store/reducers/cartSlice';
 import {
   addItemToFavorite,
@@ -35,7 +39,9 @@ export const ProductDisplay = () => {
   const [error, setError] = useState('');
   const [notification, setNotification] = useState('');
   const [isModalActive, setIsModalActive] = useState(false);
+  const [isAuthActive, setIsAuthActive] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
+  const { isAuth } = useAuth();
 
   const {
     price = null, stock, id = '', title,
@@ -45,6 +51,7 @@ export const ProductDisplay = () => {
   const stockKeys = stock && Object.keys(stock);
   const isProductInCart = items.some((el) => el.id === id);
   const isProductInFavorite = itemsInFavorite.some((el) => el === id);
+  const isActiveWishList = isAuth && isProductInFavorite;
   const productInCart = items.find(
     (item) => item.productId === `${id}-${typeOfPack}`,
   );
@@ -147,6 +154,12 @@ export const ProductDisplay = () => {
   };
 
   const handleAddInWish = () => {
+    if (!isAuth) {
+      setIsAuthActive(true);
+
+      return;
+    }
+
     if (isProductInFavorite) {
       dispatch(removeItemFromFavorite(id));
     } else {
@@ -191,13 +204,13 @@ export const ProductDisplay = () => {
         <div className="display__wish-box">
           <button
             className={classNames('display__button-wish', {
-              'display__button-wish--active': isProductInFavorite,
+              'display__button-wish--active': isActiveWishList,
             })}
             type="button"
             onClick={handleAddInWish}
           >
             <Heart className="display__svg display__svg--heart" />
-            {isProductInFavorite
+            {isActiveWishList
               ? 'Remove from wish list'
               : 'Add to my wish list'}
           </button>
@@ -219,6 +232,14 @@ export const ProductDisplay = () => {
             message={`You have ${itemsInCart} item(s) in your cart with the selected package already. Do you want to add ${quantity}${typeOfPack} more?`}
             error={error}
             isDisabled={isDisabled}
+          />
+        </Modal>
+      )}
+      {isAuthActive && (
+        <Modal setIsModalActive={setIsAuthActive} isModalActive={isAuthActive}>
+          <SingInModal
+            id={id}
+            setIsModalActive={setIsAuthActive}
           />
         </Modal>
       )}
