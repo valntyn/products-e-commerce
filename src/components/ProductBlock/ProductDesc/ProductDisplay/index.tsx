@@ -15,7 +15,6 @@ import { paths } from '@constants/paths';
 import { useAppDispatch } from '@hooks/useAppDispatch';
 import { useAppSelector } from '@hooks/useAppSelector';
 import { useAuth } from '@hooks/useAuth';
-import { githubSignIn, googleSignIn } from '@store/reducers/authSlice';
 import { addItem } from '@store/reducers/cartSlice';
 import {
   addItemToFavorite,
@@ -23,7 +22,6 @@ import {
 } from '@store/reducers/wishlistSlice';
 import { Price } from '@utils/product/price';
 import { Stock } from '@utils/product/stock';
-import { AuthProvider } from '@utils/providers';
 
 import { PricePanel } from './PricePanel';
 
@@ -168,25 +166,6 @@ export const ProductDisplay = () => {
     }
   };
 
-  const handleSignIn = async (provider: AuthProvider) => {
-    switch (provider) {
-      case AuthProvider.GOOGLE:
-        await dispatch(googleSignIn());
-
-        break;
-      case AuthProvider.GITHUB:
-        await dispatch(githubSignIn());
-
-        break;
-
-      default:
-        break;
-    }
-
-    dispatch(addItemToFavorite(id));
-    setIsAuthActive(false);
-  };
-
   return (
     <>
       <div className="display">
@@ -258,7 +237,8 @@ export const ProductDisplay = () => {
       {isAuthActive && (
         <Modal setIsModalActive={setIsAuthActive} isModalActive={isAuthActive}>
           <SingInModal
-            handleSignIn={handleSignIn}
+            id={id}
+            setIsModalActive={setIsAuthActive}
           />
         </Modal>
       )}

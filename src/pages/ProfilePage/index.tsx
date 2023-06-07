@@ -44,7 +44,6 @@ export const ProfilePage = () => {
 
   const handleLogout = () => {
     dispatch(logOut());
-    dispatch(resetWishList());
     localStorage.removeItem('formValues');
 
     navigate(paths.home);

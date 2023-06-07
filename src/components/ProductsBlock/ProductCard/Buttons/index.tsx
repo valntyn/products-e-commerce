@@ -10,13 +10,11 @@ import { paths } from '@constants/paths';
 import { useAppDispatch } from '@hooks/useAppDispatch';
 import { useAppSelector } from '@hooks/useAppSelector';
 import { useAuth } from '@hooks/useAuth';
-import { githubSignIn, googleSignIn } from '@store/reducers/authSlice';
 import {
   addItemToFavorite,
   removeItemFromFavorite,
 } from '@store/reducers/wishlistSlice';
 import { IProduct } from '@utils/product/product';
-import { AuthProvider } from '@utils/providers';
 
 import './Buttons.scss';
 
@@ -54,25 +52,6 @@ export const Buttons: React.FC<PropTypes> = ({ product }) => {
     }
   };
 
-  const handleSignIn = async (provider: AuthProvider) => {
-    switch (provider) {
-      case AuthProvider.GOOGLE:
-        await dispatch(googleSignIn());
-
-        break;
-      case AuthProvider.GITHUB:
-        await dispatch(githubSignIn());
-
-        break;
-
-      default:
-        break;
-    }
-
-    dispatch(addItemToFavorite(product.id));
-    setIsModalActive(false);
-  };
-
   return (
     <div className="product-buttons">
       <button
@@ -106,7 +85,8 @@ export const Buttons: React.FC<PropTypes> = ({ product }) => {
           isModalActive={isModalActive}
         >
           <SingInModal
-            handleSignIn={handleSignIn}
+            setIsModalActive={setIsModalActive}
+            id={product.id}
           />
         </Modal>
       )}
