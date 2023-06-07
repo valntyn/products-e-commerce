@@ -29,11 +29,13 @@ export const CartCardManipulation: React.FC<PropTypes> = ({
   },
 }) => {
   const dispatch = useAppDispatch();
-  const { itemsInFavorite } = useAppSelector((state) => state.wishlist);
-  const isProductInFavorite = itemsInFavorite.some((el) => el === id);
 
+  const { itemsInFavorite } = useAppSelector((state) => state.wishlist);
   const [isModalActive, setIsModalActive] = useState(false);
   const { isAuth } = useAuth();
+
+  const isProductInFavorite = itemsInFavorite.some((el) => el === id);
+  const isActiveWishList = isAuth && isProductInFavorite;
 
   const hanldeDelete = () => {
     dispatch(removeItem(productId));
@@ -73,7 +75,7 @@ export const CartCardManipulation: React.FC<PropTypes> = ({
           className={classNames(
             'manipulation__button',
             {
-              'manipulation__button--active': isProductInFavorite,
+              'manipulation__button--active': isActiveWishList,
               'manipulation__button--inactive': !isProductInFavorite,
             },
           )}
@@ -82,7 +84,7 @@ export const CartCardManipulation: React.FC<PropTypes> = ({
           <Heart
             className="manipulation__svg"
           />
-          {isProductInFavorite ? 'In wishlist' : 'Wishlist'}
+          {isActiveWishList ? 'In wishlist' : 'Wishlist'}
         </button>
         <button
           type="button"

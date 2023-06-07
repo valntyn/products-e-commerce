@@ -51,6 +51,7 @@ export const ProductDisplay = () => {
   const stockKeys = stock && Object.keys(stock);
   const isProductInCart = items.some((el) => el.id === id);
   const isProductInFavorite = itemsInFavorite.some((el) => el === id);
+  const isActiveWishList = isAuth && isProductInFavorite;
   const productInCart = items.find(
     (item) => item.productId === `${id}-${typeOfPack}`,
   );
@@ -203,13 +204,13 @@ export const ProductDisplay = () => {
         <div className="display__wish-box">
           <button
             className={classNames('display__button-wish', {
-              'display__button-wish--active': isProductInFavorite,
+              'display__button-wish--active': isActiveWishList,
             })}
             type="button"
             onClick={handleAddInWish}
           >
             <Heart className="display__svg display__svg--heart" />
-            {isProductInFavorite
+            {isActiveWishList
               ? 'Remove from wish list'
               : 'Add to my wish list'}
           </button>

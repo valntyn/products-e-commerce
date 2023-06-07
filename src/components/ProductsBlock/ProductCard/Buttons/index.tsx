@@ -37,6 +37,7 @@ export const Buttons: React.FC<PropTypes> = ({ product }) => {
   };
 
   const isProductInFavorite = itemsInFavorite.some((el) => el === product.id);
+  const isActiveWishList = isAuth && isProductInFavorite;
 
   const handleAddInWish = () => {
     if (!isAuth) {
@@ -72,12 +73,12 @@ export const Buttons: React.FC<PropTypes> = ({ product }) => {
           'product-buttons__button',
           'product-buttons__wishlist',
           {
-            'product-buttons__wishlist--active': isProductInFavorite,
+            'product-buttons__wishlist--active': isActiveWishList,
           },
         )}
       >
         <Heart className="product-buttons__svg product-buttons__svg--heart" />
-        {isProductInFavorite ? 'In wishlist' : 'Add to wish list'}
+        {isActiveWishList ? 'In wishlist' : 'Add to wish list'}
       </button>
       {isModalActive && (
         <Modal

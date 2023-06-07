@@ -9,7 +9,6 @@ import { paths } from '@constants/paths';
 import { useAppDispatch } from '@hooks/useAppDispatch';
 import { useAuth } from '@hooks/useAuth';
 import { githubSignIn, googleSignIn, logOut } from '@store/reducers/authSlice';
-import { resetWishList } from '@store/reducers/wishlistSlice';
 
 import './ProfilePage.scss';
 
