@@ -1,0 +1,27 @@
+@import "@styles/_variables";
+@import "@styles/_mixins";
+
+.loading-bar-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  z-index: 1010;
+}
+
+.loading-bar {
+  width: 50%;
+  height: 2px;
+  background-color: $color-main-green; 
+  animation: loading 1s infinite linear;
+}
+
+@keyframes loading {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}

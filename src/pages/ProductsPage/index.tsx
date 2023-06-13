@@ -9,7 +9,7 @@ import { useAppSelector } from '@hooks/useAppSelector';
 
 import './ProductsPage.scss';
 
-export const ProductsPage = () => {
+const ProductsPage = () => {
   const [menuActive, setMenuActive] = useState(false);
   const {
     isLoading,
@@ -49,3 +49,5 @@ export const ProductsPage = () => {
     </div>
   );
 };
+
+export default ProductsPage;

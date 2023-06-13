@@ -1,19 +1,20 @@
-import { useEffect } from 'react';
+import { Suspense, lazy, useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router';
 
 import './App.scss';
 
-import { Layout } from '@components/Layout';
+import Layout from '@components/Layout';
 import { paths } from '@constants/paths';
 import { useAppDispatch } from '@hooks/useAppDispatch';
 import { CheckoutPage } from '@pages/CheckoutPage';
 import { Homepage } from '@pages/Homepage';
 import { NotFoundPage } from '@pages/NotFoundPage';
-import { ProductPage } from '@pages/ProductPage';
-import { ProductsPage } from '@pages/ProductsPage';
 import { ProfilePage } from '@pages/ProfilePage';
 import { WishlistPage } from '@pages/WishlistPage';
 import { getProducts } from '@store/reducers/productsSlice';
+
+const ProductsPage = lazy(() => import('@pages/ProductsPage'));
+const ProductPage = lazy(() => import('@pages/ProductPage'));
 
 function App() {
   const dispatch = useAppDispatch();

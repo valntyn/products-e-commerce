@@ -11,7 +11,7 @@ import { NotFound } from '@utils/not-found';
 
 import './ProductPage.scss';
 
-export const ProductPage = () => {
+const ProductPage = () => {
   const dispatch = useAppDispatch();
 
   const { id: productId = '' } = useParams();
@@ -41,3 +41,5 @@ export const ProductPage = () => {
     </div>
   );
 };
+
+export default ProductPage;
